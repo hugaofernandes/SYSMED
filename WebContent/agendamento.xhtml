@@ -1,0 +1,200 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+-->
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui">
+<h:head>
+	<link
+		href='http://fonts.googleapis.com/css?family=Lato&amp;subset=latin,latin-ext'
+		rel='stylesheet' type='text/css'></link>
+</h:head>
+<h:body>
+	<f:facet name="last">
+		<h:outputStylesheet name="grid/grid.css" library="primefaces" />
+		<h:outputStylesheet library="webjars"
+			name="font-awesome/4.3.0/css/font-awesome-jsf.css" />
+		<h:outputStylesheet name="css/main.css" />
+	</f:facet>
+	<div class="ui-grid ">
+		<div id="linha1" class="ui-grid-row">
+			<div id="div-logo">
+				<span id="nome-logo">SYSMED</span>
+			</div>
+			<div id="div-barra" class="barra-superior">
+				<div id="opcoes">
+					<p:button id="not-conf" icon="fa fa-bell"></p:button>
+					<p:button id="mens-conf" icon="fa fa-envelope"></p:button>
+					<p:button id="botao-conf" icon="fa fa-wrench"></p:button>
+					<div id="logado">
+						<h:graphicImage id="avatar" library="images" name="avatar.png"
+							width="28px" height="28px" />
+						<span id="nome-logado">Maria M</span> <i id="expadir"
+							class="fa fa-angle-down"></i>
+					</div>
+				</div>
+			</div>
+		</div>
+
+		<div id="linha2" class="ui-grid-row">
+			<div id="div-navegacao" class="navegacao-lateral">
+				<p:accordionPanel activeIndex="1">
+					<p:tab id="TabBurguer">
+						<f:facet name="title">
+							<i class="fa fa-users"></i>
+							<h:outputText value="Pessoas" />
+						</f:facet>
+						<h:form>
+							<p:menu>
+								<f:ajax render=":content">
+									<p:menuitem value="Pacientes" styleClass="fa fa-user"
+										outcome="/pacientes.xhtml" />
+									<p:menuitem value="Medicos" styleClass="fa fa-user-md"
+									outcome="/medicos.xhtml"/>
+									<p:menuitem value="Recepcionista" styleClass="fa fa-female"
+										outcome="/recepcionista.xhtml" />
+								</f:ajax>
+							</p:menu>
+						</h:form>
+					</p:tab>
+					<p:tab id="Steak">
+						<f:facet name="title">
+							<i class="fa fa-list-alt"></i>
+							<h:outputText value="Consultas" />
+						</f:facet>
+						<h:form>
+							<p:menu>
+								<f:ajax render=":content">
+									<p:menuitem value="Agendamentos" styleClass="fa fa-calendar"
+										outcome="/agendamento.xhtml" />
+								</f:ajax>
+							</p:menu>
+						</h:form>
+					</p:tab>
+				</p:accordionPanel>
+			</div>
+			<div id="div-composicao">
+				<p:outputPanel id="agenda" rendered="true">
+					<h:form>
+					<p:growl id="messages" showDetail="true" />
+
+					<h:panelGrid width="100%" columnClasses="value">
+
+						<p:schedule id="schedule"
+							value="#{solicitacaoConsultaView.eventModel}"
+							widgetVar="myschedule" ignoreTimezone="false"
+							timeZone="America/Recife">
+
+							<p:ajax event="dateSelect"
+								listener="#{solicitacaoConsultaView.onDateSelect}"
+								update="eventDetails" oncomplete="PF('eventDialog').show();" />
+							<p:ajax event="eventSelect"
+								listener="#{solicitacaoConsultaView.onEventSelect}"
+								update="eventDetailsE" oncomplete="PF('eventDialogE').show();" />
+							<p:ajax event="eventMove"
+								listener="#{solicitacaoConsultaView.onEventMove}"
+								update="messages" />
+							<p:ajax event="eventResize"
+								listener="#{solicitacaoConsultaView.onEventResize}"
+								update="messages" />
+
+						</p:schedule>
+					</h:panelGrid>
+
+
+					<p:dialog widgetVar="eventDialogE" header="Detalhes Agendamento"
+						showEffect="clip" hideEffect="clip">
+
+						<h:panelGrid id="eventDetailsE" columns="2">
+							<h:outputLabel value="Nome:" for="nomePacienteE" />
+							<h:outputLabel id="nomePacienteE"
+								value="#{solicitacaoConsultaView.event.nomePaciente}" />
+
+							<h:outputLabel value="Telefone:" for="telefoneE" />
+							<h:outputLabel id="telefoneE"
+								value="#{solicitacaoConsultaView.event.telefone}" />
+
+							<h:outputLabel value="Cpf:" for="cpfE" />
+							<h:outputLabel id="cpfE"
+								value="#{solicitacaoConsultaView.event.cpfPaciente}" />
+
+							<h:outputLabel value="Duracao:" for="duracaoE" />
+							<h:outputLabel id="duracaoE"
+								value="#{solicitacaoConsultaView.event.duracaoEsperada}" />
+
+							<h:outputLabel value="Data:" for="fromE" />
+							<p:inputMask id="fromE"
+								value="#{solicitacaoConsultaView.event.startDate}"
+								mask="99/99/9999 99:99">
+								<f:convertDateTime pattern="dd/MM/yyyy HH:mm"
+									ignoreTimezone="false" timeZone="America/Recife" />
+							</p:inputMask>
+
+							<h:outputLabel value="Data Final:" for="fromED" />
+							<p:inputMask disabled="true" id="fromED"
+								value="#{solicitacaoConsultaView.event.endDate}"
+								mask="99/99/9999 99:99">
+								<f:convertDateTime pattern="dd/MM/yyyy HH:mm"
+									ignoreTimezone="false" timeZone="America/Recife" />
+							</p:inputMask>
+
+							<p:commandButton type="reset" value="Reset" />
+							<p:commandButton id="addButtonE" value="Salvar"
+								actionListener="#{solicitacaoConsultaView.addEvent}"
+								oncomplete="PF('myschedule').update();PF('eventDialogE').hide();" />
+						</h:panelGrid>
+					</p:dialog>
+
+					<p:dialog widgetVar="eventDialog" id="eventDialog"
+						header="Novo Agendamento" showEffect="clip" hideEffect="clip">
+						<p:outputPanel id="eventDialogPanel">
+							<h:panelGrid id="eventDetails" columns="2">
+								<h:outputLabel value="Nome:" for="nomePaciente" />
+								<p:inputText id="nomePaciente"
+									value="#{solicitacaoConsultaView.event.nomePaciente}"
+									disabled="true" required="true" />
+
+								<h:outputLabel value="Telefone:" for="telefone" />
+								<p:inputText id="telefone"
+									value="#{solicitacaoConsultaView.event.telefone}"
+									disabled="true" required="true" />
+
+								<p:outputLabel value="Cpf:" for="cpf" />
+								<p:autoComplete id="cpf" forceSelection="true"
+									value="#{solicitacaoConsultaView.cpfEscolhido}"
+									completeMethod="#{solicitacaoConsultaView.completeText}">
+									<p:ajax event="itemSelect"
+										listener="#{solicitacaoConsultaView.onCpfSelect}"
+										update="eventDialogPanel" />
+								</p:autoComplete>
+
+								<h:outputLabel value="Data:" for="from" />
+								<p:inputMask id="from"
+									value="#{solicitacaoConsultaView.event.startDate}"
+									mask="99/99/9999 99:99">
+									<f:convertDateTime pattern="dd/MM/yyyy HH:mm"
+										ignoreTimezone="false" timeZone="America/Recife" />
+								</p:inputMask>
+
+								<p:commandButton type="reset" value="Reset" />
+								<p:commandButton id="addButton" value="Salvar"
+									actionListener="#{solicitacaoConsultaView.addEvent}"
+									oncomplete="PF('myschedule').update();PF('eventDialog').hide();" />
+							</h:panelGrid>
+						</p:outputPanel>
+					</p:dialog>
+				</h:form>
+				</p:outputPanel>
+			</div>
+		</div>
+	</div>
+
+</h:body>
+</html>
