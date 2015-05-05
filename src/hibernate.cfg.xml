@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-configuration PUBLIC
+        "-//Hibernate/Hibernate Configuration DTD//EN"
+        "http://hibernate.sourceforge.net/hibernate-configuration-3.0.dtd">
+<hibernate-configuration>
+
+	<session-factory>
+
+		<property name="hibernate.dialect">org.hibernate.dialect.MySQLDialect</property>
+
+		<property name="hibernate.connection.driver_class">com.mysql.jdbc.Driver</property>
+
+		<property name="hibernate.connection.url">jdbc:mysql://localhost:3306/sysmed</property>
+
+		<property name="hibernate.connection.username">root</property>
+
+		<property name="hibernate.connection.password">root</property>
+
+		<property name="hibernate.hbm2ddl.auto">validate</property>
+
+		<property name="show_sql">false</property>
+
+		<property name="hibernate.current_session_context_class">thread</property>
+
+		<mapping class="br.com.sysmed.modelo.Pessoa" />
+		<mapping class="br.com.sysmed.modelo.Paciente" />
+		<mapping class="br.com.sysmed.modelo.Funcionario" />
+		<mapping class="br.com.sysmed.modelo.Medico" />
+		<mapping class="br.com.sysmed.modelo.Recepcionista" />
+		<mapping class="br.com.sysmed.modelo.Turno" />
+		<mapping class="br.com.sysmed.modelo.AtuaComo" />
+		<mapping class="br.com.sysmed.modelo.Especialidade" />
+		<mapping class="br.com.sysmed.modelo.Horario" />
+		<mapping class="br.com.sysmed.modelo.SolicitaoConsulta" />
+		<mapping class="br.com.sysmed.modelo.Trabalha" />
+		<mapping class="br.com.sysmed.modelo.Consulta" />
+		
+
+	</session-factory>
+
+</hibernate-configuration>
