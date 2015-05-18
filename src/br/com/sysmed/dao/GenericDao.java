@@ -14,8 +14,13 @@ public class GenericDao<T extends Serializable> {
  
     private final Session session;
     private final Class<T> persistentClass;
+   
  
-    public GenericDao() {
+    public Class<T> getPersistentClass() {
+		return persistentClass;
+	}
+
+	public GenericDao() {
         this.session = HibernateUtil.getSession();
         this.persistentClass = (Class<T>) ((ParameterizedType) 
             getClass().getGenericSuperclass()).getActualTypeArguments()[0];
@@ -56,7 +61,7 @@ public class GenericDao<T extends Serializable> {
         try {
             getSession().getTransaction().begin();
             getSession().delete(entity);
-            getSession().getTransaction().commit();
+            getSession().getTransaction().commit();           
         } catch (Throwable t) {
             getSession().getTransaction().rollback();
             t.printStackTrace();
@@ -64,6 +69,7 @@ public class GenericDao<T extends Serializable> {
             close();
         }
     }
+    
  
     public List<T> findAll() throws Exception {
         return getSession().createCriteria(persistentClass).list();
@@ -84,6 +90,12 @@ public class GenericDao<T extends Serializable> {
                 .add(Restrictions.eq("id", id)).uniqueResult();
     }
     
+    public T findByCpf(String cpf) {
+        return (T) getSession().createCriteria(persistentClass)
+                .add(Restrictions.eq("cpf", cpf).ignoreCase()).uniqueResult();
+    }
+    
+       
     private void close() {
         if (getSession() != null && getSession().isOpen()) {
             getSession().close();

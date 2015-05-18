@@ -112,21 +112,19 @@ and open the template in the editor.
 								</p:column>
 								<p:column headerText="Ações" width="160">
 									<p:commandButton styleClass="botaoAcao" update=":formPrincipal:e" 
-										icon="fa fa-search-plus" oncomplete="PF('d').show()" title="View Detail">
+										icon="fa fa-search-plus" oncomplete="PF('d').show()" title="Detalhes">
+										 <f:setPropertyActionListener value="#{paciente}" target="#{pacienteView.paciente}" />
+									</p:commandButton>
+									<p:commandButton styleClass="botaoAcao" title="Editar" icon="fa fa-pencil-square-o" action="/editarPaciente.xhtml" >
 										<f:setPropertyActionListener value="#{paciente}" target="#{pacienteView.paciente}" />
 									</p:commandButton>
-									<p:commandButton styleClass="botaoAcao" title="Editar"
-										icon="fa fa-pencil-square-o" action="/editarPaciente.xhtml" >
-										<f:setPropertyActionListener value="#{paciente}" target="#{pacienteView.paciente}" />
-										</p:commandButton>
-									<p:commandButton styleClass="botaoAcao" icon="fa fa-trash" >
+									<p:commandButton styleClass="botaoAcao" update="tabelaPacientes" icon="fa fa-trash" title="Excluir"  action="#{pacienteView.excluir}">
 									<f:setPropertyActionListener value="#{paciente}" target="#{pacienteView.paciente}" />
 									</p:commandButton>
 									
 								</p:column>
 								
 							</p:dataTable>
-							
 							<p:dialog header="Informações do Paciente" widgetVar="d" modal="true"
 								showEffect="fade" hideEffect="fade" resizable="false">
 								<p:outputPanel id="e" style="text-align:center;">

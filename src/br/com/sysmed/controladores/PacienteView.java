@@ -7,7 +7,9 @@ import java.util.List;
 
 import javax.annotation.PostConstruct;
 import javax.faces.bean.ManagedBean;
+import javax.faces.bean.SessionScoped;
 import javax.faces.bean.ViewScoped;
+import javax.faces.component.UIParameter;
 import javax.faces.event.ActionEvent;
 
 import br.com.sysmed.dao.PacienteDao;
@@ -15,12 +17,15 @@ import br.com.sysmed.modelo.Paciente;
 
 
 @ManagedBean(name = "pacienteView")
-@ViewScoped
+//@ViewScoped
+@SessionScoped  
 public class PacienteView {
 private PacienteDao dao;
 private Paciente paciente;
 private String data_nasc;
 private List<Paciente> pacientes;
+
+
 	
 	@PostConstruct
 	public void init() {
@@ -33,19 +38,19 @@ private List<Paciente> pacientes;
 
 		}
 	}
+	
 	public List<Paciente> getPacientes() {
 		return pacientes;
 	}
 	public Paciente getPaciente() {
 		return paciente;
 	}
-	
+
 	public void setPaciente(Paciente paciente) {
 		this.paciente = paciente;
 	}
 	
 	public void salvar(ActionEvent actionEvent) {
-		System.out.println("############################################################################");
 		DateFormat formatter = new SimpleDateFormat("dd/MM/yy"); 
 		try{
 			this.paciente.setDataNasc((Date)formatter.parse(this.data_nasc));
@@ -60,15 +65,54 @@ private List<Paciente> pacientes;
     	paciente = new Paciente();
     	this.data_nasc = "";
     }
+	
+	public String paginaEditar() {
+		System.out.println(this.paciente.getNome());
+		return "paginaEditar";
+	}
+	
+	public void editar() {
+		System.out.println(this.paciente.getNome());
+		DateFormat formatter = new SimpleDateFormat("dd/MM/yy"); 
+		try{
+			this.paciente.setDataNasc((Date)formatter.parse(this.data_nasc));
+		}catch(Exception e){
+			e.printStackTrace();
+		}
+		paciente.setCpf(paciente.getCpf().replaceAll("[.-]", ""));
+		paciente.setTelefone(paciente.getTelefone().replaceAll("[.-]", ""));
+		dao.alterar(this.paciente);
+		paciente = new Paciente();
+		this.data_nasc = "";
+	}
+	
+	public PacienteDao getDao() {
+		return dao;
+	}
+	
+	public void setDao(PacienteDao dao) {
+		this.dao = dao;
+	}
+	
+	public void setPacientes(List<Paciente> pacientes) {
+		this.pacientes = pacientes;
+	}
+	
+	public void excluir(){
+		System.out.println(this.paciente.getNome());
+		dao.excluir(this.paciente);
+		pacientes.remove(this.paciente);
+		paciente = new Paciente();
+		this.data_nasc = "";
+	}
+	
 	public String getData_nasc() {
 		return data_nasc;
 	}
 	public void setData_nasc(String data_nasc) {
 		this.data_nasc = data_nasc;
 	}
-	
-	
-	
+
 	
 
 }
