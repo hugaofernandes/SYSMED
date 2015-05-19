@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+-->
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui">
+<h:head>
+</h:head>
+	<h:body>
+		<ui:composition>
+				<div class="ui-grid ">
+					<div id="linha1" class="ui-grid-row">
+						<div id="div-logo">
+							<span id="nome-logo">SYSMED</span>
+						</div>
+						<div id="div-barra" class="barra-superior">
+							<div id="opcoes">
+								<p:button id="not-conf" icon="fa fa-bell"></p:button>
+								<p:button id="mens-conf" icon="fa fa-envelope"></p:button>
+								<p:button id="botao-conf" icon="fa fa-wrench"></p:button>
+								<div id="logado">
+									<h:graphicImage id="avatar" library="images" name="avatar.png"
+										width="28px" height="28px" />
+									<span id="nome-logado">Maria M</span> <i id="expadir"
+										class="fa fa-angle-down"></i>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+		</ui:composition>
+	</h:body>
+</html>
