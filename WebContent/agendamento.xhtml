@@ -78,6 +78,20 @@ and open the template in the editor.
 							</p:menu>
 						</h:form>
 					</p:tab>
+					<p:tab id="datawarehouse">
+						<f:facet name="title">
+							<i class="fa fa-database"></i>
+							<h:outputText value="Data warehouse" />
+						</f:facet>
+						<h:form>
+							<p:menu>
+								<f:ajax render=":content">
+									<p:menuitem value="Estatisticas" styleClass="fa fa-bar-chart"
+										outcome="/estatisticas.xhtml" />
+								</f:ajax>
+							</p:menu>
+						</h:form>
+					</p:tab>
 				</p:accordionPanel>
 			</div>
 			<div id="div-composicao">

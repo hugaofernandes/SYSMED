@@ -232,8 +232,6 @@ body{
     overflow: hidden;
 }
 
-
-
 .ui-icon{
     text-indent: 0;
 }
@@ -260,12 +258,23 @@ body{
 	padding-right: 8px;
 }
 
+.fa-bar-chart:before{
+	float:left;
+	padding-right: 8px;
+}
+
 .fa-users:before {
 	float:left;
 	padding-right: 8px;
 }
 
 .fa-list-alt:before{
+	height:14px;
+	float:left;
+	padding-right: 8px;
+}
+
+.fa-database:before{
 	height:14px;
 	float:left;
 	padding-right: 8px;
