@@ -102,7 +102,8 @@ and open the template in the editor.
 									</div>
 									<div class="ui-grid-col-6">
 									<p:inplace id="ajax" >
-							            <p:inputText value="#{pacienteView.paciente.nome}" label="text" />
+							            <p:inputText value="#{pacienteView.paciente.nome}" label="text" 
+							            required="true" requiredMessage="campo obrigatorio!"/>
 							        </p:inplace>
 							        </div>
 							    </div>
@@ -137,7 +138,8 @@ and open the template in the editor.
 										<h:outputLabel for="ajax" value="Data nasc:" />
 									</div>
 									<div class="ui-grid-col-6">
-									<p:calendar id="german" value="#{pacienteView.paciente.dataNasc}" yearRange="c-100:c+10" locale="de" navigator="true" pattern="dd/MM/yyyy" />
+									<p:calendar id="german" value="#{pacienteView.paciente.dataNasc}" yearRange="c-200:c+200" locale="de" navigator="true" pattern="dd/MM/yyyy"
+									required="true" requiredMessage="campo obrigatorio!" />
 									
 									</div>
 								</div>
@@ -151,7 +153,7 @@ and open the template in the editor.
 												required="true" requiredMessage="campo obrigatorio!">
 												<f:selectItem itemLabel="Solteiro" itemValue="Solteiro" />
 												<f:selectItem itemLabel="Casado" itemValue="Casado" />
-												<f:selectItem itemLabel="Viuvo" itemValue="Viuvo" />
+												<f:selectItem itemLabel="Viúvo" itemValue="Viuvo" />
 										</p:selectOneRadio>
 									</div>
 								</div>
@@ -178,6 +180,7 @@ and open the template in the editor.
 								            <f:selectItem itemLabel="RN" itemValue="RN" />
 								            <f:selectItem itemLabel="RJ" itemValue="RJ" />
 								            <f:selectItem itemLabel="SP" itemValue="SP" />
+								            <f:selectItem itemLabel="AM" itemValue="AM" />
 								        </p:selectOneMenu>
 									</div>
 								</div>
@@ -228,7 +231,7 @@ and open the template in the editor.
 								
 								<div class="ui-grid-row">
 									<div class="ui-grid-col-2">
-										<p:commandLink value="Voltar"
+										<p:commandButton value="Voltar"
 										onclick="history.go(-1)" />
 									</div>
 									<div class="ui-grid-col-6">

@@ -30,60 +30,56 @@ and open the template in the editor.
 		<div id="linha2" class="ui-grid-row">
 			<ui:include src="/navegacao_lateral_pessoas.xhtml" />
 			<div id="div-composicao" class="content">
-
 				<div id="header-wrapper">
 					<h2 id="headerPac">Pacientes</h2>
 				</div>
 				<div id="panelTabela">
 					<div id="headerPane">
 						<h2 id="h2header">Pacientes</h2>
-
-						<p:button id="cadastrar" icon="fa fa-user-plus"
-							outcome="/cadastrarpaciente.xhtml" />
-
-
+						<p:button id="cadastrar" icon="fa fa-user-plus" action="#{pacienteView.novoPaciente}"/>
 
 					</div>
 					<div class="tabela-wrapper">
 						<h:form id="formPrincipal">
-							<p:dataTable id="tabelaPacientes" var="paciente"
-								value="#{pacienteView.pacientes}">
-								<p:column headerText="Nome">
+							<p:dataTable  id="tabelaPacientes" var="paciente" filteredValue="#{pacienteView.pacientesFilter}" widgetVar="tabela"
+								value="#{pacienteView.pacientes}" emptyMessage="Nenhum Paciente Encontrado"
+								rows="10" paginator="true" paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
+                         		rowsPerPageTemplate="10,20,50">
+								
+								<f:facet name="header">
+									<p:outputPanel>
+                						<p:inputText id="globalFilter" onkeyup="PF('tabela').filter()" style="width:300px" placeholder="Pesquise pelo Nome" update="tabelaPacientes"/>
+            						</p:outputPanel>
+								</f:facet>
+								
+								<p:column headerText="Nome" filterBy="#{paciente.nome}" >
 									<h:outputText value="#{paciente.nome}" />
 								</p:column>
 
-								<p:column headerText="Cpf">
+								<p:column headerText="Cpf" filterBy="#{paciente.cpf}">
 									<h:outputText value="#{paciente.cpf}" />
 								</p:column>
 
-								<p:column headerText="Telefone">
+								<p:column headerText="Telefone" filterBy="#{paciente.telefone}">
 									<h:outputText value="#{paciente.telefone}" />
 								</p:column>
 								<p:column headerText="Ações" width="160">
-									<p:commandButton styleClass="botaoAcao"
-										update=":formPrincipal:e" icon="fa fa-search-plus"
-										oncomplete="PF('d').show()" title="Detalhes">
-										<f:setPropertyActionListener value="#{paciente}"
-											target="#{pacienteView.paciente}" />
+									<p:commandButton styleClass="botaoAcao" update=":formPrincipal:e" 
+										icon="fa fa-search-plus" oncomplete="PF('d').show()" title="Detalhes">
+										 <f:setPropertyActionListener value="#{paciente}" target="#{pacienteView.paciente}" />
 									</p:commandButton>
-									<p:commandButton styleClass="botaoAcao" title="Editar"
-										icon="fa fa-pencil-square-o" action="/editarPaciente.xhtml">
-										<f:setPropertyActionListener value="#{paciente}"
-											target="#{pacienteView.paciente}" />
+									<p:commandButton styleClass="botaoAcao" title="Editar" icon="fa fa-pencil-square-o" action="/editarPaciente.xhtml" >
+										<f:setPropertyActionListener value="#{paciente}" target="#{pacienteView.paciente}" />
 									</p:commandButton>
-									<p:commandButton styleClass="botaoAcao"
-										update="tabelaPacientes" icon="fa fa-trash" title="Excluir"
-										action="#{pacienteView.excluir}">
-										<f:setPropertyActionListener value="#{paciente}"
-											target="#{pacienteView.paciente}" />
+									<p:commandButton styleClass="botaoAcao" update="tabelaPacientes" icon="fa fa-trash" title="Excluir"  action="#{pacienteView.excluir}">
+									<f:setPropertyActionListener value="#{paciente}" target="#{pacienteView.paciente}" />
 									</p:commandButton>
-
+									
 								</p:column>
-
+								
 							</p:dataTable>
-							<p:dialog header="Informações do Paciente" widgetVar="d"
-								modal="true" showEffect="fade" hideEffect="fade"
-								resizable="false">
+							<p:dialog header="Informações do Paciente" widgetVar="d" modal="true"
+								showEffect="fade" hideEffect="fade" resizable="false">
 								<p:outputPanel id="e" style="text-align:center;">
 									<p:panelGrid columns="2"
 										rendered="#{not empty pacienteView.paciente}"
@@ -106,19 +102,19 @@ and open the template in the editor.
 
 										<h:outputText value="Telefone" />
 										<h:outputText value="#{pacienteView.paciente.telefone}" />
-
+																						
 										<h:outputText value="Estado" />
 										<h:outputText value="#{pacienteView.paciente.estado}" />
-
+																				
 										<h:outputText value="Cidade" />
 										<h:outputText value="#{pacienteView.paciente.cidade}" />
-
+									
 										<h:outputText value="Bairro" />
 										<h:outputText value="#{pacienteView.paciente.bairro}" />
-
+										
 										<h:outputText value="Rua" />
 										<h:outputText value="#{pacienteView.paciente.nomeRua}" />
-
+										
 										<h:outputText value="Numero" />
 										<h:outputText value="#{pacienteView.paciente.numeroCasa}" />
 									</p:panelGrid>

@@ -24,6 +24,7 @@ private PacienteDao dao;
 private Paciente paciente;
 private String data_nasc;
 private List<Paciente> pacientes;
+private List<Paciente> pacientesFilter;
 
 
 	
@@ -33,6 +34,7 @@ private List<Paciente> pacientes;
 		paciente = new Paciente();
 		try {
 			pacientes = dao.findAll();
+			//pacientesFilter = dao.findAll();
 		} catch (Exception e) {
 			e.printStackTrace();
 
@@ -86,6 +88,14 @@ private List<Paciente> pacientes;
 		this.data_nasc = "";
 	}
 	
+	public String novoPaciente(){
+		System.out.println(this.paciente.getNome());
+		this.paciente = new Paciente();
+		this.data_nasc = "";
+		return "paginaCadastro";
+		
+	}
+	
 	public PacienteDao getDao() {
 		return dao;
 	}
@@ -104,6 +114,7 @@ private List<Paciente> pacientes;
 		pacientes.remove(this.paciente);
 		paciente = new Paciente();
 		this.data_nasc = "";
+		//init();
 	}
 	
 	public String getData_nasc() {
@@ -111,6 +122,14 @@ private List<Paciente> pacientes;
 	}
 	public void setData_nasc(String data_nasc) {
 		this.data_nasc = data_nasc;
+	}
+
+	public List<Paciente> getPacientesFilter() {
+		return pacientesFilter;
+	}
+
+	public void setPacientesFilter(List<Paciente> pacientesFilter) {
+		this.pacientesFilter = pacientesFilter;
 	}
 
 	

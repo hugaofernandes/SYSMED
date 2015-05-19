@@ -40,7 +40,7 @@ public class GenericDao<T extends Serializable> {
             getSession().getTransaction().rollback();
             t.printStackTrace();
         } finally {
-            close();
+            //close();
         }
     }
  
@@ -53,7 +53,7 @@ public class GenericDao<T extends Serializable> {
             getSession().getTransaction().rollback();
             t.printStackTrace();
         } finally {
-            close();
+            //close();
         }
     }
  
@@ -66,7 +66,7 @@ public class GenericDao<T extends Serializable> {
             getSession().getTransaction().rollback();
             t.printStackTrace();
         } finally {
-            close();
+            //close();
         }
     }
     
