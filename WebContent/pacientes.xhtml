@@ -88,26 +88,31 @@ and open the template in the editor.
 				<div id="panelTabela">
 					<div id="headerPane">
 						<h2 id="h2header">Pacientes</h2>
-
-						<p:button id="cadastrar" icon="fa fa-user-plus"
-							outcome="/cadastrarpaciente.xhtml" />
-
-
+						<p:button id="cadastrar" icon="fa fa-user-plus" action="#{pacienteView.novoPaciente}"/>
 
 					</div>
 					<div class="tabela-wrapper">
 						<h:form id="formPrincipal">
-							<p:dataTable id="tabelaPacientes" var="paciente"
-								value="#{pacienteView.pacientes}">
-								<p:column headerText="Nome">
+							<p:dataTable  id="tabelaPacientes" var="paciente" filteredValue="#{pacienteView.pacientesFilter}" widgetVar="tabela"
+								value="#{pacienteView.pacientes}" emptyMessage="Nenhum Paciente Encontrado"
+								rows="10" paginator="true" paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
+                         		rowsPerPageTemplate="10,20,50">
+								
+								<f:facet name="header">
+									<p:outputPanel>
+                						<p:inputText id="globalFilter" onkeyup="PF('tabela').filter()" style="width:300px" placeholder="Pesquise pelo Nome" update="tabelaPacientes"/>
+            						</p:outputPanel>
+								</f:facet>
+								
+								<p:column headerText="Nome" filterBy="#{paciente.nome}" >
 									<h:outputText value="#{paciente.nome}" />
 								</p:column>
 
-								<p:column headerText="Cpf">
+								<p:column headerText="Cpf" filterBy="#{paciente.cpf}">
 									<h:outputText value="#{paciente.cpf}" />
 								</p:column>
 
-								<p:column headerText="Telefone">
+								<p:column headerText="Telefone" filterBy="#{paciente.telefone}">
 									<h:outputText value="#{paciente.telefone}" />
 								</p:column>
 								<p:column headerText="Ações" width="160">
