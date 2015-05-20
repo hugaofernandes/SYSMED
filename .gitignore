@@ -2,7 +2,7 @@
 .classpath
 .settings
 .project
+.metadata
 /src/META-INF/persistence.xml
 /WebContent/META-INF/MANIFEST.MF
-/WebContent/WEB-INF/faces-config.xml
 /WebContent/WEB-INF/web.xml
