@@ -18,6 +18,7 @@ and open the template in the editor.
 				<div id="div-navegacao" class="navegacao-lateral">
 				<p:accordionPanel activeIndex="0">
 					<p:tab id="TabBurguer">
+				
 						<f:facet name="title">
 							<i class="fa fa-users"></i>
 							<h:outputText value="Pessoas" />
@@ -26,9 +27,9 @@ and open the template in the editor.
 							<p:menu>
 								<f:ajax render=":content">
 									<p:menuitem value="Pacientes" styleClass="fa fa-user"
-										outcome="/pacientes.xhtml" />
-									<p:menuitem value="Medicos" styleClass="fa fa-user-md"
-									outcome="/medicos.xhtml"/>
+									 outcome="/pacientes.xhtml" />
+									<p:menuitem value="Medicos" styleClass="fa fa-user-md"  
+									  outcome="/medicos.xhtml" />
 									<p:menuitem value="Recepcionista" styleClass="fa fa-female"
 										outcome="/recepcionista.xhtml" />
 								</f:ajax>
