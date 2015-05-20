@@ -28,7 +28,9 @@ and open the template in the editor.
 		<ui:include src="/header.xhtml" />
 
 		<div id="linha2" class="ui-grid-row">
-			<ui:include src="/navegacao_lateral_pessoas.xhtml" />
+
+			<ui:include src="/navegacao_lateral_tab0.xhtml" />
+
 			<div id="div-composicao" class="content">
 				<div id="header-wrapper">
 					<h2 id="headerPac">Editar Paciente</h2>
@@ -83,7 +85,7 @@ and open the template in the editor.
 										<h:outputLabel for="ajax" value="Data nasc:" />
 									</div>
 									<div class="ui-grid-col-6">
-									<p:calendar id="german" value="#{pacienteView.paciente.dataNasc}" yearRange="c-200:c+200" locale="de" navigator="true" pattern="dd/MM/yyyy"
+									<p:calendar   id="german" value="#{pacienteView.paciente.dataNasc}" yearRange="c-200:c+200" locale="de" navigator="true" pattern="dd/MM/yyyy"
 									required="true" requiredMessage="campo obrigatorio!" />
 									
 									</div>
