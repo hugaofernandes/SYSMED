@@ -23,64 +23,12 @@ and open the template in the editor.
 			name="font-awesome/4.3.0/css/font-awesome-jsf.css" />
 		<h:outputStylesheet name="css/main.css" />
 	</f:facet>
-	<div class="ui-grid ">
-		<div id="linha1" class="ui-grid-row">
-			<div id="div-logo">
-				<div id="nome-logo">
-					<div>SYSMED</div>
-				</div>
-			</div>
-			<div id="div-barra" class="barra-superior">
-				<div id="opcoes">
-					<p:button id="not-conf" icon="fa fa-bell"></p:button>
-					<p:button id="mens-conf" icon="fa fa-envelope"></p:button>
-					<p:button id="botao-conf" icon="fa fa-wrench"></p:button>
-					<div id="logado">
-						<h:graphicImage id="avatar" library="images" name="avatar.png" />
-						<span id="nome-logado">Maria M</span>
 
-					</div>
-				</div>
-			</div>
-		</div>
+	<div class="ui-grid ">
+		<ui:include src="/header.xhtml" />
 
 		<div id="linha2" class="ui-grid-row">
-			<div id="div-navegacao" class="navegacao-lateral">
-				<p:accordionPanel activeIndex="0">
-					<p:tab id="TabBurguer">
-						<f:facet name="title">
-							<i class="fa fa-users"></i>
-							<h:outputText value="Pessoas" />
-						</f:facet>
-						<h:form>
-							<p:menu>
-								<f:ajax render=":content">
-									<p:menuitem value="Pacientes" styleClass="fa fa-user"
-										outcome="/pacientes.xhtml" />
-									<p:menuitem value="Medicos" styleClass="fa fa-user-md"
-									outcome="/medicos.xhtml"/>
-									<p:menuitem value="Recepcionista" styleClass="fa fa-female"
-										outcome="/recepcionista.xhtml" />
-								</f:ajax>
-							</p:menu>
-						</h:form>
-					</p:tab>
-					<p:tab id="Steak">
-						<f:facet name="title">
-							<i class="fa fa-list-alt"></i>
-							<h:outputText value="Consultas" />
-						</f:facet>
-						<h:form>
-							<p:menu>
-								<f:ajax render=":content">
-									<p:menuitem value="Agendamentos" styleClass="fa fa-calendar"
-										outcome="/agendamento.xhtml" />
-								</f:ajax>
-							</p:menu>
-						</h:form>
-					</p:tab>
-				</p:accordionPanel>
-			</div>
+			<ui:include src="/navegacao_lateral_pessoas.xhtml" />
 			<div id="div-composicao" class="content">
 				<div id="header-wrapper">
 					<h2 id="headerPac">Editar Paciente</h2>
@@ -90,9 +38,6 @@ and open the template in the editor.
 						<h2 id="h2header">Editar</h2>
 					</div>
 					<div class="tabela-wrapper">
-						
-									
-												
 						<h:form id="formPrincipal" >
 							<div class="ui-grid">	
 								
