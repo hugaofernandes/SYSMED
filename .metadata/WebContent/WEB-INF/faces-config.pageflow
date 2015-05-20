@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<pageflow:Pageflow xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:pageflow="http://www.sybase.com/suade/pageflow" id="pf14301788981000" configfile="/Sysmed_v1/WebContent/WEB-INF/faces-config.xml">
+  <nodes xsi:type="pageflow:PFPage" name="pacientes.xhtml" x="72" y="36" id="pf14318099352989" referenceLink="//@navigationRule.1/@fromViewId|" outlinks="pf143180993529810 pf14320553450940" path="pacientes.xhtml"/>
+  <nodes xsi:type="pageflow:PFPage" name="editarPaciente.xhtml" x="253" y="204" id="pf143180993529811" referenceLink="//@navigationRule.0/@navigationCase.0/@toViewId|" inlinks="pf143180993529810" path="editarPaciente.xhtml"/>
+  <nodes xsi:type="pageflow:PFPage" name="cadastrarpaciente.xhtml" x="360" y="36" id="pf14320553450941" referenceLink="//@navigationRule.1/@navigationCase.0/@toViewId|" inlinks="pf14320553450940" path="cadastrarpaciente.xhtml"/>
+  <nodes xsi:type="pageflow:PFPage" name="medicos.xhtml" id="pf14320797742320" referenceLink="//@navigationRule.3/@fromViewId|" outlinks="pf14320797742321 pf14320797742322" path="medicos.xhtml"/>
+  <nodes xsi:type="pageflow:PFPage" name="editarMedico.xhtml" id="pf14320797742323" referenceLink="//@navigationRule.2/@navigationCase.0/@toViewId|" inlinks="pf14320797742321" path="editarMedico.xhtml"/>
+  <nodes xsi:type="pageflow:PFPage" name="cadastrarmedico.xhtml" id="pf14320797742324" referenceLink="//@navigationRule.3/@navigationCase.0/@toViewId|" inlinks="pf14320797742322" path="cadastrarmedico.xhtml"/>
+  <nodes xsi:type="pageflow:PFPage" name="recepcionista.xhtml" id="pf14320797742325" referenceLink="//@navigationRule.5/@fromViewId|" outlinks="pf14320797742326 pf14320797742327" path="recepcionista.xhtml"/>
+  <nodes xsi:type="pageflow:PFPage" name="editarRecepcionista.xhtml" id="pf14320797742328" referenceLink="//@navigationRule.4/@navigationCase.0/@toViewId|" inlinks="pf14320797742326" path="editarRecepcionista.xhtml"/>
+  <nodes xsi:type="pageflow:PFPage" name="cadastrarRecepcionista.xhtml" id="pf14320797742329" referenceLink="//@navigationRule.5/@navigationCase.0/@toViewId|" inlinks="pf14320797742327" path="cadastrarRecepcionista.xhtml"/>
+  <links id="pf143180993529810" target="pf143180993529811" source="pf14318099352989" outcome="paginaEditar"/>
+  <links id="pf14320553450940" target="pf14320553450941" source="pf14318099352989" outcome="paginaCadastro"/>
+  <links id="pf14320797742321" target="pf14320797742323" source="pf14320797742320" outcome="paginaEditarMedico"/>
+  <links id="pf14320797742322" target="pf14320797742324" source="pf14320797742320" outcome="paginaCadastroMedico"/>
+  <links id="pf14320797742326" target="pf14320797742328" source="pf14320797742325" outcome="paginaEditarRecepcionista"/>
+  <links id="pf14320797742327" target="pf14320797742329" source="pf14320797742325" outcome="paginaCadastroRecepcionista"/>
+</pageflow:Pageflow>

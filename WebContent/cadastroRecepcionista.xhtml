@@ -26,11 +26,12 @@ and open the template in the editor.
 	<div class="ui-grid ">
 		<ui:include src="/header.xhtml" />
 		<div id="linha2" class="ui-grid-row">
+
 			<ui:include src="/navegacao_lateral_tab0.xhtml" />
 	
 			<div id="div-composicao" class="content">
 				<div id="header-wrapper">
-					<h2 id="headerPac">Cadastrar Recepcionista</h2>
+					<h2 id="headerPac">Cadastrar Usuário</h2>
 				</div>
 				<div id="panelTabela">
 					<div id="headerPane">
@@ -56,7 +57,8 @@ and open the template in the editor.
 										<h:outputText value="Cpf:" />
 									</div>
 									<div class="ui-grid-col-6">
-										<p:inputMask id="cpf" value="#{recepcionistaView.recepcionista.cpf}" mask="999.999.999-99"/> 
+										<p:inputMask id="cpf" value="#{recepcionistaView.recepcionista.cpf}" mask="999.999.999-99"
+										required="true" requiredMessage="campo obrigatorio!"/> 
 										
 									</div>
 								</div>			
@@ -78,8 +80,8 @@ and open the template in the editor.
 										<h:outputText value="Data nasc:" />
 									</div>
 									<div class="ui-grid-col-6">
-										<p:inputMask value="#{recepcionistaView.data_nasc}" mask="99/99/9999" 
-									required="true" requiredMessage="campo obrigatorio!"/>
+										<p:calendar id="german" value="#{recepcionistaView.recepcionista.dataNasc}" yearRange="c-200:c+200" locale="de" navigator="true" pattern="dd/MM/yyyy"
+									required="true" requiredMessage="campo obrigatorio!" />
 									</div>
 								</div>
 								<div class="ui-grid-row">
@@ -90,9 +92,9 @@ and open the template in the editor.
 										<p:selectOneRadio id="estadoCivil"
 												value="#{recepcionistaView.recepcionista.estadoCivil}"
 												required="true" requiredMessage="campo obrigatorio!">
-												<f:selectItem itemLabel="Solteiro(a)" itemValue="Solteiro" />
-												<f:selectItem itemLabel="Casado(a)" itemValue="Casado" />
-												<f:selectItem itemLabel="Viuvo(a)" itemValue="Viuvo" />
+												<f:selectItem itemLabel="Solteiro" itemValue="Solteiro" />
+												<f:selectItem itemLabel="Casado" itemValue="Casado" />
+												<f:selectItem itemLabel="Viúvo" itemValue="Viuvo" />
 											</p:selectOneRadio>
 									</div>
 								</div>
@@ -111,8 +113,14 @@ and open the template in the editor.
 										<h:outputText value="Estado:" />
 									</div>
 									<div class="ui-grid-col-6">
-										<p:inputText value="#{recepcionistaView.recepcionista.estado}" 
-										required="true" requiredMessage="campo obrigatorio!"/>
+										<p:selectOneMenu id="console" value="#{recepcionistaView.recepcionista.estado}" style="width:125px" 
+										required="true" requiredMessage="campo obrigatorio!">
+								            <f:selectItem itemLabel="" />
+								            <f:selectItem itemLabel="RN" itemValue="RN" />
+								            <f:selectItem itemLabel="RJ" itemValue="RJ" />
+								            <f:selectItem itemLabel="SP" itemValue="SP" />
+								            <f:selectItem itemLabel="AM" itemValue="AM" />
+								        </p:selectOneMenu>
 									</div>
 								</div>
 								<div class="ui-grid-row">
@@ -147,24 +155,25 @@ and open the template in the editor.
 										<h:outputText value="Numero:" />
 									</div>
 									<div class="ui-grid-col-6">
-										<p:inputText value="#{recepcionistaView.recepcionista.numeroCasa}" 
-										required="true" requiredMessage="campo obrigatorio!"/>
+										<p:inputMask value="#{recepcionistaView.recepcionista.numeroCasa}" 
+										required="true" requiredMessage="campo obrigatorio!" mask="9?9999" maxlength="5" placeHolder=" "/>
 									</div>
 								</div>
+								
 								<div class="ui-grid-row">
 									<div class="ui-grid-col-2">
 										<h:outputText value="Salário:" />
 									</div>
 									<div class="ui-grid-col-6">
 										<p:inputMask value="#{recepcionistaView.recepcionista.salario}" 
-										required="true" requiredMessage="campo obrigatorio!" mask="9999.99"/>
-										
+										required="true" requiredMessage="campo obrigatorio!" mask="9?99999" maxlength="6" placeHolder=" "/>
 									</div>
 								</div>
 								
 								<div class="ui-grid-row">
 									<div class="ui-grid-col-2">
-										<p:commandButton value="Limpar"/>
+										<p:commandButton value="Voltar"
+										onclick="history.go(-1)"/>
 									</div>
 									<div class="ui-grid-col-6">
 										<p:commandButton value="Salvar"

@@ -23,48 +23,62 @@ and open the template in the editor.
 			name="font-awesome/4.3.0/css/font-awesome-jsf.css" />
 		<h:outputStylesheet name="css/main.css" />
 	</f:facet>
+
 	<div class="ui-grid ">
 		<ui:include src="/header.xhtml" />
 		<div id="linha2" class="ui-grid-row">
+
 			<ui:include src="/navegacao_lateral_tab0.xhtml" />
+
 			<div id="div-composicao" class="content">
 				<div id="header-wrapper">
-					<h2 id="headerPac">Recepcionista</h2>
+					<h2 id="headerPac">Recepcionistas</h2>
 				</div>
 				<div id="panelTabela">
 					<div id="headerPane">
-						<h2 id="h2header">Recepcionista</h2>
-						<p:button id="cadastrar" icon="fa fa-user-plus"
-							outcome="/cadastroRecepcionista.xhtml" />
+						<h2 id="h2header">Recepcionistas</h2>
+						<p:button id="cadastrar" icon="fa fa-user-plus" action="#{recepcionistaView.novo}" outcome="/cadastroRecepcionista.xhtml"/>
+
 					</div>
 					<div class="tabela-wrapper">
 						<h:form id="formPrincipal">
-							<p:dataTable id="tabelaRecepcionista" var="recepcionista"
-								value="#{recepcionistaView.recepcionistas}">
-								<p:column headerText="Nome">
+							<p:dataTable  id="tabelaRecepcionistas" var="recepcionista" filteredValue="#{recepcionistaView.recepcionistasFilter}" widgetVar="tabela"
+								value="#{recepcionistaView.recepcionistas}" emptyMessage="Nenhum Recepcionista Encontrado"
+								rows="10" paginator="true" paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
+                         		rowsPerPageTemplate="10,20,50">
+								
+								<f:facet name="header">
+									<p:outputPanel>
+                						<p:inputText id="globalFilter" onkeyup="PF('tabela').filter()" style="width:300px" placeholder="Pesquise pelo Nome" update="tabelaRecepcionistas"/>
+            						</p:outputPanel>
+								</f:facet>
+								
+								<p:column headerText="Nome" filterBy="#{recepcionista.nome}" >
 									<h:outputText value="#{recepcionista.nome}" />
 								</p:column>
 
-								<p:column headerText="Cpf">
+								<p:column headerText="Cpf" filterBy="#{recepcionista.cpf}">
 									<h:outputText value="#{recepcionista.cpf}" />
 								</p:column>
 
-								<p:column headerText="Telefone">
+								<p:column headerText="Telefone" filterBy="#{recepcionista.telefone}">
 									<h:outputText value="#{recepcionista.telefone}" />
 								</p:column>
 								<p:column headerText="Ações" width="160">
 									<p:commandButton styleClass="botaoAcao" update=":formPrincipal:e" 
-										icon="fa fa-search-plus" oncomplete="PF('d').show()" title="View Detail">
+										icon="fa fa-search-plus" oncomplete="PF('d').show()" title="Detalhes">
+										 <f:setPropertyActionListener value="#{recepcionista}" target="#{recepcionistaView.recepcionista}" />
+									</p:commandButton>
+									<p:commandButton styleClass="botaoAcao" title="Editar" icon="fa fa-pencil-square-o" action="#{recepcionistaView.paginaEditar}" >
 										<f:setPropertyActionListener value="#{recepcionista}" target="#{recepcionistaView.recepcionista}" />
 									</p:commandButton>
-									<p:commandButton styleClass="botaoAcao"
-										icon="fa fa-pencil-square-o" />
-									<p:commandButton styleClass="botaoAcao" icon="fa fa-trash" />
-
+									<p:commandButton styleClass="botaoAcao" update="tabelaRecepcionistas" icon="fa fa-trash" title="Excluir"  action="#{recepcionistaView.excluir}">
+									<f:setPropertyActionListener value="#{recepcionista}" target="#{recepcionistaView.recepcionista}" />
+									</p:commandButton>
+									
 								</p:column>
-
+								
 							</p:dataTable>
-
 							<p:dialog header="Informações do Recepcionista" widgetVar="d" modal="true"
 								showEffect="fade" hideEffect="fade" resizable="false">
 								<p:outputPanel id="e" style="text-align:center;">

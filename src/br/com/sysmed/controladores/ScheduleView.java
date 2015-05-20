@@ -24,9 +24,7 @@ import org.primefaces.model.ScheduleModel;
 public class ScheduleView implements Serializable {
  
     private ScheduleModel cadastoTurnos;
-     
-  
- 
+    
     @PostConstruct
     public void init() {
         cadastoTurnos = new DefaultScheduleModel();
@@ -36,7 +34,6 @@ public class ScheduleView implements Serializable {
         cadastoTurnos.addEvent(new DefaultScheduleEvent("", getDate("AM",7,0,3),getDate("AM",11,00,3)));
         cadastoTurnos.addEvent(new DefaultScheduleEvent("", getDate("AM",7,0,4),getDate("AM",11,00,4)));
          
-
     }
      
     public Date getRandomDate(Date base) {

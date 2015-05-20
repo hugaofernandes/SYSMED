@@ -17,12 +17,10 @@ import java.util.List;
 public abstract class Funcionario extends Pessoa implements Serializable {
 	private static final long serialVersionUID = 1L;
 
-
 	private double salario;
 
 	@Column(name="tipo_funcionario")
 	protected String tipoFuncionario;
-
 	
 	//bi-directional many-to-one association to Trabalha
 	@OneToMany(mappedBy="funcionario", cascade={CascadeType.ALL})
@@ -51,14 +49,12 @@ public abstract class Funcionario extends Pessoa implements Serializable {
 	public Trabalha addTrabalha(Trabalha trabalha) {
 		getTrabalha().add(trabalha);
 		trabalha.setFuncionario(this);
-
 		return trabalha;
 	}
 
 	public Trabalha removeTrabalha(Trabalha trabalha) {
 		getTrabalha().remove(trabalha);
 		trabalha.setFuncionario(null);
-
 		return trabalha;
 	}
 

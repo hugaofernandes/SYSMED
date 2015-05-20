@@ -15,7 +15,6 @@ and open the template in the editor.
 	<link
 		href='http://fonts.googleapis.com/css?family=Lato&amp;subset=latin,latin-ext'
 		rel='stylesheet' type='text/css'></link>
-		<h:outputScript library="js" name="novo_primefaces.js" />
 </h:head>
 <h:body>
 	<f:facet name="last">
@@ -23,33 +22,34 @@ and open the template in the editor.
 		<h:outputStylesheet library="webjars"
 			name="font-awesome/4.3.0/css/font-awesome-jsf.css" />
 		<h:outputStylesheet name="css/main.css" />
-
 	</f:facet>
+
 	<div class="ui-grid ">
 		<ui:include src="/header.xhtml" />
+
 		<div id="linha2" class="ui-grid-row">
-			<ui:include src="/navegacao_lateral_tab0.xhtml" />
-	
+			<ui:include src="/navegacao_lateral_pessoas.xhtml" />
 			<div id="div-composicao" class="content">
 				<div id="header-wrapper">
-					<h2 id="headerPac">Cadastrar médico</h2>
+					<h2 id="headerPac">Editar Recepcionista</h2>
 				</div>
 				<div id="panelTabela">
-					<h:form id = "formWizard">
-						<p:growl id="growl" sticky="true" showDetail="true" />
-						<p:wizard styleClass="wizard">
-							<p:tab id="personal" title="Informacoes">
-								<div class="tabela-wrapper">
-									<h:form id="formPrincipal">
-										<div class="ui-grid">
-										
-									<div class="ui-grid-row">
+					<div id="headerPane">
+						<h2 id="h2header">Editar</h2>
+					</div>
+					<div class="tabela-wrapper">
+						<h:form id="formPrincipal" >
+							<div class="ui-grid">	
+								
+								<div class="ui-grid-row">
 									<div class="ui-grid-col-2">
 									<h:outputLabel for="ajax" value="Nome:" />
 									</div>
 									<div class="ui-grid-col-6">
-							            <p:inputText value="#{medicoView.medico.nome}" label="text" 
+									<p:inplace id="ajax" >
+							            <p:inputText value="#{recepcionistaView.recepcionista.nome}" label="text" 
 							            required="true" requiredMessage="campo obrigatorio!"/>
+							        </p:inplace>
 							        </div>
 							    </div>
 								
@@ -58,8 +58,10 @@ and open the template in the editor.
 										<h:outputLabel for="ajax" value="CPF:" />
 									</div>
 									<div class="ui-grid-col-6">
-										<p:inputMask value="#{medicoView.medico.cpf}" label="text" mask="999.999.999-99"
+									<p:inplace id="ajax2" >
+										<p:inputMask value="#{recepcionistaView.recepcionista.cpf}" label="text" mask="999.999.999-99"
 										required="true" requiredMessage="campo obrigatorio!"/> 
+									</p:inplace>
 									</div>
 								</div>
 								
@@ -69,7 +71,7 @@ and open the template in the editor.
 									</div>
 									<div class="ui-grid-col-6">
 										<p:selectOneRadio id="sexo"
-												value="#{medicoView.medico.sexo}"
+												value="#{recepcionistaView.recepcionista.sexo}"
 												required="true" requiredMessage="campo obrigatorio!">
 												<f:selectItem itemLabel="Masculino" itemValue="M" />
 												<f:selectItem itemLabel="Feminimo" itemValue="S+" />
@@ -81,7 +83,7 @@ and open the template in the editor.
 										<h:outputLabel for="ajax" value="Data nasc:" />
 									</div>
 									<div class="ui-grid-col-6">
-									<p:calendar id="german" value="#{medicoView.medico.dataNasc}" yearRange="c-200:c+200" locale="de" navigator="true" pattern="dd/MM/yyyy"
+									<p:calendar id="german" value="#{recepcionistaView.recepcionista.dataNasc}" yearRange="c-200:c+200" locale="de" navigator="true" pattern="dd/MM/yyyy"
 									required="true" requiredMessage="campo obrigatorio!" />
 									
 									</div>
@@ -92,7 +94,7 @@ and open the template in the editor.
 									</div>
 									<div class="ui-grid-col-6">
 										<p:selectOneRadio id="estadoCivil"
-												value="#{medicoView.medico.estadoCivil}"
+												value="#{recepcionistaView.recepcionista.estadoCivil}"
 												required="true" requiredMessage="campo obrigatorio!">
 												<f:selectItem itemLabel="Solteiro" itemValue="Solteiro" />
 												<f:selectItem itemLabel="Casado" itemValue="Casado" />
@@ -105,8 +107,10 @@ and open the template in the editor.
 										<h:outputLabel for="ajax" value="Telefone:" />
 									</div>
 									<div class="ui-grid-col-6">
-										<p:inputMask id="telefone" value="#{medicoView.medico.telefone}" mask="9999-9999"
+									<p:inplace id="ajax4" >
+										<p:inputMask id="telefone" value="#{recepcionistaView.recepcionista.telefone}" mask="9999-9999"
 										required="true" requiredMessage="campo obrigatorio!" label="text"/>
+									</p:inplace>
 									</div>
 								</div>
 								
@@ -115,7 +119,7 @@ and open the template in the editor.
 										<h:outputText value="Estado:" />
 									</div>
 									<div class="ui-grid-col-6">
-										<p:selectOneMenu id="console" value="#{medicoView.medico.estado}" style="width:125px" 
+										<p:selectOneMenu id="console" value="#{recepcionistaView.recepcionista.estado}" style="width:125px" 
 										required="true" requiredMessage="campo obrigatorio!">
 								            <f:selectItem itemLabel="" />
 								            <f:selectItem itemLabel="RN" itemValue="RN" />
@@ -130,8 +134,10 @@ and open the template in the editor.
 										<h:outputLabel for="ajax" value="Cidade:" />
 									</div>
 									<div class="ui-grid-col-6">
-										<p:inputText value="#{medicoView.medico.cidade}" 
+									<p:inplace id="ajax5" >
+										<p:inputText value="#{recepcionistaView.recepcionista.cidade}" 
 										required="true" requiredMessage="campo obrigatorio!"/>
+									</p:inplace>
 									</div>
 								</div>
 								<div class="ui-grid-row">
@@ -139,8 +145,10 @@ and open the template in the editor.
 										<h:outputText value="Bairro:" />
 									</div>
 									<div class="ui-grid-col-6">
-										<p:inputText value="#{medicoView.medico.bairro}" 
+										<p:inplace id="ajax6" >
+										<p:inputText value="#{recepcionistaView.recepcionista.bairro}" 
 										required="true" requiredMessage="campo obrigatorio!"/>
+									</p:inplace>
 									</div>
 								</div>
 								<div class="ui-grid-row">
@@ -148,8 +156,10 @@ and open the template in the editor.
 										<h:outputLabel for="ajax" value="Rua:" />
 									</div>
 									<div class="ui-grid-col-6">
-										<p:inputText value="#{medicoView.medico.nomeRua}" 
+										<p:inplace id="ajax7" >
+										<p:inputText value="#{recepcionistaView.recepcionista.nomeRua}" 
 										required="true" requiredMessage="campo obrigatorio!"/>
+									</p:inplace>
 									</div>
 								</div>
 								<div class="ui-grid-row">
@@ -157,8 +167,10 @@ and open the template in the editor.
 										<h:outputLabel for="ajax" value="Numero:" />
 									</div>
 									<div class="ui-grid-col-6">
-										<p:inputMask value="#{medicoView.medico.numeroCasa}" 
+									<p:inplace id="ajax8" >
+										<p:inputMask value="#{recepcionistaView.recepcionista.numeroCasa}" 
 										required="true" requiredMessage="campo obrigatorio!" mask="9?9999" maxlength="5" placeHolder=" "/>
+									</p:inplace>
 									</div>
 								</div>
 								<div class="ui-grid-row">
@@ -166,45 +178,29 @@ and open the template in the editor.
 										<h:outputLabel for="ajax" value="Salário:" />
 									</div>
 									<div class="ui-grid-col-6">
-										<p:inputMask value="#{medicoView.medico.salario}" 
-										required="true" requiredMessage="campo obrigatorio!" mask="9?999999" maxlength="7" placeHolder=" "/>
+									<p:inplace id="ajax9" >
+										<p:inputMask value="#{recepcionistaView.recepcionista.salario}" 
+										required="true" requiredMessage="campo obrigatorio!" mask="9?99999" maxlength="6" placeHolder=" "/>
+									</p:inplace>
 									</div>
 								</div>
-
-
-										</div>
-									</h:form>
-								</div>
-							</p:tab>
-							<p:tab id="personal2" title="Turnos">
-								<p:outputPanel id="turno" rendered="true">
-						<h:form>
-							<p:growl id="messages" showDetail="true" />
-							<h:panelGrid width="100%" columnClasses="value">
-								<p:schedule id="scheduleturno" value="#{scheduleView.cadastoTurnos}"
-									widgetVar="myschedule" ignoreTimezone="false"
-									timeZone="America/Recife" view="agendaWeek" locale="pt_br"
-									showHeader="false" allDaySlot="false" slotMinutes="30" >
-						
 								
-								</p:schedule>
-							</h:panelGrid>
-						</h:form>
-					</p:outputPanel>
-							</p:tab>
-							<p:tab id="address" title="Confirmacao">
 								<div class="ui-grid-row">
+									<div class="ui-grid-col-2">
+										<p:commandButton value="Voltar"
+										onclick="history.go(-1)" />
+									</div>
 									<div class="ui-grid-col-6">
 										<p:commandButton value="Salvar"
-										action="#{medicoView.salvar}"
+										action="#{recepcionistaView.editar}"
 										update="formPrincipal"/>
 									</div>
 								</div>
-							</p:tab>
-							
-						</p:wizard>
-					</h:form>
-
+								
+							</div>
+							</h:form>
+									
+					</div>
 				</div>
 			</div>
 		</div>
