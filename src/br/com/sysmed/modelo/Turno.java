@@ -5,6 +5,7 @@ import java.io.Serializable;
 import javax.persistence.*;
 
 import br.com.sysmed.excecoes.*;
+
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
@@ -163,5 +164,8 @@ public class Turno implements Serializable {
 		trabalha.setTurnoBean(null);
 		return trabalha;
 	}
-
+    @Override
+    public String toString() {
+    	return this.getNome();
+    }
 }

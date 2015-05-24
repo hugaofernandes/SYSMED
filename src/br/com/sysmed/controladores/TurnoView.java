@@ -251,8 +251,7 @@ public class TurnoView {
 		else{
 			 FacesMessage message = new FacesMessage(FacesMessage.SEVERITY_ERROR, "Conflito de Horarios","erro");	        
 		     addMessage(message);
-		}
-		
+		}	
 			
 	}
 	

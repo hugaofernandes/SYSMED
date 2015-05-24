@@ -15,7 +15,7 @@ and open the template in the editor.
 	<link
 		href='http://fonts.googleapis.com/css?family=Lato&amp;subset=latin,latin-ext'
 		rel='stylesheet' type='text/css'></link>
-		<h:outputScript library="js" name="novo_primefaces.js" />
+	<h:outputScript library="js" name="novo_primefaces.js" />
 </h:head>
 <h:body>
 	<f:facet name="last">
@@ -29,186 +29,234 @@ and open the template in the editor.
 		<ui:include src="/header.xhtml" />
 		<div id="linha2" class="ui-grid-row">
 			<ui:include src="/navegacao_lateral_tab0.xhtml" />
-	
+
 			<div id="div-composicao" class="content">
 				<div id="header-wrapper">
 					<h2 id="headerPac">Cadastrar médico</h2>
 				</div>
 				<div id="panelTabela">
-					<h:form id = "formWizard">
+					<h:form id="formWizard">
 						<p:growl id="growl" sticky="true" showDetail="true" />
-						<p:wizard styleClass="wizard">
+						<p:wizard styleClass="wizard" step="personal2">
 							<p:tab id="personal" title="Informacoes">
 								<div class="tabela-wrapper">
 									<h:form id="formPrincipal">
 										<div class="ui-grid">
-										
-									<div class="ui-grid-row">
-									<div class="ui-grid-col-2">
-									<h:outputLabel for="ajax" value="Nome:" />
-									</div>
-									<div class="ui-grid-col-6">
-							            <p:inputText value="#{medicoView.medico.nome}"  label="text" 
-							             requiredMessage="campo obrigatorio!"/>
-							        </div>
-							    </div>
-								
-								<div class="ui-grid-row">
-									<div class="ui-grid-col-2">
-										<h:outputLabel for="ajax" value="CPF:" />
-									</div>
-									<div class="ui-grid-col-6">
-										<p:inputMask value="#{medicoView.medico.cpf}" label="text" mask="999.999.999-99"
-										requiredMessage="campo obrigatorio!"/> 
-									</div>
-								</div>
-								
-								<div class="ui-grid-row">
-									<div class="ui-grid-col-2">
-										<h:outputText value="Sexo:" />
-									</div>
-									<div class="ui-grid-col-6">
-										<p:selectOneRadio id="sexo"
-												value="#{medicoView.medico.sexo}"
-												 requiredMessage="campo obrigatorio!">
-												<f:selectItem itemLabel="Masculino" itemValue="M" />
-												<f:selectItem itemLabel="Feminimo" itemValue="S+" />
-											</p:selectOneRadio>
-									</div>
-								</div>
-								<div class="ui-grid-row">
-									<div class="ui-grid-col-2">
-										<h:outputLabel for="ajax" value="Data nasc:" />
-									</div>
-									<div class="ui-grid-col-6">
-									<p:calendar id="german" value="#{medicoView.medico.dataNasc}" yearRange="c-200:c+200" locale="de" navigator="true" pattern="dd/MM/yyyy"
-									 requiredMessage="campo obrigatorio!" />
-									
-									</div>
-								</div>
-								<div class="ui-grid-row">
-									<div class="ui-grid-col-2">
-										<h:outputText value="Estado civil:" />
-									</div>
-									<div class="ui-grid-col-6">
-										<p:selectOneRadio id="estadoCivil"
-												value="#{medicoView.medico.estadoCivil}"
-												 requiredMessage="campo obrigatorio!">
-												<f:selectItem itemLabel="Solteiro" itemValue="Solteiro" />
-												<f:selectItem itemLabel="Casado" itemValue="Casado" />
-												<f:selectItem itemLabel="Viúvo" itemValue="Viuvo" />
-										</p:selectOneRadio>
-									</div>
-								</div>
-								<div class="ui-grid-row">
-									<div class="ui-grid-col-2">
-										<h:outputLabel for="ajax" value="Telefone:" />
-									</div>
-									<div class="ui-grid-col-6">
-										<p:inputMask id="telefone" value="#{medicoView.medico.telefone}" mask="9999-9999"
-										requiredMessage="campo obrigatorio!" label="text"/>
-									</div>
-								</div>
-								
-								<div class="ui-grid-row">
-									<div class="ui-grid-col-2">
-										<h:outputText value="Estado:" />
-									</div>
-									<div class="ui-grid-col-6">
-										<p:selectOneMenu id="console" value="#{medicoView.medico.estado}" style="width:125px" 
-										 requiredMessage="campo obrigatorio!">
-								            <f:selectItem itemLabel="" />
-								            <f:selectItem itemLabel="RN" itemValue="RN" />
-								            <f:selectItem itemLabel="RJ" itemValue="RJ" />
-								            <f:selectItem itemLabel="SP" itemValue="SP" />
-								            <f:selectItem itemLabel="AM" itemValue="AM" />
-								        </p:selectOneMenu>
-									</div>
-								</div>
-								<div class="ui-grid-row">
-									<div class="ui-grid-col-2">
-										<h:outputLabel for="ajax" value="Cidade:" />
-									</div>
-									<div class="ui-grid-col-6">
-										<p:inputText value="#{medicoView.medico.cidade}" 
-										 requiredMessage="campo obrigatorio!"/>
-									</div>
-								</div>
-								<div class="ui-grid-row">
-									<div class="ui-grid-col-2">
-										<h:outputText value="Bairro:" />
-									</div>
-									<div class="ui-grid-col-6">
-										<p:inputText value="#{medicoView.medico.bairro}" 
-										requiredMessage="campo obrigatorio!"/>
-									</div>
-								</div>
-								<div class="ui-grid-row">
-									<div class="ui-grid-col-2">
-										<h:outputLabel for="ajax" value="Rua:" />
-									</div>
-									<div class="ui-grid-col-6">
-										<p:inputText value="#{medicoView.medico.nomeRua}" 
-										 requiredMessage="campo obrigatorio!"/>
-									</div>
-								</div>
-								<div class="ui-grid-row">
-									<div class="ui-grid-col-2">
-										<h:outputLabel for="ajax" value="Numero:" />
-									</div>
-									<div class="ui-grid-col-6">
-										<p:inputMask value="#{medicoView.medico.numeroCasa}" 
-										 requiredMessage="campo obrigatorio!" mask="9?9999" maxlength="5" placeHolder=" "/>
-									</div>
-								</div>
-								<div class="ui-grid-row">
-									<div class="ui-grid-col-2">
-										<h:outputLabel for="ajax" value="Salário:" />
-									</div>
-									<div class="ui-grid-col-6">
-										<p:inputMask value="#{medicoView.medico.salario}" 
-										requiredMessage="campo obrigatorio!" mask="9?999999" maxlength="7" placeHolder=" "/>
-									</div>
-								</div>
+
+											<div class="ui-grid-row">
+												<div class="ui-grid-col-2">
+													<h:outputLabel for="ajax" value="Nome:" />
+												</div>
+												<div class="ui-grid-col-6">
+													<p:inputText value="#{medicoView.medico.nome}" label="text"
+														requiredMessage="campo obrigatorio!" />
+												</div>
+											</div>
+
+											<div class="ui-grid-row">
+												<div class="ui-grid-col-2">
+													<h:outputLabel for="ajax" value="CPF:" />
+												</div>
+												<div class="ui-grid-col-6">
+													<p:inputMask value="#{medicoView.medico.cpf}" label="text"
+														mask="999.999.999-99" requiredMessage="campo obrigatorio!" />
+												</div>
+											</div>
+
+											<div class="ui-grid-row">
+												<div class="ui-grid-col-2">
+													<h:outputText value="Sexo:" />
+												</div>
+												<div class="ui-grid-col-6">
+													<p:selectOneRadio id="sexo"
+														value="#{medicoView.medico.sexo}"
+														requiredMessage="campo obrigatorio!">
+														<f:selectItem itemLabel="Masculino" itemValue="M" />
+														<f:selectItem itemLabel="Feminimo" itemValue="S+" />
+													</p:selectOneRadio>
+												</div>
+											</div>
+											<div class="ui-grid-row">
+												<div class="ui-grid-col-2">
+													<h:outputLabel for="ajax" value="Data nasc:" />
+												</div>
+												<div class="ui-grid-col-6">
+													<p:calendar id="german"
+														value="#{medicoView.medico.dataNasc}"
+														yearRange="c-200:c+200" locale="de" navigator="true"
+														pattern="dd/MM/yyyy" requiredMessage="campo obrigatorio!" />
+
+												</div>
+											</div>
+											<div class="ui-grid-row">
+												<div class="ui-grid-col-2">
+													<h:outputText value="Estado civil:" />
+												</div>
+												<div class="ui-grid-col-6">
+													<p:selectOneRadio id="estadoCivil"
+														value="#{medicoView.medico.estadoCivil}"
+														requiredMessage="campo obrigatorio!">
+														<f:selectItem itemLabel="Solteiro" itemValue="Solteiro" />
+														<f:selectItem itemLabel="Casado" itemValue="Casado" />
+														<f:selectItem itemLabel="Viúvo" itemValue="Viuvo" />
+													</p:selectOneRadio>
+												</div>
+											</div>
+											<div class="ui-grid-row">
+												<div class="ui-grid-col-2">
+													<h:outputLabel for="ajax" value="Telefone:" />
+												</div>
+												<div class="ui-grid-col-6">
+													<p:inputMask id="telefone"
+														value="#{medicoView.medico.telefone}" mask="9999-9999"
+														requiredMessage="campo obrigatorio!" label="text" />
+												</div>
+											</div>
+
+											<div class="ui-grid-row">
+												<div class="ui-grid-col-2">
+													<h:outputText value="Estado:" />
+												</div>
+												<div class="ui-grid-col-6">
+													<p:selectOneMenu id="console"
+														value="#{medicoView.medico.estado}" style="width:125px"
+														requiredMessage="campo obrigatorio!">
+														<f:selectItem itemLabel="" />
+														<f:selectItem itemLabel="RN" itemValue="RN" />
+														<f:selectItem itemLabel="RJ" itemValue="RJ" />
+														<f:selectItem itemLabel="SP" itemValue="SP" />
+														<f:selectItem itemLabel="AM" itemValue="AM" />
+													</p:selectOneMenu>
+												</div>
+											</div>
+											<div class="ui-grid-row">
+												<div class="ui-grid-col-2">
+													<h:outputLabel for="ajax" value="Cidade:" />
+												</div>
+												<div class="ui-grid-col-6">
+													<p:inputText value="#{medicoView.medico.cidade}"
+														requiredMessage="campo obrigatorio!" />
+												</div>
+											</div>
+											<div class="ui-grid-row">
+												<div class="ui-grid-col-2">
+													<h:outputText value="Bairro:" />
+												</div>
+												<div class="ui-grid-col-6">
+													<p:inputText value="#{medicoView.medico.bairro}"
+														requiredMessage="campo obrigatorio!" />
+												</div>
+											</div>
+											<div class="ui-grid-row">
+												<div class="ui-grid-col-2">
+													<h:outputLabel for="ajax" value="Rua:" />
+												</div>
+												<div class="ui-grid-col-6">
+													<p:inputText value="#{medicoView.medico.nomeRua}"
+														requiredMessage="campo obrigatorio!" />
+												</div>
+											</div>
+											<div class="ui-grid-row">
+												<div class="ui-grid-col-2">
+													<h:outputLabel for="ajax" value="Numero:" />
+												</div>
+												<div class="ui-grid-col-6">
+													<p:inputMask value="#{medicoView.medico.numeroCasa}"
+														requiredMessage="campo obrigatorio!" mask="9?9999"
+														maxlength="5" placeHolder=" " />
+												</div>
+											</div>
+											<div class="ui-grid-row">
+												<div class="ui-grid-col-2">
+													<h:outputLabel for="ajax" value="Salário:" />
+												</div>
+												<div class="ui-grid-col-6">
+													<p:inputMask value="#{medicoView.medico.salario}"
+														requiredMessage="campo obrigatorio!" mask="9?999999"
+														maxlength="7" placeHolder=" " />
+												</div>
+											</div>
 
 
 										</div>
 									</h:form>
 								</div>
 							</p:tab>
-							<p:tab id="personal2" title="Turnos">
+							<p:tab id="personal2" title="Turnos" widgetVar="formTurno">
 								<p:outputPanel id="turno" rendered="true">
-						<h:form>
-							<p:growl id="messages" showDetail="true" />
-							<h:panelGrid width="100%" columnClasses="value">
-								<p:schedule id="scheduleturno" value="#{scheduleView.cadastoTurnos}"
-									widgetVar="myschedule" ignoreTimezone="false"
-									timeZone="America/Recife" view="agendaWeek" locale="pt_br"
-									showHeader="false" allDaySlot="false" slotMinutes="30" >
-						
-								
-								</p:schedule>
-							</h:panelGrid>
-						</h:form>
-					</p:outputPanel>
+									<h:form id = "formTurnos">
+										<p:growl id="messages" showDetail="true" />
+										<p:outputLabel for="turno" value="Turno: " />
+										<p:selectOneMenu id="turno" value="#{medicoView.turno}">
+											<f:selectItem itemLabel="Select One" itemValue="" />
+											<f:selectItems value="#{medicoView.turnos}" />
+										</p:selectOneMenu>
+										<p:outputLabel for="especialidade" value="Especialidade: " />
+										<p:selectOneMenu widgetVar="selectEspecialidade" id="especialidade" value="#{medicoView.especialidade}">
+											<f:selectItem itemLabel="Select One" itemValue="" />
+											<f:selectItems value="#{medicoView.especialidades}" />
+										</p:selectOneMenu>
+										<p:commandButton id="novaEspecialidade"
+											update=":eventDetails"  onclick="PF('addEspecialidade').show();"  value="add especialidade" />
+										<p:commandButton id="cadastrar"
+											action="#{medicoView.addTurno}" value="teste" />
+										<h:panelGrid width="100%" columnClasses="value">
+											<p:schedule id="scheduleturno"
+												value="#{scheduleView.cadastoTurnos}" widgetVar="myschedule"
+												ignoreTimezone="false" timeZone="America/Recife"
+												view="agendaWeek" locale="pt_br" showHeader="false"
+												allDaySlot="false" slotMinutes="30">
+											</p:schedule>
+										</h:panelGrid>
+										<p:dialog header="Cadastrar especialidade" widgetVar="addEspecialidade">
+										    <h:form>
+												<h:panelGrid id="eventDetails" columns="2">
+													<h:outputText value="Nome:" />
+													<p:inputText value="#{medicoView.novaEspecialidade.nome}"
+														requiredMessage="campo obrigatorio!" />
+													<h:outputText value="Descricao:" />
+													<p:inputTextarea rows="6" cols="33"
+														value="#{medicoView.novaEspecialidade.descricao}" />
+													<p:commandButton id="adicionar" value="Salvar"
+														actionListener="#{medicoView.salvarEspecialidade}" 
+														oncomplete="PF('addEspecialidade').hide();
+														PF('formTurno').update()"
+														/>
+												</h:panelGrid>
+											</h:form>
+										</p:dialog>
+									</h:form>
+								</p:outputPanel>
 							</p:tab>
 							<p:tab id="address" title="Confirmacao">
 								<div class="ui-grid-row">
 									<div class="ui-grid-col-6">
-										<p:commandButton value="Salvar"
-										action="#{medicoView.salvar}"
-										update="formPrincipal"/>
+										<p:commandButton value="Salvar" action="#{medicoView.salvar}"
+											update="formPrincipal" />
 									</div>
 								</div>
 							</p:tab>
-							
 						</p:wizard>
+
 					</h:form>
 
 				</div>
 			</div>
 		</div>
 	</div>
-
+	<p:dialog widgetVar="cadastrarEspecialidade"
+		header="Detalhes Agendamento" showEffect="clip" hideEffect="clip">
+		<h:panelGrid id="eventDetails" columns="2">
+			<h:outputText value="Nome:" />
+			<p:inputText value="#{especialidadeView.especialidade.nome}"
+				requiredMessage="campo obrigatorio!" />
+			<h:outputText value="Descricao:" />
+			<p:inputTextarea rows="6" cols="33"
+				value="#{especialidadeView.especialidade.descricao}" />
+			<p:commandButton id="adicionar" value="Salvar"
+				actionListener="#{especialidadeView.salvar}"
+				oncomplete="PF('selectEspecialidade').update();PF('cadastrarEspecialidade').hide();" />
+		</h:panelGrid>
+	</p:dialog>
 </h:body>
 </html>

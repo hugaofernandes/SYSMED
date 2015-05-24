@@ -6,38 +6,68 @@ import java.util.Date;
 import java.util.List;
 
 import javax.annotation.PostConstruct;
+import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
 import javax.faces.event.ActionEvent;
 
+import br.com.sysmed.dao.EspecialidadeDAO;
 import br.com.sysmed.dao.MedicoDao;
 import br.com.sysmed.dao.TurnoDAO;
+import br.com.sysmed.modelo.Especialidade;
+import br.com.sysmed.modelo.Horario;
 import br.com.sysmed.modelo.Medico;
+import br.com.sysmed.modelo.Trabalha;
+import br.com.sysmed.modelo.Turno;
 
 
 @ManagedBean(name = "medicoView")
 @SessionScoped  
 public class MedicoView {
 private MedicoDao dao;
-private TurnoDAO daoTurno;
+
+private String turno;
+private List<Turno> turnos;
+
+private String especialidade;
+private List<Especialidade> especialidades;
+
 private Medico medico;
 private String data_nasc;
+private EspecialidadeDAO especialidadeDAO;
 private List<Medico> medicos;
 private List<Medico> medicosFilter;
 
+private Especialidade novaEspecialidade;
 
-	
+
 	@PostConstruct
 	public void init() {
-		daoTurno = new TurnoDAO();
+		TurnoDAO daoTurno = new TurnoDAO();
+		try {
+	
+			this.turnos = daoTurno.findAll();
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		
+		especialidadeDAO = new EspecialidadeDAO();
+		try {
+			
+			this.especialidades = especialidadeDAO.findAll();
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		
 		dao = new MedicoDao();
-		medico = new Medico();
 		try {
 			medicos = dao.findAll();
 		} catch (Exception e) {
 			e.printStackTrace();
 
 		}
+		this.novaEspecialidade = new Especialidade();
+		medico = new Medico();
 	}
 		
 	public void salvar(ActionEvent actionEvent) {
@@ -76,6 +106,12 @@ private List<Medico> medicosFilter;
 		this.data_nasc = "";
 	}
 	
+	public void salvarEspecialidade(){
+		especialidadeDAO.salvar(this.novaEspecialidade);
+		this.novaEspecialidade = new Especialidade();
+		this.atualizarEspecialidade();
+	
+	}
 	public String novoMedico(){
 		System.out.println(this.medico.getNome());
 		this.medico = new Medico();
@@ -84,7 +120,8 @@ private List<Medico> medicosFilter;
 		
 	}
 	public void addTurno(){
-		
+		System.out.println("teste");
+		System.out.println(this.turno);
 	}
 	public void excluir(){
 		System.out.println(this.medico.getNome());
@@ -93,7 +130,18 @@ private List<Medico> medicosFilter;
 		medico = new Medico();
 		this.data_nasc = "";
 	}
-	
+	public void atualizarEspecialidade(){
+		try {
+			this.especialidades = especialidadeDAO.findAll();
+			System.out.println("atualizado");
+		} catch (Exception e) {
+			e.printStackTrace();
+			System.out.println("nao atulizado");
+		}
+		for (Especialidade especialidade:this.getEspecialidades()){
+			System.out.println(especialidade);
+		}
+	}
 	public String getData_nasc() {
 		return data_nasc;
 	}
@@ -124,4 +172,47 @@ private List<Medico> medicosFilter;
 	public void setMedicosFilter(List<Medico> medicosFilter) {
 		this.medicosFilter = medicosFilter;
 	}
+	
+	public List<Turno> getTurnos() {
+		return turnos;
+	}
+
+	public void setTurnos(List<Turno> turnos) {
+		this.turnos = turnos;
+	}
+	public String getTurno() {
+		return turno;
+	}
+
+	public void setTurno(String turno) {
+		this.turno = turno;
+	}
+	public List<Especialidade> getEspecialidades() {
+		return especialidades;
+	}
+
+	public void setEspecialidades(List<Especialidade> especialidades) {
+		this.especialidades = especialidades;
+	}
+	
+	public String getEspecialidade() {
+		return especialidade;
+	}
+
+	public void setEspecialidade(String especialidade) {
+		this.especialidade = especialidade;
+	}
+
+	public Especialidade getNovaEspecialidade() {
+		return novaEspecialidade;
+	}
+
+	public void setNovaEspecialidade(Especialidade novaEspecialidade) {
+		this.novaEspecialidade = novaEspecialidade;
+	}
+	
+	
+	
+	
+
 }
