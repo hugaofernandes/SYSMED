@@ -4,8 +4,6 @@ import java.io.Serializable;
 
 import javax.persistence.*;
 
-import br.com.sysmed.excecoes.HoraIlegalException;
-import br.com.sysmed.excecoes.MesmaHoraException;
 import br.com.sysmed.excecoes.HorarioValidacao;
 
 import java.sql.Time;

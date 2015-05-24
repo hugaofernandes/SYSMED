@@ -1,11 +1,6 @@
 package br.com.sysmed.dao;
 
-import java.util.List;
-
-import org.hibernate.Query;
-
 import br.com.sysmed.modelo.Medico;
-import br.com.sysmed.modelo.Paciente;
 
 
 public class MedicoDao extends GenericDao< Medico> {

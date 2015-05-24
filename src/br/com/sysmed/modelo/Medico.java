@@ -4,8 +4,6 @@ import java.io.Serializable;
 
 import javax.persistence.*;
 
-import org.primefaces.expression.impl.ThisExpressionResolver;
-
 import java.util.List;
 
 

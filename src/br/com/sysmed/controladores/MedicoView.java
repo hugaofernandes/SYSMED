@@ -11,6 +11,7 @@ import javax.faces.bean.SessionScoped;
 import javax.faces.event.ActionEvent;
 
 import br.com.sysmed.dao.MedicoDao;
+import br.com.sysmed.dao.TurnoDAO;
 import br.com.sysmed.modelo.Medico;
 
 
@@ -18,6 +19,7 @@ import br.com.sysmed.modelo.Medico;
 @SessionScoped  
 public class MedicoView {
 private MedicoDao dao;
+private TurnoDAO daoTurno;
 private Medico medico;
 private String data_nasc;
 private List<Medico> medicos;
@@ -27,6 +29,7 @@ private List<Medico> medicosFilter;
 	
 	@PostConstruct
 	public void init() {
+		daoTurno = new TurnoDAO();
 		dao = new MedicoDao();
 		medico = new Medico();
 		try {
@@ -80,7 +83,9 @@ private List<Medico> medicosFilter;
 		return "paginaCadastroMedico";
 		
 	}
-	
+	public void addTurno(){
+		
+	}
 	public void excluir(){
 		System.out.println(this.medico.getNome());
 		dao.excluir(this.medico);
@@ -119,7 +124,4 @@ private List<Medico> medicosFilter;
 	public void setMedicosFilter(List<Medico> medicosFilter) {
 		this.medicosFilter = medicosFilter;
 	}
-
-	
-
 }

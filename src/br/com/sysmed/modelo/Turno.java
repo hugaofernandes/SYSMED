@@ -4,9 +4,6 @@ import java.io.Serializable;
 
 import javax.persistence.*;
 
-import com.sun.javafx.css.CascadingStyle;
-
-
 import br.com.sysmed.excecoes.*;
 import java.util.ArrayList;
 import java.util.Calendar;
