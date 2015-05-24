@@ -4,7 +4,12 @@ import java.io.Serializable;
 
 import javax.persistence.*;
 
+import br.com.sysmed.excecoes.HoraIlegalException;
+import br.com.sysmed.excecoes.MesmaHoraException;
+import br.com.sysmed.excecoes.HorarioValidacao;
+
 import java.sql.Time;
+import java.util.Calendar;
 
 
 /**
@@ -42,16 +47,23 @@ public class Horario implements Serializable {
 			Turno turno) {
 		super();
 		this.diaDaSemana = diaDaSemana;
-		this.horaFinal = horaFinal;
-		this.horaInicial = horaInicial;
+		this.setHoraInicial(horaInicial);
+		this.setHoraFinal(horaFinal);
 		this.turno = turno;
 	}
 	
-	public Horario(int diaDaSemana, Time horaInicial, Time horaFinal) {
+	public Horario(int diaDaSemana, Time horaInicial, Time horaFinal) throws RuntimeException{
 		super();
 		this.diaDaSemana = diaDaSemana;
-		this.horaFinal = horaFinal;
-		this.horaInicial = horaInicial;
+		HorarioValidacao validacao = this.setHoraInicial(horaInicial);
+		if(validacao!=HorarioValidacao.OPERACAO_BEM_SUCEDIDA){
+			throw new RuntimeException(validacao.getDescicao());
+		}
+		validacao = this.setHoraFinal(horaFinal);
+		if(validacao!=HorarioValidacao.OPERACAO_BEM_SUCEDIDA){
+			throw new RuntimeException(validacao.getDescicao());
+		}
+		
 
 	}
 	
@@ -75,16 +87,49 @@ public class Horario implements Serializable {
 		return this.horaFinal;
 	}
 
-	public void setHoraFinal(Time horaFinal) {
+	public HorarioValidacao setHoraFinal(Time horaFinal){
+		if (this.horaInicial!=null){
+			Calendar tFinal = Calendar.getInstance();
+			tFinal.setTimeInMillis(horaFinal.getTime());
+			Calendar tInicio = Calendar.getInstance();
+			tInicio.setTimeInMillis(this.getHoraInicial().getTime());	
+			if ((tFinal.get(Calendar.MINUTE) == tInicio.get(Calendar.MINUTE))&&(tFinal.get(Calendar.HOUR_OF_DAY) == tInicio.get(Calendar.HOUR_OF_DAY))){
+				return HorarioValidacao.ERRO;
+			}
+			if ((tFinal.get(Calendar.HOUR_OF_DAY) < tInicio.get(Calendar.HOUR_OF_DAY))){
+					return HorarioValidacao.ERRO;
+			}
+			if ((tFinal.get(Calendar.HOUR_OF_DAY) == tInicio.get(Calendar.HOUR_OF_DAY))&&(tFinal.get(Calendar.MINUTE) < tInicio.get(Calendar.MINUTE))){
+				return HorarioValidacao.ERRO;
+			}
+		}
 		this.horaFinal = horaFinal;
+		return HorarioValidacao.OPERACAO_BEM_SUCEDIDA;
 	}
 
 	public Time getHoraInicial() {
 		return this.horaInicial;
 	}
 
-	public void setHoraInicial(Time horaInicial) {
+	public HorarioValidacao setHoraInicial(Time horaInicial){
+		if (this.horaFinal!=null){
+			Calendar tInicio = Calendar.getInstance();
+			tInicio.setTimeInMillis(horaInicial.getTime());
+			Calendar tFinal = Calendar.getInstance();
+			tFinal.setTimeInMillis(this.getHoraFinal().getTime());	
+			if ((tFinal.get(Calendar.MINUTE) == tInicio.get(Calendar.MINUTE))&&(tFinal.get(Calendar.HOUR_OF_DAY) == tInicio.get(Calendar.HOUR_OF_DAY))){
+				return HorarioValidacao.ERRO;
+			}
+	
+			if ((tFinal.get(Calendar.HOUR_OF_DAY) < tInicio.get(Calendar.HOUR_OF_DAY))){
+					return HorarioValidacao.ERRO;
+			}
+			if ((tFinal.get(Calendar.HOUR_OF_DAY) == tInicio.get(Calendar.HOUR_OF_DAY))&&(tFinal.get(Calendar.MINUTE) < tInicio.get(Calendar.MINUTE))){
+				return HorarioValidacao.ERRO;
+		     }
+		}
 		this.horaInicial = horaInicial;
+		return HorarioValidacao.OPERACAO_BEM_SUCEDIDA;
 	}
 
 	public Turno getTurno() {

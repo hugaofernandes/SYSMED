@@ -113,7 +113,7 @@ public class SolicitacaoConsultaView {
         FacesMessage message = new FacesMessage(FacesMessage.SEVERITY_INFO, "Event moved", "Day delta:" + event.getDayDelta() + ", Minute delta:" + event.getMinuteDelta());
         System.out.println("EventoMove");
         EventoConsulta event2 = (EventoConsulta) event.getScheduleEvent();
-        System.out.println(event2.getTitle());
+        System.out.println(event2.getStartDate());
         System.out.println(event.getPhaseId());
         addMessage(message);
     }
