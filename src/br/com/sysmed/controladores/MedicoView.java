@@ -34,6 +34,7 @@ private List<Especialidade> especialidades;
 
 private Medico medico;
 private String data_nasc;
+private double custo_consulta;
 private EspecialidadeDAO especialidadeDAO;
 private List<Medico> medicos;
 private List<Medico> medicosFilter;
@@ -211,8 +212,11 @@ private Especialidade novaEspecialidade;
 		this.novaEspecialidade = novaEspecialidade;
 	}
 	
-	
-	
-	
+	public double getCusto_consulta() {
+		return custo_consulta;
+	}
 
+	public void setCusto_consulta(double custo_consulta) {
+		this.custo_consulta = custo_consulta;
+	}
 }
