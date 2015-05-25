@@ -225,15 +225,13 @@ and open the template in the editor.
 													<div class="ui-grid-row">
 														<div class="ui-grid-col-6">
 															<p:commandButton id="novaEspecialidade"
-																update=":eventDetails"
+																update="formEspecialidade"
 																onclick="PF('addEspecialidade').show();"
 																value="add especialidade" />
 														</div>
 														<div class="ui-grid-col-6">
 															<p:commandButton id="novaEspecialidade2"
-																update=":eventDetails"
-																onclick="PF('addEspecialidade').show();"
-																value="add Turno" />
+																value="add especialidade" />
 														</div>
 													</div>
 												</div>
@@ -243,23 +241,25 @@ and open the template in the editor.
 															action="#{medicoView.addTurno}" value="adicionar" />
 													</div>
 												</div>
-												
-								<p:dialog header="Cadastrar especialidade" widgetVar="addEspecialidade">
-									<h:form>
-										<h:panelGrid id="eventDetails" columns="2">
-											<h:outputText value="Nome:" />
-											<p:inputText value="#{medicoView.novaEspecialidade.nome}"
-												requiredMessage="campo obrigatorio!" />
-											<h:outputText value="Descricao:" />
-											<p:inputTextarea rows="6" cols="33"
-												value="#{medicoView.novaEspecialidade.descricao}" />
-											<p:commandButton id="adicionar" value="Salvar"
-												actionListener="#{medicoView.salvarEspecialidade}"
-												oncomplete="PF('addEspecialidade').hide();
+												<p:dialog header="Cadastrar especialidade"
+													widgetVar="addEspecialidade">
+													<h:form id="formEspecialidade">
+														<h:panelGrid id="eventDetails" columns="2">
+
+															<h:outputText value="Nome:" />
+															<p:inputText value="#{medicoView.novaEspecialidade.nome}"
+																requiredMessage="campo obrigatorio!" />
+															<h:outputText value="Descricao:" />
+															<p:inputTextarea rows="6" cols="33"
+																value="#{medicoView.novaEspecialidade.descricao}" />
+															<p:commandButton id="adicionar" value="Salvar"
+																actionListener="#{medicoView.salvarEspecialidade}"
+																oncomplete="PF('addEspecialidade').hide();
 														PF('formTurno').update()" />
-										</h:panelGrid>
-									</h:form>
-								</p:dialog>
+
+														</h:panelGrid>
+													</h:form>
+												</p:dialog>
 											</h:form>
 										</div>
 
@@ -278,30 +278,13 @@ and open the template in the editor.
 
 									</div>
 								</div>
-							
-							
+
 							</p:tab>
 						</p:wizard>
-
 					</h:form>
-
 				</div>
 			</div>
 		</div>
 	</div>
-	<p:dialog widgetVar="cadastrarEspecialidade"
-		header="Detalhes Agendamento" showEffect="clip" hideEffect="clip">
-		<h:panelGrid id="eventDetails" columns="2">
-			<h:outputText value="Nome:" />
-			<p:inputText value="#{especialidadeView.especialidade.nome}"
-				requiredMessage="campo obrigatorio!" />
-			<h:outputText value="Descricao:" />
-			<p:inputTextarea rows="6" cols="33"
-				value="#{especialidadeView.especialidade.descricao}" />
-			<p:commandButton id="adicionar" value="Salvar"
-				actionListener="#{especialidadeView.salvar}"
-				oncomplete="PF('selectEspecialidade').update();PF('cadastrarEspecialidade').hide();" />
-		</h:panelGrid>
-	</p:dialog>
 </h:body>
 </html>
