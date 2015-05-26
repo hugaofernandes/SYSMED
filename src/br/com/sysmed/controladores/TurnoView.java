@@ -124,9 +124,9 @@ public class TurnoView {
     		
     			TurnoValidacao val = this.turno.addHorario(horario);
     			if (val == TurnoValidacao.OPERACAO_BEM_SUCEDIDA){
-    			DefaultScheduleEvent novoEvento = new DefaultScheduleEvent("", this.getInicioAtualizado(horario),this.getFinalAtualizado(horario));
-    			novoEvento.setData(horario);
-    			cadastoTurnos.addEvent(novoEvento);
+	    			DefaultScheduleEvent novoEvento = new DefaultScheduleEvent("", horario.getInicioAtualizado(),horario.getFinalAtualizado());
+	    			novoEvento.setData(horario);
+	    			cadastoTurnos.addEvent(novoEvento);
     			}
     			else{
     				System.out.println(val);
@@ -155,25 +155,7 @@ public class TurnoView {
     	this.turno = new Turno();
     }
  
-    public Date getInicioAtualizado(Horario horario){
-    	Calendar horarioInicio = Calendar.getInstance();
-    	horarioInicio.setTimeInMillis(horario.getHoraInicial().getTime());
-    	Calendar inicio_evento = Calendar.getInstance();
-    	inicio_evento.set(Calendar.HOUR_OF_DAY,  horarioInicio.get(Calendar.HOUR_OF_DAY));
-    	inicio_evento.set(Calendar.MINUTE,  horarioInicio.get(Calendar.MINUTE));
-    	inicio_evento.set(Calendar.DAY_OF_WEEK,horario.getDiaDaSemana());
-    	return inicio_evento.getTime();
-    }
     
-    public Date getFinalAtualizado(Horario horario){
-      	Calendar horarioFinal = Calendar.getInstance();
-    	horarioFinal.setTimeInMillis(horario.getHoraFinal().getTime());
-    	Calendar final_evento = Calendar.getInstance();
-    	final_evento.set(Calendar.HOUR_OF_DAY,  horarioFinal.get(Calendar.HOUR_OF_DAY));
-    	final_evento.set(Calendar.MINUTE,  horarioFinal.get(Calendar.MINUTE));
-    	final_evento.set(Calendar.DAY_OF_WEEK,horario.getDiaDaSemana());
-    	return final_evento.getTime();
-    }
     
 	public void setDiasEscolhidos(String[] diasEscolhidos) {
         this.diasEscolhidos = diasEscolhidos;
