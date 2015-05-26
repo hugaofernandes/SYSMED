@@ -2,6 +2,7 @@ package br.com.sysmed.controladores;
 
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
@@ -12,6 +13,7 @@ import javax.faces.event.ActionEvent;
 
 import org.primefaces.model.DefaultScheduleEvent;
 import org.primefaces.model.DefaultScheduleModel;
+import org.primefaces.model.ScheduleEvent;
 import org.primefaces.model.ScheduleModel;
 
 import br.com.sysmed.dao.EspecialidadeDAO;
@@ -43,6 +45,8 @@ public class MedicoView {
 	private List<Medico> medicosFilter;
 	private Especialidade novaEspecialidade;
 	private ScheduleModel horariosTrabalho;
+	private List<AtuaComo> horarios;
+	private AtuaComo atuaSelecionado;
 
 	@PostConstruct
 	public void init() {
@@ -87,6 +91,7 @@ public class MedicoView {
 		}
 		this.novaEspecialidade = new Especialidade();
 		horariosTrabalho = new DefaultScheduleModel();
+		horarios = new ArrayList<AtuaComo>();
 
 	}
 
@@ -176,13 +181,14 @@ public class MedicoView {
 			turnoEscolhido.addTrabalha(trabalha);
 			System.out.println("Não existia");
 		}
-		
+		horarios.add(atua);
 		trabalha.addAtuaComo(atua);
 		atua.setTrabalhaBean(trabalha);
 		this.medico.addTrabalha(trabalha);
 		for(Horario horario:turnoEscolhido.getHorarios()){
 			String titulo = turnoEscolhido.getNome()+ "\n" +this.especialidade;
 			DefaultScheduleEvent novoEvento = new DefaultScheduleEvent(titulo, horario.getInicioAtualizado(),horario.getFinalAtualizado());
+			novoEvento.setData(atua);
 			this.horariosTrabalho.addEvent(novoEvento);
 		}
 		System.out.println(this.medico.getCpf());
@@ -192,6 +198,14 @@ public class MedicoView {
 
 	}
 
+	public List<AtuaComo> getHorarios() {
+		return horarios;
+	}
+
+	public void setHorarios(List<AtuaComo> horarios) {
+		this.horarios = horarios;
+	}
+
 	public void excluir() {
 		System.out.println(this.medico.getNome());
 		dao.excluir(this.medico);
@@ -199,7 +213,32 @@ public class MedicoView {
 		medico = new Medico();
 		this.data_nasc = "";
 	}
+	public void excluirAtuaSelecionado(){
+		Trabalha trabalhaExcluir = this.atuaSelecionado.getTrabalhaBean();
+		List<ScheduleEvent> eventosExcluir = new ArrayList<ScheduleEvent>();
+		AtuaComo atuaEvento;
+		for(ScheduleEvent event:this.getHorariosTrabalho().getEvents()){
+			atuaEvento = (AtuaComo) event.getData();
+			if ((atuaEvento.getEspecialidade().getNome().equals(this.atuaSelecionado.getEspecialidade().getNome()))
+				&&(atuaEvento.getTrabalhaBean().getTurnoBean().getNome().equals(this.getAtuaSelecionado().getTrabalhaBean().getTurnoBean().getNome()))
+				){
+				
+				eventosExcluir.add(event);
+			}
+		}
+		
+		trabalhaExcluir.removeAtuaComo(this.atuaSelecionado);
 
+		if (trabalhaExcluir.getAtuaComos().isEmpty()){
+			this.medico.removeTrabalha(trabalhaExcluir);
+		}
+
+		for(ScheduleEvent event:eventosExcluir){
+			this.getHorariosTrabalho().deleteEvent(event);
+		}
+		this.horarios.remove(this.atuaSelecionado);
+	
+	}
 	public void atualizarEspecialidade() {
 		try {
 			this.especialidades = especialidadeDAO.findAll();
@@ -300,4 +339,12 @@ public class MedicoView {
 	public void setHorariosTrabalho(ScheduleModel horariosTrabalho) {
 		this.horariosTrabalho = horariosTrabalho;
 	}
+	public AtuaComo getAtuaSelecionado() {
+		return atuaSelecionado;
+	}
+
+	public void setAtuaSelecionado(AtuaComo atuaSelecionado) {
+		this.atuaSelecionado = atuaSelecionado;
+	}
+
 }

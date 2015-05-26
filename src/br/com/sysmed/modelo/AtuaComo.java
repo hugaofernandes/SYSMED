@@ -35,6 +35,7 @@ public class AtuaComo implements Serializable {
 	private Trabalha trabalhaBean;
 
 	public AtuaComo() {
+	
 	}
 
 	public int getId() {

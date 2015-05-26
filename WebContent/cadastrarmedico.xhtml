@@ -176,113 +176,12 @@ and open the template in the editor.
 														maxlength="7" placeHolder=" " />
 												</div>
 											</div>
-
-
 										</div>
 									</h:form>
 								</div>
 							</p:tab>
 							<p:tab id="personal2" title="Turnos" widgetVar="formTurno">
-								<p:growl id="messages" showDetail="true" />
-								<div class="ui-grid">
-									<div class="ui-grid-row">
-										<div id="opcoesTurno" class="ui-grid-col-3">
-											<h:form id="formTurnos">
-												<div class="ui-grid">
-													<div class="ui-grid-row">
-														<div class="ui-grid-col-5">
-															<p:outputLabel for="turno" value="Turno: " />
-														</div>
-														<div class="ui-grid-col-7">
-															<p:selectOneMenu id="turno" value="#{medicoView.turno}">
-																<f:selectItem itemLabel="Select One" itemValue="" />
-																<f:selectItems value="#{medicoView.turnos}" />
-															</p:selectOneMenu>
-														</div>
-													</div>
-													<div class="ui-grid-row">
-														<div class="ui-grid-col-5">
-															<p:outputLabel for="especialidade"
-																value="Especialidade: " />
-														</div>
-														<div class="ui-grid-col-7">
-															<p:selectOneMenu widgetVar="selectEspecialidade"
-																id="especialidade" value="#{medicoView.especialidade}">
-																<f:selectItem itemLabel="Select One" itemValue="" />
-																<f:selectItems value="#{medicoView.especialidades}" />
-															</p:selectOneMenu>
-														</div>
-													</div>
-													<div class="ui-grid-row">
-														<div class="ui-grid-col-6">
-															<p:outputLabel for="custo" value="Custo: " />
-														</div>
-														<div class="ui-grid-col-6">
-															<p:inputText id="custo"
-																value="#{medicoView.custo_consulta}" />
-														</div>
-													</div>
-													<div class="ui-grid-row">
-														<div class="ui-grid-col-6">
-															<p:commandButton id="novaEspecialidade"
-																update="formEspecialidade"
-																onclick="PF('addEspecialidade').show();"
-																value="add especialidade" />
-														</div>
-														<div class="ui-grid-col-6">
-															<p:commandButton id="novaEspecialidade2"
-																value="add especialidade" />
-														</div>
-													</div>
-												</div>
-												<div class="ui-grid-row">
-													<div class="ui-grid-col-6">
-														<p:commandButton id="cadastrar"
-															action="#{medicoView.addAtuaComo}"  oncomplete="PF('myschedule').update()" value="Adicionar" />
-													</div>
-													<div class="ui-grid-col-6">
-														<p:commandButton id="salvar"
-															action="#{medicoView.salvar2}" value="Salvar" />
-													</div>
-												</div>
-												<p:dialog header="Cadastrar especialidade"
-													widgetVar="addEspecialidade">
-													<h:form id="formEspecialidade">
-														<h:panelGrid id="eventDetails" columns="2">
-
-															<h:outputText value="Nome:" />
-															<p:inputText value="#{medicoView.novaEspecialidade.nome}"
-																requiredMessage="campo obrigatorio!" />
-															<h:outputText value="Descricao:" />
-															<p:inputTextarea rows="6" cols="33"
-																value="#{medicoView.novaEspecialidade.descricao}" />
-															<p:commandButton id="adicionar" value="Salvar"
-																actionListener="#{medicoView.salvarEspecialidade}"
-																oncomplete="PF('addEspecialidade').hide();
-																PF('formTurno').update()" />
-
-														</h:panelGrid>
-													</h:form>
-												</p:dialog>
-											</h:form>
-										</div>
-
-										<div id="turnos" class="ui-grid-col-9">
-											<h:form>
-												<h:panelGrid width="100%" columnClasses="value">
-													<p:schedule id="scheduleturno" aspectRatio="0"
-														value="#{medicoView.horariosTrabalho}" resizable="false" draggable="false"
-														widgetVar="myschedule" ignoreTimezone="false"
-														timeZone="America/Recife" view="agendaWeek" locale="pt_br"
-														showHeader="false" allDaySlot="false" slotMinutes="30">
-													</p:schedule>
-												</h:panelGrid>
-											</h:form>
-										</div>
-
-									</div>
-								</div>
-
+								<ui:include src="/tabturnosmedico.xhtml" />
 							</p:tab>
 						</p:wizard>
 					</h:form>
