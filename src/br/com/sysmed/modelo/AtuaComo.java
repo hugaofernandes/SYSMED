@@ -1,6 +1,7 @@
 package br.com.sysmed.modelo;
 
 import java.io.Serializable;
+
 import javax.persistence.*;
 
 
@@ -27,14 +28,10 @@ public class AtuaComo implements Serializable {
 	@JoinColumn(name="nome_especialidade")
 	private Especialidade especialidade;
 
-	//bi-directional many-to-one association to Medico
-	@ManyToOne
-	@JoinColumn(name="cpf_medico")
-	private Medico medico;
 
 	//bi-directional many-to-one association to Trabalha
 	@ManyToOne
-	@JoinColumn(name="trabalha")
+	@JoinColumn(name="trabalha" )
 	private Trabalha trabalhaBean;
 
 	public AtuaComo() {
@@ -62,14 +59,6 @@ public class AtuaComo implements Serializable {
 
 	public void setEspecialidade(Especialidade especialidade) {
 		this.especialidade = especialidade;
-	}
-
-	public Medico getMedico() {
-		return this.medico;
-	}
-
-	public void setMedico(Medico medico) {
-		this.medico = medico;
 	}
 
 	public Trabalha getTrabalhaBean() {

@@ -34,6 +34,7 @@ public class Turno implements Serializable {
 
 	public Turno() {
 		this.horarios = new ArrayList<Horario>();
+		this.trabalha = new ArrayList<Trabalha>();
 	}
 
 	public String getNome() {

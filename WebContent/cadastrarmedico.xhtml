@@ -218,7 +218,7 @@ and open the template in the editor.
 															<p:outputLabel for="custo" value="Custo: " />
 														</div>
 														<div class="ui-grid-col-6">
-															<p:autoComplete id="custo"
+															<p:inputText id="custo"
 																value="#{medicoView.custo_consulta}" />
 														</div>
 													</div>
@@ -236,9 +236,13 @@ and open the template in the editor.
 													</div>
 												</div>
 												<div class="ui-grid-row">
-													<div class="ui-grid-col-12">
+													<div class="ui-grid-col-6">
 														<p:commandButton id="cadastrar"
-															action="#{medicoView.addTurno}" value="adicionar" />
+															action="#{medicoView.addAtuaComo}"  oncomplete="PF('myschedule').update()" value="Adicionar" />
+													</div>
+													<div class="ui-grid-col-6">
+														<p:commandButton id="salvar"
+															action="#{medicoView.salvar2}" value="Salvar" />
 													</div>
 												</div>
 												<p:dialog header="Cadastrar especialidade"
@@ -255,7 +259,7 @@ and open the template in the editor.
 															<p:commandButton id="adicionar" value="Salvar"
 																actionListener="#{medicoView.salvarEspecialidade}"
 																oncomplete="PF('addEspecialidade').hide();
-														PF('formTurno').update()" />
+																PF('formTurno').update()" />
 
 														</h:panelGrid>
 													</h:form>
@@ -267,7 +271,7 @@ and open the template in the editor.
 											<h:form>
 												<h:panelGrid width="100%" columnClasses="value">
 													<p:schedule id="scheduleturno" aspectRatio="0"
-														value="#{scheduleView.cadastoTurnos}"
+														value="#{medicoView.horariosTrabalho}" resizable="false" draggable="false"
 														widgetVar="myschedule" ignoreTimezone="false"
 														timeZone="America/Recife" view="agendaWeek" locale="pt_br"
 														showHeader="false" allDaySlot="false" slotMinutes="30">

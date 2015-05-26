@@ -508,15 +508,24 @@ input#nomeTurno{
  	border-radius:0px;
  	width: 300px;
 }
+
+
+.wizard .fc-event-inner{
+	background-color: #22A7F0;
+	display: table-cell;
+    vertical-align: middle;
+    text-align: center;
+    font-size: 75%;
+}
+.wizard .fc-event-vert .fc-event-time{
+	  font-size: 0%;   
+}
+
+/* 
 .fc-event-inner,
 .fc-event-time,
 .fc-event-title{
 	background-color: #22A7F0;
-}
-
-.wizard .fc-event-inner{
-	background-color: #22A7F0;
-	display: table;
 }
 
 .wizard .fc-event-time{
@@ -533,6 +542,7 @@ input#nomeTurno{
 	background-color: yellow;
 	height: 0%;
 }
+*/
 #formPrincipal .ui-grid-row{
 	padding-top: 15px;
 	padding-bottom: 15px;
