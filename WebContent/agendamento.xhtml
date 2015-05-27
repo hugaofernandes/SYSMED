@@ -123,14 +123,21 @@ and open the template in the editor.
 								<p:inputText id="telefone"
 									value="#{solicitacaoConsultaView.event.data.paciente.telefone}"
 									disabled="true" required="true" />
-
-								
-								
+			
 								<h:outputLabel value="Medico:" for="nomeMedico" />
 								<p:inputText id="nomeMedico"
 									value="#{solicitacaoConsultaView.event.data.medico.nome}"
 									disabled="true" required="true" />
-									
+								
+								<p:outputLabel value="Cpf Paciente:" for="cpf" />
+								<p:autoComplete id="cpf" forceSelection="true"
+									value="#{solicitacaoConsultaView.cpfPaciente}"
+									completeMethod="#{solicitacaoConsultaView.completePaciente}">
+									<p:ajax event="itemSelect"
+										listener="#{solicitacaoConsultaView.onPacienteSelect}"
+										update="eventDialogPanel" />
+								</p:autoComplete>
+								
 								<p:outputLabel value="Cpf medico:" for="cpfMedico" />
 								<p:autoComplete id="cpfMedico" forceSelection="true"
 									value="#{solicitacaoConsultaView.cpfMedico}"
