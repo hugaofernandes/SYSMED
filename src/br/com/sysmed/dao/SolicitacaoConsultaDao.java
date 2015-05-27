@@ -23,7 +23,7 @@ public class SolicitacaoConsultaDao extends GenericDao<SolicitaoConsulta> {
         update(solicitacaoConsulta);
     }
  
-    public void excluir(String id) {
+    public void excluir(int id) {
     	SolicitaoConsulta c = findById(id);
         delete(c);
     }

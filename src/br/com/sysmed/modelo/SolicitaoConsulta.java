@@ -68,12 +68,14 @@ public class SolicitaoConsulta implements Serializable {
 	public SolicitaoConsulta() {
 		this.paciente = new Paciente();
 		this.medico = new Medico();
+		this.especialidade = new Especialidade();
 	}
 	
 	public SolicitaoConsulta(Date horario) {
 		this.horario = horario;
 		this.paciente = new Paciente();
 		this.medico = new Medico();
+		this.especialidade = new Especialidade();
 	}
 	public int getId() {
 		return this.id;

@@ -150,28 +150,35 @@ public class SolicitacaoConsultaView {
 	public void setEvent(DefaultScheduleEvent event) {
 		this.event = event;
 	}
-
+	public void excluirEvent(ActionEvent actionEvent){
+		SolicitaoConsulta solicitacao = (SolicitaoConsulta) event.getData();
+		dao.excluir(solicitacao.getId());
+		eventModel.deleteEvent(event);
+		this.event = null;
+	}
 	public void addEvent(ActionEvent actionEvent) {
+		SolicitaoConsulta solicitacao = (SolicitaoConsulta) event.getData();
         if(event.getId() == null){
             eventModel.addEvent(event);
-        	SolicitaoConsulta solicitacao = (SolicitaoConsulta) event.getData();
         	dao.salvar(solicitacao);
         }
         else{
+        	dao.alterar(solicitacao);
             eventModel.updateEvent(event);
-        }
-        SolicitaoConsulta solicitacao = (SolicitaoConsulta) event.getData();
-      
+        } 
         event = new DefaultScheduleEvent();
     }
      
     public void onEventSelect(SelectEvent selectEvent) {
         event = (DefaultScheduleEvent) selectEvent.getObject();
+        SolicitaoConsulta solicitacao = (SolicitaoConsulta) event.getData();
+        this.cpfMedico = solicitacao.getMedico().getCpf();
+        this.cpfPaciente = solicitacao.getPaciente().getCpf();
+        this.especialidadeEscohida = solicitacao.getEspecialidade().getNome();
     }
      
     public void onDateSelect(SelectEvent selectEvent) {
     	Date startDate = (Date) selectEvent.getObject();
-    	
 		Calendar cal = Calendar.getInstance(); 
 		cal.setTime(startDate); 
 		cal.add(Calendar.MINUTE, 30); 
@@ -181,6 +188,9 @@ public class SolicitacaoConsultaView {
 		solicitacao.setStatusSolicitacao('A');
     	event = new DefaultScheduleEvent("",startDate,dataFinal);  
     	event.setData(solicitacao);
+    	this.cpfMedico = "";
+    	this.cpfPaciente = "";
+    	this.especialidadeEscohida ="";
     }
     
     public String getCpfMedico() {

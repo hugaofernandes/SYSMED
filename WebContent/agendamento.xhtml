@@ -48,67 +48,11 @@ and open the template in the editor.
 								update="eventDetails" oncomplete="PF('eventDialog').show();" />
 							<p:ajax event="eventSelect"
 								listener="#{solicitacaoConsultaView.onEventSelect}"
-								update="eventDetailsE" oncomplete="PF('eventDialogE').show();" />
+								update="eventDetails" oncomplete="PF('eventDialog').show();" />
 						
 
 						</p:schedule>
 					</h:panelGrid>
-
-
-					<p:dialog widgetVar="eventDialogE" header="Detalhes Agendamento"
-						showEffect="clip" hideEffect="clip">
-
-						<h:panelGrid id="eventDetailsE" columns="2">
-							<h:outputLabel value="Paciente:" for="nomePacienteE" />
-							<h:outputLabel id="nomePacienteE"
-								value="#{solicitacaoConsultaView.event.data.paciente.nome}" />
-
-							<h:outputLabel value="Telefone:" for="telefoneE" />
-							<h:outputLabel id="telefoneE"
-								value="#{solicitacaoConsultaView.event.data.paciente.telefone}" />
-
-							<h:outputLabel value="Cpf Paciente:" for="cpfE" />
-							<h:outputLabel id="cpfE" 
-								value="#{solicitacaoConsultaView.event.data.paciente.cpf}" />
-
-							<h:outputLabel value="Duracao:" for="duracaoE" />
-							<h:outputLabel id="duracaoE"
-								value="#{solicitacaoConsultaView.event.data.duracaoEsperada}" />
-							
-							<h:outputLabel value="Medico:" for="nomeMedicoE" />
-							<h:outputLabel id="nomeMedicoE"
-								value="#{solicitacaoConsultaView.event.data.medico.nome}" />
-							
-							<h:outputLabel value="Cpf Medico:" for="cpfME" />
-							<h:outputLabel id="cpfME" 
-								value="#{solicitacaoConsultaView.event.data.medico.cpf}" />
-								
-							<h:outputLabel value="Especialidade:" for="especialidadeE" />
-							<h:outputLabel id="especialidadeE" 
-								value="#{solicitacaoConsultaView.event.data.especialidade.nome}" />
-							
-							<h:outputLabel value="Data:" for="fromE" />
-							<p:inputMask id="fromE"
-								value="#{solicitacaoConsultaView.event.startDate}"
-								mask="99/99/9999 99:99">
-								<f:convertDateTime pattern="dd/MM/yyyy HH:mm"
-									ignoreTimezone="false" timeZone="America/Recife" />
-							</p:inputMask>
-
-							<h:outputLabel value="Data Final:" for="fromED" />
-							<p:inputMask disabled="true" id="fromED"
-								value="#{solicitacaoConsultaView.event.endDate}"
-								mask="99/99/9999 99:99">
-								<f:convertDateTime pattern="dd/MM/yyyy HH:mm"
-									ignoreTimezone="false" timeZone="America/Recife" />
-							</p:inputMask>
-
-							<p:commandButton type="reset" value="Reset" />
-							<p:commandButton id="addButtonE" value="Salvar"
-								actionListener="#{solicitacaoConsultaView.addEvent}"
-								oncomplete="PF('myschedule').update();PF('eventDialogE').hide();" />
-						</h:panelGrid>
-					</p:dialog>
 
 					<p:dialog widgetVar="eventDialog" id="eventDialog"
 						header="Novo Agendamento" showEffect="clip" hideEffect="clip">
@@ -164,7 +108,9 @@ and open the template in the editor.
 										ignoreTimezone="false" timeZone="America/Recife" />
 								</p:inputMask>
 
-								<p:commandButton type="reset" value="Reset" />
+								<p:commandButton id="excluirButton" value="Excluir"
+									actionListener="#{solicitacaoConsultaView.excluirEvent}"
+									oncomplete="PF('myschedule').update();PF('eventDialog').hide();" />
 								<p:commandButton id="addButton" value="Salvar"
 									actionListener="#{solicitacaoConsultaView.addEvent}"
 									oncomplete="PF('myschedule').update();PF('eventDialog').hide();" />
