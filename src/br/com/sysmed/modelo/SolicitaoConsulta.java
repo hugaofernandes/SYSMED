@@ -67,7 +67,10 @@ public class SolicitaoConsulta implements Serializable {
 
 	public SolicitaoConsulta() {
 	}
-
+	
+	public SolicitaoConsulta(Date horario) {
+		this.horario = horario;
+	}
 	public int getId() {
 		return this.id;
 	}

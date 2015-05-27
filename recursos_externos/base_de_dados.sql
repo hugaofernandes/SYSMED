@@ -420,9 +420,9 @@ CREATE TABLE `solicitao_consulta` (
   `horario` datetime NOT NULL,
   `cpf_paciente` char(11) NOT NULL,
   `cpf_medico` char(11) NOT NULL,
-  `cpf_avaliador` char(11) NOT NULL,
+  `cpf_avaliador` char(11) DEFAULT NULL,
   `nome_especialidade` varchar(50) NOT NULL,
-  `status_solicitacao` enum('P','A','R') NOT NULL,
+  `status_solicitacao` enum('P','A','R') DEFAULT NULL,
   `motivo_recusacao` varchar(500) DEFAULT NULL,
   `duracao_esperada` smallint(6) NOT NULL,
   PRIMARY KEY (`id`),
@@ -432,9 +432,8 @@ CREATE TABLE `solicitao_consulta` (
   KEY `nome_especialidade` (`nome_especialidade`),
   CONSTRAINT `solicitao_consulta_ibfk_1` FOREIGN KEY (`cpf_paciente`) REFERENCES `paciente` (`cpf`),
   CONSTRAINT `solicitao_consulta_ibfk_2` FOREIGN KEY (`cpf_medico`) REFERENCES `medico` (`cpf`),
-  CONSTRAINT `solicitao_consulta_ibfk_3` FOREIGN KEY (`cpf_avaliador`) REFERENCES `recepcionista` (`cpf`),
   CONSTRAINT `solicitao_consulta_ibfk_4` FOREIGN KEY (`nome_especialidade`) REFERENCES `especialidade` (`nome`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -443,6 +442,7 @@ CREATE TABLE `solicitao_consulta` (
 
 LOCK TABLES `solicitao_consulta` WRITE;
 /*!40000 ALTER TABLE `solicitao_consulta` DISABLE KEYS */;
+INSERT INTO `solicitao_consulta` VALUES (1,'2015-05-24 06:00:00','88888888888','1',NULL,'caridiologia2','A',NULL,30);
 /*!40000 ALTER TABLE `solicitao_consulta` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -507,4 +507,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2015-05-26 23:17:41
+-- Dump completed on 2015-05-27 10:13:10

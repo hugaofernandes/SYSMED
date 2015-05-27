@@ -42,7 +42,7 @@ public class SolicitacaoConsultaDao extends GenericDao<SolicitaoConsulta> {
 			Paciente paciente = daoPaciente.findById(cpfPaciente);
 			int duracao = solicitacao.getDuracaoEsperada();
 			Date dataInicio = solicitacao.getHorario();
-			eventModel.addEvent(new EventoConsulta(dataInicio,paciente.getNome(),paciente.getCpf(),paciente.getTelefone(),duracao));
+			eventModel.addEvent(new EventoConsulta(dataInicio,paciente,duracao));
 		}
 		return eventModel;
     }

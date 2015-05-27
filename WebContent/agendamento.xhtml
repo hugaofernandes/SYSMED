@@ -38,8 +38,8 @@ and open the template in the editor.
 
 					<h:panelGrid width="100%" columnClasses="value">
 
-						<p:schedule id="schedule"
-							value="#{solicitacaoConsultaView.eventModel}"
+						<p:schedule id="schedule" resizable="false" draggable="false"
+							value="#{solicitacaoConsultaView.eventModel}" allDaySlot="false"
 							widgetVar="myschedule" ignoreTimezone="false"
 							timeZone="America/Recife">
 
@@ -48,13 +48,7 @@ and open the template in the editor.
 								update="eventDetails" oncomplete="PF('eventDialog').show();" />
 							<p:ajax event="eventSelect"
 								listener="#{solicitacaoConsultaView.onEventSelect}"
-								update="eventDetailsE" oncomplete="PF('eventDialogE').show();" />
-							<p:ajax event="eventMove"
-								listener="#{solicitacaoConsultaView.onEventMove}"
-								update="messages" />
-							<p:ajax event="eventResize"
-								listener="#{solicitacaoConsultaView.onEventResize}"
-								update="messages" />
+								update="eventDetailsE" oncomplete="PF('eventDialogE').show();" />				
 
 						</p:schedule>
 					</h:panelGrid>
@@ -64,22 +58,34 @@ and open the template in the editor.
 						showEffect="clip" hideEffect="clip">
 
 						<h:panelGrid id="eventDetailsE" columns="2">
-							<h:outputLabel value="Nome:" for="nomePacienteE" />
+							<h:outputLabel value="Paciente:" for="nomePacienteE" />
 							<h:outputLabel id="nomePacienteE"
-								value="#{solicitacaoConsultaView.event.nomePaciente}" />
+								value="#{solicitacaoConsultaView.event.data.paciente.nome}" />
 
 							<h:outputLabel value="Telefone:" for="telefoneE" />
 							<h:outputLabel id="telefoneE"
-								value="#{solicitacaoConsultaView.event.telefone}" />
+								value="#{solicitacaoConsultaView.event.data.paciente.telefone}" />
 
-							<h:outputLabel value="Cpf:" for="cpfE" />
-							<h:outputLabel id="cpfE"
-								value="#{solicitacaoConsultaView.event.cpfPaciente}" />
+							<h:outputLabel value="Cpf Paciente:" for="cpfE" />
+							<h:outputLabel id="cpfE" 
+								value="#{solicitacaoConsultaView.event.data.paciente.cpf}" />
 
 							<h:outputLabel value="Duracao:" for="duracaoE" />
 							<h:outputLabel id="duracaoE"
-								value="#{solicitacaoConsultaView.event.duracaoEsperada}" />
-
+								value="#{solicitacaoConsultaView.event.data.duracaoEsperada}" />
+							
+							<h:outputLabel value="Medico:" for="nomeMedicoE" />
+							<h:outputLabel id="nomeMedicoE"
+								value="#{solicitacaoConsultaView.event.data.medico.nome}" />
+							
+							<h:outputLabel value="Cpf Medico:" for="cpfME" />
+							<h:outputLabel id="cpfME" 
+								value="#{solicitacaoConsultaView.event.data.medico.cpf}" />
+								
+							<h:outputLabel value="Especialidade:" for="especialidadeE" />
+							<h:outputLabel id="especialidadeE" 
+								value="#{solicitacaoConsultaView.event.data.especialidade.nome}" />
+							
 							<h:outputLabel value="Data:" for="fromE" />
 							<p:inputMask id="fromE"
 								value="#{solicitacaoConsultaView.event.startDate}"
@@ -107,25 +113,48 @@ and open the template in the editor.
 						header="Novo Agendamento" showEffect="clip" hideEffect="clip">
 						<p:outputPanel id="eventDialogPanel">
 							<h:panelGrid id="eventDetails" columns="2">
-								<h:outputLabel value="Nome:" for="nomePaciente" />
+								<h:outputLabel value="Paciente:" for="nomePaciente" />
 								<p:inputText id="nomePaciente"
-									value="#{solicitacaoConsultaView.event.nomePaciente}"
+									value="#{solicitacaoConsultaView.event.data.paciente.nome}"
 									disabled="true" required="true" />
 
 								<h:outputLabel value="Telefone:" for="telefone" />
 								<p:inputText id="telefone"
-									value="#{solicitacaoConsultaView.event.telefone}"
+									value="#{solicitacaoConsultaView.event.data.paciente.telefone}"
 									disabled="true" required="true" />
 
-								<p:outputLabel value="Cpf:" for="cpf" />
+								<p:outputLabel value="Cpf Paciente:" for="cpf" />
 								<p:autoComplete id="cpf" forceSelection="true"
-									value="#{solicitacaoConsultaView.cpfEscolhido}"
-									completeMethod="#{solicitacaoConsultaView.completeText}">
+									value="#{solicitacaoConsultaView.cpfPaciente}"
+									completeMethod="#{solicitacaoConsultaView.completePaciente}">
 									<p:ajax event="itemSelect"
-										listener="#{solicitacaoConsultaView.onCpfSelect}"
+										listener="#{solicitacaoConsultaView.onPacienteSelect}"
 										update="eventDialogPanel" />
 								</p:autoComplete>
-
+								
+								<h:outputLabel value="Medico:" for="nomeMedico" />
+								<p:inputText id="nomeMedico"
+									value="#{solicitacaoConsultaView.event.data.medico.nome}"
+									disabled="true" required="true" />
+									
+								<p:outputLabel value="Cpf medico:" for="cpfMedico" />
+								<p:autoComplete id="cpfMedico" forceSelection="true"
+									value="#{solicitacaoConsultaView.cpfMedico}"
+									completeMethod="#{solicitacaoConsultaView.completeMedico}">
+									<p:ajax event="itemSelect"
+										listener="#{solicitacaoConsultaView.onMedicoSelect}"
+										update="eventDialogPanel" />
+								</p:autoComplete>
+								
+								<p:outputLabel value="Especialidade:" for="nomeEspecialidade" />
+								<p:autoComplete id="nomeEspecialidade" forceSelection="true"
+									value="#{solicitacaoConsultaView.especialidadeEscohida}"
+									completeMethod="#{solicitacaoConsultaView.completeEspecialidade}">
+									<p:ajax event="itemSelect"
+										listener="#{solicitacaoConsultaView.onEspecialidadeSelect}"
+										update="eventDialogPanel" />
+								</p:autoComplete>
+								
 								<h:outputLabel value="Data:" for="from" />
 								<p:inputMask id="from"
 									value="#{solicitacaoConsultaView.event.startDate}"
