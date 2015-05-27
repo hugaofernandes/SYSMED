@@ -80,8 +80,9 @@ public class SolicitacaoConsultaView {
 			cal.setTime(dataInicio); 
 			cal.add(Calendar.MINUTE, solicitacao.getDuracaoEsperada()); 
 			Date dataFinal = cal.getTime();
-			eventModel.addEvent(new DefaultScheduleEvent(solicitacao.getPaciente().getNome(),dataInicio,dataFinal));
-			event.setData(solicitacao);
+			DefaultScheduleEvent evento =  new DefaultScheduleEvent(solicitacao.getPaciente().getNome(),dataInicio,dataFinal);
+			eventModel.addEvent(evento);
+			evento.setData(solicitacao);
 		}
 	}
 	
@@ -99,6 +100,7 @@ public class SolicitacaoConsultaView {
 	}
 	
 	public void onPacienteSelect(SelectEvent event){
+		
 		System.out.println("Paciente selecionado");
 		Paciente paciente = daoPaciente.findById(this.cpfPaciente);
 		SolicitaoConsulta solicitacao = (SolicitaoConsulta) this.event.getData();

@@ -39,7 +39,7 @@ and open the template in the editor.
 					<h:panelGrid width="100%" columnClasses="value">
 
 						<p:schedule id="schedule" resizable="false" draggable="false"
-							value="#{solicitacaoConsultaView.eventModel}" allDaySlot="false"
+							value="#{solicitacaoConsultaView.eventModel}"
 							widgetVar="myschedule" ignoreTimezone="false"
 							timeZone="America/Recife">
 
@@ -48,7 +48,8 @@ and open the template in the editor.
 								update="eventDetails" oncomplete="PF('eventDialog').show();" />
 							<p:ajax event="eventSelect"
 								listener="#{solicitacaoConsultaView.onEventSelect}"
-								update="eventDetailsE" oncomplete="PF('eventDialogE').show();" />				
+								update="eventDetailsE" oncomplete="PF('eventDialogE').show();" />
+						
 
 						</p:schedule>
 					</h:panelGrid>
@@ -123,14 +124,7 @@ and open the template in the editor.
 									value="#{solicitacaoConsultaView.event.data.paciente.telefone}"
 									disabled="true" required="true" />
 
-								<p:outputLabel value="Cpf Paciente:" for="cpf" />
-								<p:autoComplete id="cpf" forceSelection="true"
-									value="#{solicitacaoConsultaView.cpfPaciente}"
-									completeMethod="#{solicitacaoConsultaView.completePaciente}">
-									<p:ajax event="itemSelect"
-										listener="#{solicitacaoConsultaView.onPacienteSelect}"
-										update="eventDialogPanel" />
-								</p:autoComplete>
+								
 								
 								<h:outputLabel value="Medico:" for="nomeMedico" />
 								<p:inputText id="nomeMedico"
