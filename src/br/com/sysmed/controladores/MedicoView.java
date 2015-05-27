@@ -40,6 +40,10 @@ public class MedicoView {
 	private Medico medico;
 	private String data_nasc;
 	private double custo_consulta;
+	private int duracaoEsperada;
+	
+
+
 	private EspecialidadeDAO especialidadeDAO;
 	private List<Medico> medicos;
 	private List<Medico> medicosFilter;
@@ -51,7 +55,7 @@ public class MedicoView {
 	@PostConstruct
 	public void init() {
 		this.medico = new Medico();
-		this.medico.setCpf("10");
+		this.medico.setCpf("1985");
 		this.medico.setBairro("null");
 		this.medico.setCidade("null");
 		this.medico.setDataNasc(new Date());
@@ -165,7 +169,7 @@ public class MedicoView {
 		}
 		AtuaComo atua = new AtuaComo();
 		atua.setCustoConsulta(this.custo_consulta);
-		
+		atua.setDuracaoEsperada(this.getDuracaoEsperada());
 		for (Especialidade especialidade2 : this.especialidades) {
 			if (especialidade2.getNome().equals(this.especialidade)) {
 				atua.setEspecialidade(especialidade2);
@@ -346,5 +350,13 @@ public class MedicoView {
 	public void setAtuaSelecionado(AtuaComo atuaSelecionado) {
 		this.atuaSelecionado = atuaSelecionado;
 	}
+	public int getDuracaoEsperada() {
+		return duracaoEsperada;
+	}
+
+	public void setDuracaoEsperada(int duracaoEsperada) {
+		this.duracaoEsperada = duracaoEsperada;
+	}
+
 
 }

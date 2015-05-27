@@ -55,6 +55,14 @@ and open the template in the editor.
 								</div>
 								<div class="ui-grid-row">
 									<div class="ui-grid-col-6">
+										<p:outputLabel for="duracao" value="Duracao: " />
+									</div>
+									<div class="ui-grid-col-6">
+										<p:inputText id="duracao" value="#{medicoView.duracaoEsperada}" />
+									</div>
+								</div>
+								<div class="ui-grid-row">
+									<div class="ui-grid-col-6">
 										<p:commandButton id="novaEspecialidade"
 											update="formEspecialidade"
 											onclick="PF('addEspecialidade').show();"
@@ -92,6 +100,9 @@ and open the template in the editor.
 						 
 						    <p:column headerText="Custo">
 						        <h:outputText value="#{atuacomo.custoConsulta}" />
+						    </p:column>
+						    <p:column headerText="Duracao">
+						        <h:outputText value="#{atuacomo.duracaoEsperada}" />
 						    </p:column>
 						 	<p:column >
 					             <p:commandButton styleClass="botaoAcao" update="lista" oncomplete="PF('myschedule').update();" icon="fa fa-trash" title="Excluir"  action="#{medicoView.excluirAtuaSelecionado}">

@@ -33,9 +33,19 @@ public class AtuaComo implements Serializable {
 	@ManyToOne
 	@JoinColumn(name="trabalha" )
 	private Trabalha trabalhaBean;
-
+	
+	@Column(name="duracao_esperada", columnDefinition="smallint")	
+	private int duracaoEsperada;
 	public AtuaComo() {
 	
+	}
+
+	public int getDuracaoEsperada() {
+		return duracaoEsperada;
+	}
+
+	public void setDuracaoEsperada(int duracaoEsperada) {
+		this.duracaoEsperada = duracaoEsperada;
 	}
 
 	public int getId() {
