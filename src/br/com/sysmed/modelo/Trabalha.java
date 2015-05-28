@@ -1,7 +1,10 @@
 package br.com.sysmed.modelo;
 
 import java.io.Serializable;
+
 import javax.persistence.*;
+
+import java.util.ArrayList;
 import java.util.List;
 
 
@@ -19,21 +22,21 @@ public class Trabalha implements Serializable {
 	@GeneratedValue(strategy=GenerationType.AUTO, generator="TRABALHA_ID_GENERATOR")
 	private int id;
 
-	//bi-directional many-to-one association to AtuaComo
-	@OneToMany(mappedBy="trabalhaBean")
-	private List<AtuaComo> atuaComos;
-
 	//bi-directional many-to-one association to Funcionario
 	@ManyToOne
 	@JoinColumn(name="cpf")
 	private Funcionario funcionario;
-
+	
+	@OneToMany(mappedBy="trabalhaBean", cascade = CascadeType.ALL)
+	private List<AtuaComo> atuaComos;
+	
 	//bi-directional many-to-one association to Turno
 	@ManyToOne
 	@JoinColumn(name="turno")
 	private Turno turnoBean;
 
 	public Trabalha() {
+		this.atuaComos = new ArrayList<AtuaComo>();
 	}
 
 	public int getId() {
@@ -44,6 +47,22 @@ public class Trabalha implements Serializable {
 		this.id = id;
 	}
 
+	public Funcionario getFuncionario() {
+		return this.funcionario;
+	}
+
+	public void setFuncionario(Funcionario funcionario) {
+		this.funcionario = funcionario;
+	}
+
+	public Turno getTurnoBean() {
+		return this.turnoBean;
+	}
+
+	public void setTurnoBean(Turno turnoBean) {
+		this.turnoBean = turnoBean;
+	}
+	
 	public List<AtuaComo> getAtuaComos() {
 		return this.atuaComos;
 	}
@@ -64,22 +83,6 @@ public class Trabalha implements Serializable {
 		atuaComo.setTrabalhaBean(null);
 
 		return atuaComo;
-	}
-
-	public Funcionario getFuncionario() {
-		return this.funcionario;
-	}
-
-	public void setFuncionario(Funcionario funcionario) {
-		this.funcionario = funcionario;
-	}
-
-	public Turno getTurnoBean() {
-		return this.turnoBean;
-	}
-
-	public void setTurnoBean(Turno turnoBean) {
-		this.turnoBean = turnoBean;
 	}
 
 }

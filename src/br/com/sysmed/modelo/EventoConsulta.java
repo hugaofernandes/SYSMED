@@ -14,16 +14,12 @@ public class EventoConsulta extends DefaultScheduleEvent{
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
-	private String nomePaciente;
-	private String cpfPaciente;
-	private String telefone;
+	private Paciente paciente;
+	private Medico medico;
 	
-	
-	public EventoConsulta(Date dataInicio,String nomePaciente,String cpfPaciente,String telefone,int duracaoEsperada) {
+	public EventoConsulta(Date dataInicio,Paciente paciente,int duracaoEsperada) {
 		System.out.println("Novo evento com tudo");
-		this.telefone = telefone;
-		this.nomePaciente = nomePaciente;
-		this.cpfPaciente = cpfPaciente;
+		this.paciente = paciente;
 		this.setStartDate(dataInicio);
 		Calendar cal = Calendar.getInstance(); 
 		cal.setTime(this.getStartDate()); 
@@ -33,41 +29,32 @@ public class EventoConsulta extends DefaultScheduleEvent{
 	}
 	public EventoConsulta() {
 		System.out.println("Novo evento sem nada");
-		this.nomePaciente = "";
-		this.cpfPaciente = "";
 		Calendar cal = Calendar.getInstance(); 
 		this.setStartDate(cal.getTime());
 		cal.add(Calendar.MINUTE, 30); 
 		this.setEndDate(cal.getTime()); 
+		this.paciente = new Paciente();
 		
-	}
-	
-	public String getTelefone() {
-		return telefone;
-	}
-	public void setTelefone(String telefone) {
-		this.telefone = telefone;
 	}
 	
 	
 	public EventoConsulta(Date dataInicial) {
-		this.nomePaciente = "";
-		this.cpfPaciente = "";
 		this.setStartDate(dataInicial);
 		Calendar cal = Calendar.getInstance(); 
 		cal.setTime(this.getStartDate()); 
 		cal.add(Calendar.MINUTE, 30); 
 		Date endate =  cal.getTime(); 
 		this.setEndDate(endate);
+		this.paciente = new Paciente();
 	}
 	
 	public void setDuracaoEsperada(int duracao){
-
 		Calendar cal = Calendar.getInstance(); 
 		cal.setTime(this.getStartDate()); 
 		cal.add(Calendar.MINUTE, duracao); 
 		Date newEndante =  cal.getTime(); 
 		this.setEndDate(newEndante);
+		this.paciente = new Paciente();
 	}
 	
 
@@ -97,20 +84,15 @@ public class EventoConsulta extends DefaultScheduleEvent{
 	
 	@Override
 	public String getTitle() {
-		return this.nomePaciente;
+		return this.paciente.getNome();
 	}
-	public String getNomePaciente() {
-		return nomePaciente;
+	public Paciente getPaciente() {
+		return paciente;
 	}
-	public void setNomePaciente(String nomePaciente) {
-		this.nomePaciente = nomePaciente;
+	public void setPaciente(Paciente paciente) {
+		this.paciente = paciente;
 	}
-	public String getCpfPaciente() {
-		return cpfPaciente;
-	}
-	public void setCpfPaciente(String cpfPaciente) {
-		this.cpfPaciente = cpfPaciente;
-	}
+	
 	
 	
 

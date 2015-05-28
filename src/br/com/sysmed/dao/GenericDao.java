@@ -4,6 +4,14 @@ import org.hibernate.Session;
 import org.hibernate.criterion.Restrictions;
  
 
+
+
+
+
+
+
+
+
 import br.com.sysmed.util.HibernateUtil;
 
 import java.io.Serializable;
@@ -20,6 +28,7 @@ public class GenericDao<T extends Serializable> {
 		return persistentClass;
 	}
 
+	@SuppressWarnings("unchecked")
 	public GenericDao() {
         this.session = HibernateUtil.getSession();
         this.persistentClass = (Class<T>) ((ParameterizedType) 
@@ -71,32 +80,39 @@ public class GenericDao<T extends Serializable> {
     }
     
  
-    public List<T> findAll() throws Exception {
+    @SuppressWarnings("unchecked")
+	public List<T> findAll() throws Exception {
         return getSession().createCriteria(persistentClass).list();
     }
  
-    public T findByName(String nome) {
+    @SuppressWarnings("unchecked")
+	public T findByName(String nome) {
         return (T) getSession().createCriteria(persistentClass)
                 .add(Restrictions.eq("nome", nome).ignoreCase()).uniqueResult();
     }
  
-    public T findById(String id) {
+    @SuppressWarnings("unchecked")
+	public T findById(String id) {
         return (T) getSession().createCriteria(persistentClass)
                 .add(Restrictions.eq("id", id)).uniqueResult();
     }
     
-    public T findById(int id) {
+    @SuppressWarnings("unchecked")
+	public T findById(int id) {
         return (T) getSession().createCriteria(persistentClass)
                 .add(Restrictions.eq("id", id)).uniqueResult();
     }
     
-    public T findByCpf(String cpf) {
+  
+	@SuppressWarnings("unchecked")
+	public T findByCpf(String cpf) {
         return (T) getSession().createCriteria(persistentClass)
                 .add(Restrictions.eq("cpf", cpf).ignoreCase()).uniqueResult();
     }
     
        
-    private void close() {
+    @SuppressWarnings("unused")
+	private void close() {
         if (getSession() != null && getSession().isOpen()) {
             getSession().close();
         }

@@ -1,7 +1,9 @@
 package br.com.sysmed.modelo;
 
 import java.io.Serializable;
+
 import javax.persistence.*;
+
 import java.util.List;
 
 
@@ -89,5 +91,8 @@ public class Especialidade implements Serializable {
 
 		return solicitadaEm;
 	}
-
+	@Override
+	public String toString() {
+		return this.getNome();
+	}
 }

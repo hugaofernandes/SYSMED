@@ -5,7 +5,6 @@ import java.util.List;
 
 import org.hibernate.Query;
 
-import br.com.sysmed.modelo.Paciente;
 import br.com.sysmed.modelo.Recepcionista;
 
 public class RecepcionistaDao extends GenericDao<Recepcionista> {
@@ -28,7 +27,8 @@ public class RecepcionistaDao extends GenericDao<Recepcionista> {
         delete(c);
     }
     
-    public List<String> getCpfs(){
+    @SuppressWarnings("unchecked")
+	public List<String> getCpfs(){
     	String hql = "SELECT E.cpf FROM Recepcionista E";
     	Query query = this.getSession().createQuery(hql);
     	List<String> results = query.list();
