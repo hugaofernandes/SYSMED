@@ -26,8 +26,8 @@ public class testerPESSOA {
 		//addMedico();
 	}
 	public static void addTurno(){
-		TurnoDAO turnoDAO = new TurnoDAO();
-		HorarioDao horarioDao = new HorarioDao();
+		//TurnoDAO turnoDAO = new TurnoDAO();
+		//HorarioDao horarioDao = new HorarioDao();
 		Turno turno = new Turno();
 		Calendar cal = Calendar.getInstance(); 
 		Time tcomeco = new Time(cal.getTimeInMillis());

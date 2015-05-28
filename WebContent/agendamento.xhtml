@@ -38,7 +38,7 @@ and open the template in the editor.
 
 					<h:panelGrid width="100%" columnClasses="value">
 
-						<p:schedule id="schedule"
+						<p:schedule id="schedule" resizable="false" draggable="false"
 							value="#{solicitacaoConsultaView.eventModel}"
 							widgetVar="myschedule" ignoreTimezone="false"
 							timeZone="America/Recife">
@@ -48,84 +48,58 @@ and open the template in the editor.
 								update="eventDetails" oncomplete="PF('eventDialog').show();" />
 							<p:ajax event="eventSelect"
 								listener="#{solicitacaoConsultaView.onEventSelect}"
-								update="eventDetailsE" oncomplete="PF('eventDialogE').show();" />
-							<p:ajax event="eventMove"
-								listener="#{solicitacaoConsultaView.onEventMove}"
-								update="messages" />
-							<p:ajax event="eventResize"
-								listener="#{solicitacaoConsultaView.onEventResize}"
-								update="messages" />
+								update="eventDetails" oncomplete="PF('eventDialog').show();" />
+						
 
 						</p:schedule>
 					</h:panelGrid>
-
-
-					<p:dialog widgetVar="eventDialogE" header="Detalhes Agendamento"
-						showEffect="clip" hideEffect="clip">
-
-						<h:panelGrid id="eventDetailsE" columns="2">
-							<h:outputLabel value="Nome:" for="nomePacienteE" />
-							<h:outputLabel id="nomePacienteE"
-								value="#{solicitacaoConsultaView.event.nomePaciente}" />
-
-							<h:outputLabel value="Telefone:" for="telefoneE" />
-							<h:outputLabel id="telefoneE"
-								value="#{solicitacaoConsultaView.event.telefone}" />
-
-							<h:outputLabel value="Cpf:" for="cpfE" />
-							<h:outputLabel id="cpfE"
-								value="#{solicitacaoConsultaView.event.cpfPaciente}" />
-
-							<h:outputLabel value="Duracao:" for="duracaoE" />
-							<h:outputLabel id="duracaoE"
-								value="#{solicitacaoConsultaView.event.duracaoEsperada}" />
-
-							<h:outputLabel value="Data:" for="fromE" />
-							<p:inputMask id="fromE"
-								value="#{solicitacaoConsultaView.event.startDate}"
-								mask="99/99/9999 99:99">
-								<f:convertDateTime pattern="dd/MM/yyyy HH:mm"
-									ignoreTimezone="false" timeZone="America/Recife" />
-							</p:inputMask>
-
-							<h:outputLabel value="Data Final:" for="fromED" />
-							<p:inputMask disabled="true" id="fromED"
-								value="#{solicitacaoConsultaView.event.endDate}"
-								mask="99/99/9999 99:99">
-								<f:convertDateTime pattern="dd/MM/yyyy HH:mm"
-									ignoreTimezone="false" timeZone="America/Recife" />
-							</p:inputMask>
-
-							<p:commandButton type="reset" value="Reset" />
-							<p:commandButton id="addButtonE" value="Salvar"
-								actionListener="#{solicitacaoConsultaView.addEvent}"
-								oncomplete="PF('myschedule').update();PF('eventDialogE').hide();" />
-						</h:panelGrid>
-					</p:dialog>
 
 					<p:dialog widgetVar="eventDialog" id="eventDialog"
 						header="Novo Agendamento" showEffect="clip" hideEffect="clip">
 						<p:outputPanel id="eventDialogPanel">
 							<h:panelGrid id="eventDetails" columns="2">
-								<h:outputLabel value="Nome:" for="nomePaciente" />
+								<h:outputLabel value="Paciente:" for="nomePaciente" />
 								<p:inputText id="nomePaciente"
-									value="#{solicitacaoConsultaView.event.nomePaciente}"
+									value="#{solicitacaoConsultaView.event.data.paciente.nome}"
 									disabled="true" required="true" />
 
 								<h:outputLabel value="Telefone:" for="telefone" />
 								<p:inputText id="telefone"
-									value="#{solicitacaoConsultaView.event.telefone}"
+									value="#{solicitacaoConsultaView.event.data.paciente.telefone}"
 									disabled="true" required="true" />
-
-								<p:outputLabel value="Cpf:" for="cpf" />
+			
+								<h:outputLabel value="Medico:" for="nomeMedico" />
+								<p:inputText id="nomeMedico"
+									value="#{solicitacaoConsultaView.event.data.medico.nome}"
+									disabled="true" required="true" />
+								
+								<p:outputLabel value="Cpf Paciente:" for="cpf" />
 								<p:autoComplete id="cpf" forceSelection="true"
-									value="#{solicitacaoConsultaView.cpfEscolhido}"
-									completeMethod="#{solicitacaoConsultaView.completeText}">
+									value="#{solicitacaoConsultaView.cpfPaciente}"
+									completeMethod="#{solicitacaoConsultaView.completePaciente}">
 									<p:ajax event="itemSelect"
-										listener="#{solicitacaoConsultaView.onCpfSelect}"
+										listener="#{solicitacaoConsultaView.onPacienteSelect}"
 										update="eventDialogPanel" />
 								</p:autoComplete>
-
+								
+								<p:outputLabel value="Cpf medico:" for="cpfMedico" />
+								<p:autoComplete id="cpfMedico" forceSelection="true"
+									value="#{solicitacaoConsultaView.cpfMedico}"
+									completeMethod="#{solicitacaoConsultaView.completeMedico}">
+									<p:ajax event="itemSelect"
+										listener="#{solicitacaoConsultaView.onMedicoSelect}"
+										update="eventDialogPanel" />
+								</p:autoComplete>
+								
+								<p:outputLabel value="Especialidade:" for="nomeEspecialidade" />
+								<p:autoComplete id="nomeEspecialidade" forceSelection="true"
+									value="#{solicitacaoConsultaView.especialidadeEscohida}"
+									completeMethod="#{solicitacaoConsultaView.completeEspecialidade}">
+									<p:ajax event="itemSelect"
+										listener="#{solicitacaoConsultaView.onEspecialidadeSelect}"
+										update="eventDialogPanel" />
+								</p:autoComplete>
+								
 								<h:outputLabel value="Data:" for="from" />
 								<p:inputMask id="from"
 									value="#{solicitacaoConsultaView.event.startDate}"
@@ -134,7 +108,9 @@ and open the template in the editor.
 										ignoreTimezone="false" timeZone="America/Recife" />
 								</p:inputMask>
 
-								<p:commandButton type="reset" value="Reset" />
+								<p:commandButton id="excluirButton" value="Excluir"
+									actionListener="#{solicitacaoConsultaView.excluirEvent}"
+									oncomplete="PF('myschedule').update();PF('eventDialog').hide();" />
 								<p:commandButton id="addButton" value="Salvar"
 									actionListener="#{solicitacaoConsultaView.addEvent}"
 									oncomplete="PF('myschedule').update();PF('eventDialog').hide();" />

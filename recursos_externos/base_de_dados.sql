@@ -26,18 +26,16 @@ DROP TABLE IF EXISTS `atua_como`;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `atua_como` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
-  `cpf_medico` char(11) NOT NULL,
   `nome_especialidade` varchar(50) NOT NULL,
   `custo_consulta` double NOT NULL,
   `trabalha` int(11) NOT NULL,
+  `duracao_esperada` smallint(6) NOT NULL,
   PRIMARY KEY (`id`),
-  KEY `cpf_medico` (`cpf_medico`),
   KEY `nome_especialidade` (`nome_especialidade`),
   KEY `trabalha` (`trabalha`),
-  CONSTRAINT `atua_como_ibfk_1` FOREIGN KEY (`cpf_medico`) REFERENCES `medico` (`cpf`),
   CONSTRAINT `atua_como_ibfk_2` FOREIGN KEY (`nome_especialidade`) REFERENCES `especialidade` (`nome`),
   CONSTRAINT `atua_como_ibfk_3` FOREIGN KEY (`trabalha`) REFERENCES `trabalha` (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -46,6 +44,7 @@ CREATE TABLE `atua_como` (
 
 LOCK TABLES `atua_como` WRITE;
 /*!40000 ALTER TABLE `atua_como` DISABLE KEYS */;
+INSERT INTO `atua_como` VALUES (1,'1',50,4,0),(2,'2',50,4,0),(3,'2212312assds',52,5,54);
 /*!40000 ALTER TABLE `atua_como` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -83,6 +82,143 @@ LOCK TABLES `consulta` WRITE;
 UNLOCK TABLES;
 
 --
+-- Table structure for table `data_agendamento`
+--
+
+DROP TABLE IF EXISTS `data_agendamento`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `data_agendamento` (
+  `id_cliente` int(11) DEFAULT NULL,
+  `id_especialidade` varchar(50) DEFAULT NULL,
+  `id_medico` char(11) DEFAULT NULL,
+  `id_horario` int(11) DEFAULT NULL,
+  `valor_consulta` double DEFAULT NULL,
+  KEY `id_cliente` (`id_cliente`),
+  KEY `id_especialidade` (`id_especialidade`),
+  KEY `id_medico` (`id_medico`),
+  KEY `id_horario` (`id_horario`),
+  CONSTRAINT `data_agendamento_ibfk_1` FOREIGN KEY (`id_cliente`) REFERENCES `data_cliente` (`id`),
+  CONSTRAINT `data_agendamento_ibfk_2` FOREIGN KEY (`id_especialidade`) REFERENCES `data_especialidade` (`nome`),
+  CONSTRAINT `data_agendamento_ibfk_3` FOREIGN KEY (`id_medico`) REFERENCES `data_medico` (`cpf`),
+  CONSTRAINT `data_agendamento_ibfk_4` FOREIGN KEY (`id_horario`) REFERENCES `data_horario` (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `data_agendamento`
+--
+
+LOCK TABLES `data_agendamento` WRITE;
+/*!40000 ALTER TABLE `data_agendamento` DISABLE KEYS */;
+/*!40000 ALTER TABLE `data_agendamento` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `data_cliente`
+--
+
+DROP TABLE IF EXISTS `data_cliente`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `data_cliente` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `data_nasc` date DEFAULT NULL,
+  `estado_civil` varchar(10) DEFAULT NULL,
+  `sexo` enum('M','F') DEFAULT NULL,
+  `estado` char(2) DEFAULT NULL,
+  `bairro` varchar(50) DEFAULT NULL,
+  `cidade` varchar(30) DEFAULT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `data_cliente`
+--
+
+LOCK TABLES `data_cliente` WRITE;
+/*!40000 ALTER TABLE `data_cliente` DISABLE KEYS */;
+/*!40000 ALTER TABLE `data_cliente` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `data_especialidade`
+--
+
+DROP TABLE IF EXISTS `data_especialidade`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `data_especialidade` (
+  `nome` varchar(50) NOT NULL DEFAULT '',
+  PRIMARY KEY (`nome`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `data_especialidade`
+--
+
+LOCK TABLES `data_especialidade` WRITE;
+/*!40000 ALTER TABLE `data_especialidade` DISABLE KEYS */;
+/*!40000 ALTER TABLE `data_especialidade` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `data_horario`
+--
+
+DROP TABLE IF EXISTS `data_horario`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `data_horario` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `ano` int(11) DEFAULT NULL,
+  `semestre` int(11) DEFAULT NULL,
+  `trimestre` int(11) DEFAULT NULL,
+  `mes` int(11) DEFAULT NULL,
+  `dia` int(11) DEFAULT NULL,
+  `hora` int(11) DEFAULT NULL,
+  `min` int(11) DEFAULT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `data_horario`
+--
+
+LOCK TABLES `data_horario` WRITE;
+/*!40000 ALTER TABLE `data_horario` DISABLE KEYS */;
+/*!40000 ALTER TABLE `data_horario` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `data_medico`
+--
+
+DROP TABLE IF EXISTS `data_medico`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `data_medico` (
+  `nome` varchar(75) DEFAULT NULL,
+  `cpf` char(11) NOT NULL,
+  `sexo` enum('M','F') DEFAULT NULL,
+  `data_nasc` date DEFAULT NULL,
+  PRIMARY KEY (`cpf`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `data_medico`
+--
+
+LOCK TABLES `data_medico` WRITE;
+/*!40000 ALTER TABLE `data_medico` DISABLE KEYS */;
+/*!40000 ALTER TABLE `data_medico` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
 -- Table structure for table `especialidade`
 --
 
@@ -102,6 +238,7 @@ CREATE TABLE `especialidade` (
 
 LOCK TABLES `especialidade` WRITE;
 /*!40000 ALTER TABLE `especialidade` DISABLE KEYS */;
+INSERT INTO `especialidade` VALUES ('1','1'),('2','asd'),('2212312assds','2asd'),('22ds','sa'),('233','233'),('2334','2344'),('3','3'),('5','5'),('ac','ac'),('asd','asd'),('bb','bb'),('cardiologia','cuida do coracao'),('carid','asd'),('caridiologia2','cadridioasda'),('erwr','wer');
 /*!40000 ALTER TABLE `especialidade` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -127,7 +264,7 @@ CREATE TABLE `funcionario` (
 
 LOCK TABLES `funcionario` WRITE;
 /*!40000 ALTER TABLE `funcionario` DISABLE KEYS */;
-INSERT INTO `funcionario` VALUES ('nullR',0,'recepcionista');
+INSERT INTO `funcionario` VALUES ('1',0,'medico'),('10',0,'medico'),('1985',0,'medico'),('2',0,'medico'),('4',0,'medico'),('5',0,'medico'),('6',0,'medico'),('7',0,'medico'),('90',0,'medico'),('nullR',0,'recepcionista');
 /*!40000 ALTER TABLE `funcionario` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -147,7 +284,7 @@ CREATE TABLE `horario` (
   PRIMARY KEY (`id`),
   KEY `nome_turno` (`nome_turno`),
   CONSTRAINT `horario_ibfk_1` FOREIGN KEY (`nome_turno`) REFERENCES `turno` (`nome`)
-) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=24 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -156,7 +293,7 @@ CREATE TABLE `horario` (
 
 LOCK TABLES `horario` WRITE;
 /*!40000 ALTER TABLE `horario` DISABLE KEYS */;
-INSERT INTO `horario` VALUES (1,'turno teste',1,'16:23:22','16:23:22'),(2,'turno teste',1,'16:25:23','16:25:23');
+INSERT INTO `horario` VALUES (1,'turno teste',1,'16:23:22','16:23:22'),(2,'turno teste',1,'16:25:23','16:25:23'),(3,'mat2',2,'07:00:00','12:00:00'),(4,'mat2',3,'07:00:00','12:00:00'),(5,'mat2',4,'07:00:00','12:00:00'),(6,'mat2',5,'07:00:00','12:00:00'),(7,'mat2',6,'07:00:00','12:00:00'),(8,'asdasd',1,'01:00:00','02:00:00'),(9,'asdasd',2,'01:00:00','02:00:00'),(10,'asdasd',3,'01:00:00','02:00:00'),(11,'asdasd',4,'01:00:00','02:00:00'),(12,'asdasd',5,'01:00:00','02:00:00'),(13,'asdasd',6,'01:00:00','02:00:00'),(14,'asdasd',7,'01:00:00','02:00:00'),(15,'TESTE',1,'00:00:00','01:00:00'),(16,'TESTE',2,'00:00:00','01:00:00'),(17,'TESTE',3,'00:00:00','01:00:00'),(18,'TESTE',4,'00:00:00','01:00:00'),(19,'TESTE',5,'00:00:00','01:00:00'),(20,'TESTE',6,'00:00:00','01:00:00'),(21,'TESTE',7,'00:00:00','01:00:00'),(22,'testaea',3,'01:00:00','02:00:00'),(23,'heeeeee',1,'01:00:00','02:00:00');
 /*!40000 ALTER TABLE `horario` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -181,6 +318,7 @@ CREATE TABLE `medico` (
 
 LOCK TABLES `medico` WRITE;
 /*!40000 ALTER TABLE `medico` DISABLE KEYS */;
+INSERT INTO `medico` VALUES ('1',NULL),('10',NULL),('1985',NULL),('2',NULL),('4',NULL),('5',NULL),('6',NULL),('7',NULL),('90',NULL);
 /*!40000 ALTER TABLE `medico` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -208,7 +346,7 @@ CREATE TABLE `paciente` (
 
 LOCK TABLES `paciente` WRITE;
 /*!40000 ALTER TABLE `paciente` DISABLE KEYS */;
-INSERT INTO `paciente` VALUES ('123456',NULL,NULL,NULL,NULL),('j',NULL,NULL,NULL,NULL);
+INSERT INTO `paciente` VALUES ('87888888888',NULL,NULL,NULL,NULL),('88888888888',NULL,NULL,NULL,NULL);
 /*!40000 ALTER TABLE `paciente` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -242,7 +380,7 @@ CREATE TABLE `pessoa` (
 
 LOCK TABLES `pessoa` WRITE;
 /*!40000 ALTER TABLE `pessoa` DISABLE KEYS */;
-INSERT INTO `pessoa` VALUES ('123456','alex','1994-12-14','15','a','a','a','a','8888888',NULL,'M','a'),('j','j','1994-12-14','j','j','j','jj','j','j',NULL,'M','j'),('nullR','null','2015-04-26','null','null','null','null','nl','null','null','F','null');
+INSERT INTO `pessoa` VALUES ('1','new medico','2015-05-25','null','null','null','null','RN','null','null','M','casado'),('10','new medico','2015-05-25','null','null','null','null','RN','null','null','M','casado'),('1985','new medico','2015-05-26','null','null','null','null','RN','null','null','M','casado'),('2','new medico','2015-05-25','null','null','null','null','RN','null','null','M','casado'),('4','new medico','2015-05-25','null','null','null','null','RN','null','null','M','casado'),('5','new medico','2015-05-25','null','null','null','null','RN','null','null','M','casado'),('6','new medico','2015-05-25','null','null','null','null','RN','null','null','M','casado'),('7','new medico','2015-05-25','null','null','null','null','RN','null','null','M','casado'),('87888888888','teste3','1995-12-14','2','rua','bairro','caico','RN','88888888',NULL,'M','Solteiro'),('88888888888','alex','1994-12-14','12','rua','bairro','caico','RN','88888888',NULL,'M','Solteiro'),('90','new medico','2015-05-25','null','null','null','null','RN','null','null','M','casado'),('nullR','null','2015-04-26','null','null','null','null','nl','null','null','F','null');
 /*!40000 ALTER TABLE `pessoa` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -282,9 +420,9 @@ CREATE TABLE `solicitao_consulta` (
   `horario` datetime NOT NULL,
   `cpf_paciente` char(11) NOT NULL,
   `cpf_medico` char(11) NOT NULL,
-  `cpf_avaliador` char(11) NOT NULL,
+  `cpf_avaliador` char(11) DEFAULT NULL,
   `nome_especialidade` varchar(50) NOT NULL,
-  `status_solicitacao` enum('P','A','R') NOT NULL,
+  `status_solicitacao` enum('P','A','R') DEFAULT NULL,
   `motivo_recusacao` varchar(500) DEFAULT NULL,
   `duracao_esperada` smallint(6) NOT NULL,
   PRIMARY KEY (`id`),
@@ -294,9 +432,8 @@ CREATE TABLE `solicitao_consulta` (
   KEY `nome_especialidade` (`nome_especialidade`),
   CONSTRAINT `solicitao_consulta_ibfk_1` FOREIGN KEY (`cpf_paciente`) REFERENCES `paciente` (`cpf`),
   CONSTRAINT `solicitao_consulta_ibfk_2` FOREIGN KEY (`cpf_medico`) REFERENCES `medico` (`cpf`),
-  CONSTRAINT `solicitao_consulta_ibfk_3` FOREIGN KEY (`cpf_avaliador`) REFERENCES `recepcionista` (`cpf`),
   CONSTRAINT `solicitao_consulta_ibfk_4` FOREIGN KEY (`nome_especialidade`) REFERENCES `especialidade` (`nome`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -305,6 +442,7 @@ CREATE TABLE `solicitao_consulta` (
 
 LOCK TABLES `solicitao_consulta` WRITE;
 /*!40000 ALTER TABLE `solicitao_consulta` DISABLE KEYS */;
+INSERT INTO `solicitao_consulta` VALUES (1,'2015-05-24 06:00:00','88888888888','1',NULL,'caridiologia2','A',NULL,30);
 /*!40000 ALTER TABLE `solicitao_consulta` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -324,7 +462,7 @@ CREATE TABLE `trabalha` (
   KEY `turno` (`turno`),
   CONSTRAINT `trabalha_ibfk_1` FOREIGN KEY (`cpf`) REFERENCES `funcionario` (`cpf`),
   CONSTRAINT `trabalha_ibfk_2` FOREIGN KEY (`turno`) REFERENCES `turno` (`nome`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -333,6 +471,7 @@ CREATE TABLE `trabalha` (
 
 LOCK TABLES `trabalha` WRITE;
 /*!40000 ALTER TABLE `trabalha` DISABLE KEYS */;
+INSERT INTO `trabalha` VALUES (1,'6','mat'),(2,'7','TESTE'),(3,'90','testaea'),(4,'10','asdasd'),(5,'1985','heeeeee');
 /*!40000 ALTER TABLE `trabalha` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -355,7 +494,7 @@ CREATE TABLE `turno` (
 
 LOCK TABLES `turno` WRITE;
 /*!40000 ALTER TABLE `turno` DISABLE KEYS */;
-INSERT INTO `turno` VALUES ('turno teste');
+INSERT INTO `turno` VALUES ('asdasd'),('heeeeee'),('mat'),('mat2'),('testaea'),('TESTE'),('turno teste');
 /*!40000 ALTER TABLE `turno` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
@@ -368,4 +507,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2015-05-19 13:54:59
+-- Dump completed on 2015-05-27 10:13:10

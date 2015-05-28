@@ -15,6 +15,7 @@ and open the template in the editor.
 	<link
 		href='http://fonts.googleapis.com/css?family=Lato&amp;subset=latin,latin-ext'
 		rel='stylesheet' type='text/css'></link>
+	<h:outputScript library="js" name="novo_primefaces.js" />
 </h:head>
 <h:body>
 	<f:facet name="last">
@@ -23,47 +24,94 @@ and open the template in the editor.
 			name="font-awesome/4.3.0/css/font-awesome-jsf.css" />
 		<h:outputStylesheet name="css/main.css" />
 	</f:facet>
-
 	<div class="ui-grid ">
 		<ui:include src="/header.xhtml" />
-
 		<div id="linha2" class="ui-grid-row">
-
 			<ui:include src="/navegacao_lateral_tab0.xhtml" />
-	
 			<div id="div-composicao" class="content">
-				<div id = "header-wrapper">
-					<h2 id="headerPac" >Cadastrar turnos</h2>
+				<div id="header-wrapper">
+					<h2 id="headerPac">Cadastrar turnos</h2>
 				</div>
 				<div id="panelTabela">
-				<div id ="headerPane">
-					     <h2 id="h2headerTurno" >Nome</h2>		
-					     <p:inputText id="nomeTurno" value="Turno matutino"  />		
-					     <p:button id="cadastrar" icon="fa fa-floppy-o" />   	
-				    </div>
-					<p:outputPanel id="turno" rendered="true">
+					<div id="headerPane">
 						<h:form>
+							<h2 id="h2headerTurno">Nome</h2>
+							<p:inputText value="#{turnoView.turno.nome}" id="nomeTurno" />
+							<p:commandButton id="cadastrar" action="#{turnoView.salvar}"
+								update=":formHorario" icon="fa fa-floppy-o" />
+						</h:form>
+					</div>
+					<p:outputPanel id="turno" rendered="true">
+						<div id="headerPane2">
+							<h:form>
+								<h:outputText value="Dias da semana:" />
+								<p:selectCheckboxMenu id="menu"
+									value="#{turnoView.diasEscolhidos}" label="Dias"
+									panelStyle="width:250px">
+									<f:selectItems value="#{turnoView.diasDaSemana}" />
+								</p:selectCheckboxMenu>
+								<h:outputText value="De:" />
+								<p:inputMask value="#{turnoView.horaInicio}" mask="99:99">
+									<f:convertDateTime timeZone="America/Recife" pattern="HH:mm" />
+								</p:inputMask>
+								<h:outputText value="Ate:" />
+								<p:inputMask value="#{turnoView.horaFinal}" mask="99:99">
+									<f:convertDateTime timeZone="America/Recife" pattern="HH:mm" />
+								</p:inputMask>
+								<p:commandButton id="adicionar"
+									action="#{turnoView.adicionarHorario}" update=":formHorario"
+									value="Adicionar" icon="fa fa-plus" />
+							</h:form>
+						</div>
+						<h:form id="formHorario">
 							<p:growl id="messages" showDetail="true" />
 
 							<h:panelGrid width="100%" columnClasses="value">
+								<p:schedule id="scheduleturno" draggable="false" resizable="false" 
+									value="#{turnoView.cadastoTurnos}" widgetVar="scheduleturno"
+									ignoreTimezone="false" timeZone="America/Recife"
+									view="agendaWeek" locale="pt_br" showHeader="false"
+									allDaySlot="false" slotMinutes="30">
 
-								<p:schedule id="scheduleturno" value="#{scheduleView.cadastoTurnos}"
-									widgetVar="myschedule" ignoreTimezone="false"
-									timeZone="America/Recife" view="agendaWeek" locale="pt_br"
-									showHeader="false" allDaySlot="false" slotMinutes="30" >
-									
-								
+									<p:ajax event="eventSelect"
+										listener="#{turnoView.onEventSelect}"
+										oncomplete="PF('eventDialogE').show();"
+										update="eventDetails" />
 								</p:schedule>
-
 							</h:panelGrid>
 
-
+							<p:dialog widgetVar="eventDialogE" header="Detalhes Agendamento"
+								showEffect="clip" hideEffect="clip">
+								<h:panelGrid id="eventDetails" columns="2">
+										<h:outputText value="Dia:" />
+										 <p:selectOneMenu id="dias" value="#{turnoView.dia}" style="width:125px">
+								            <f:selectItem itemLabel="Segunda" itemValue="2" />
+								            <f:selectItem itemLabel="Terca" itemValue="3" />
+								            <f:selectItem itemLabel="Quarta" itemValue="4" />
+								            <f:selectItem itemLabel="Quinta" itemValue="5" />
+								            <f:selectItem itemLabel="Sexta" itemValue="6" />
+								            <f:selectItem itemLabel="Sabado" itemValue="7" />
+								            <f:selectItem itemLabel="Domingo" itemValue="1" />							       			          
+								        </p:selectOneMenu>
+										<h:outputText value="De:" />
+										<p:inputMask value="#{turnoView.horaInicio}" mask="99:99">
+											<f:convertDateTime timeZone="America/Recife" pattern="HH:mm" />
+										</p:inputMask>
+										<h:outputText value="Ate:" />
+										<p:inputMask value="#{turnoView.horaFinal}" mask="99:99">
+											<f:convertDateTime timeZone="America/Recife" pattern="HH:mm" />
+										</p:inputMask>
+									<p:commandButton id="adicionar"
+									value="Salvar" actionListener="#{turnoView.editarEvento}" 
+									update="messages"
+									oncomplete="PF('scheduleturno').update();PF('eventDialogE').hide();" />
+								</h:panelGrid>
+							</p:dialog>
 						</h:form>
 					</p:outputPanel>
 				</div>
 			</div>
 		</div>
 	</div>
-
 </h:body>
 </html>
