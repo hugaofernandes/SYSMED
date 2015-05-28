@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<faces-config xmlns="http://xmlns.jcp.org/xml/ns/javaee"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/javaee http://xmlns.jcp.org/xml/ns/javaee/web-facesconfig_2_2.xsd"
+	version="2.2">
+
+	<navigation-rule>
+		<from-view-id>pacientes.xhtml</from-view-id>
+		<navigation-case>
+		<from-outcome>paginaEditar</from-outcome>
+		 <to-view-id>editarPaciente.xhtml</to-view-id>
+		</navigation-case>
+	</navigation-rule>
+
+	<navigation-rule>
+		<from-view-id>pacientes.xhtml</from-view-id>
+		<navigation-case>
+		<from-outcome>paginaCadastro</from-outcome>
+		 <to-view-id>cadastrarpaciente.xhtml</to-view-id>
+		</navigation-case>
+	</navigation-rule>
+	
+	<navigation-rule>
+		<from-view-id>medicos.xhtml</from-view-id>
+		<navigation-case>
+		<from-outcome>paginaEditarMedico</from-outcome>
+		 <to-view-id>editarMedico.xhtml</to-view-id>
+		</navigation-case>
+	</navigation-rule>
+
+	<navigation-rule>
+		<from-view-id>medicos.xhtml</from-view-id>
+		<navigation-case>
+		<from-outcome>paginaCadastroMedico</from-outcome>
+		 <to-view-id>cadastrarmedico.xhtml</to-view-id>
+		</navigation-case>
+	</navigation-rule>
+	
+	<navigation-rule>
+		<from-view-id>recepcionista.xhtml</from-view-id>
+		<navigation-case>
+		<from-outcome>paginaEditarRecepcionista</from-outcome>
+		 <to-view-id>editarRecepcionista.xhtml</to-view-id>
+		</navigation-case>
+	</navigation-rule>
+
+	<navigation-rule>
+		<from-view-id>recepcionista.xhtml</from-view-id>
+		<navigation-case>
+		<from-outcome>paginaCadastroRecepcionista</from-outcome>
+		 <to-view-id>cadastrarRecepcionista.xhtml</to-view-id>
+		</navigation-case>
+	</navigation-rule>
+	
+</faces-config>
