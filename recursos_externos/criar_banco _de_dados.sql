@@ -135,16 +135,16 @@ CREATE TABLE data_cliente (
   estado char(2) DEFAULT NULL,
   bairro varchar(50) DEFAULT NULL,
   cidade varchar(30) DEFAULT NULL,
-  PRIMARY KEY (`id`)
+  PRIMARY KEY (id)
 );
 
 CREATE TABLE data_especialidade (
   nome varchar(50) NOT NULL,
-  PRIMARY KEY (`nome`)
+  PRIMARY KEY (nome)
 );
 
 CREATE TABLE data_horario (
-  id int(11) NOT NULL AUTO_INCREMENT,
+  id datetime not null,
   ano int(11) DEFAULT NULL,
   semestre int(11) DEFAULT NULL,
   trimestre int(11) DEFAULT NULL,
@@ -160,14 +160,14 @@ CREATE TABLE data_medico (
   cpf char(11) NOT NULL,
   sexo enum('M','F') DEFAULT NULL,
   data_nasc date DEFAULT NULL,
-  PRIMARY KEY (`cpf`)
+  PRIMARY KEY (cpf)
 );
 
 CREATE TABLE data_agendamento (
   id_cliente int(11) DEFAULT NULL,
   id_especialidade varchar(50) DEFAULT NULL,
   id_medico char(11) DEFAULT NULL,
-  id_horario int(11) DEFAULT NULL,
+  id_horario datetime DEFAULT NULL,
   valor_consulta double DEFAULT NULL,
   FOREIGN KEY (id_cliente) REFERENCES data_cliente (id),
   FOREIGN KEY (id_especialidade) REFERENCES data_especialidade (nome),
