@@ -32,7 +32,8 @@ and open the template in the editor.
 	
 			<div id="div-composicao" class="content">
 				
-					<p:chart type="bar" model="#{estatisticasView.consultasPorAno}" style="height:300px"/>
+					<p:chart type="bar" model="#{estatisticasView.consultasPorAno}" />
+					<p:chart type="line" model="#{estatisticasView.consultasPorMes}" />
 				
 			</div>
 		</div>

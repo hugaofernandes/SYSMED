@@ -14,6 +14,7 @@ import org.primefaces.model.chart.ChartSeries;
 import org.primefaces.model.chart.LineChartModel;
 
 import br.com.sysmed.DTO.AnoMesConsulta;
+import br.com.sysmed.DTO.MesDiaConsulta;
 import br.com.sysmed.dao.EstatisticasDAO;
 
 
@@ -21,15 +22,18 @@ import br.com.sysmed.dao.EstatisticasDAO;
 @ViewScoped
 public class EstatisticasView {
 	private BarChartModel consultasPorAno;
-	
+	private LineChartModel consultasPorMes;
+	private EstatisticasDAO daoEstatistica;
 	@PostConstruct
     public void init() {
+		this.daoEstatistica = new EstatisticasDAO();
 		this.montarConsultaPorAno();	
+		this.montarConsultaPorMes();
 	}
 
 	private void montarConsultaPorAno() {
-		EstatisticasDAO dao = new EstatisticasDAO();
-		List<AnoMesConsulta> results = dao.getConsultaPorMes();
+	
+		List<AnoMesConsulta> results = daoEstatistica.getConsultaPorAno();
 		consultasPorAno = new BarChartModel(); 
 		
 		ChartSeries consultas = new ChartSeries();
@@ -47,7 +51,28 @@ public class EstatisticasView {
         yAxis.setLabel("Consultas");
         yAxis.setMin(0);
 	}
-
+	
+	private void montarConsultaPorMes() {
+		List<MesDiaConsulta> results = daoEstatistica.getConsultaPorMes();
+		consultasPorMes = new  LineChartModel(); 
+		
+		ChartSeries consultas = new ChartSeries();
+        consultas.setLabel("Consultas");
+        for(MesDiaConsulta a:results){
+        	  consultas.set(a.getDia(),a.getQtdConsultas());	
+		}
+        consultasPorMes.addSeries(consultas);
+        
+        consultasPorMes.setTitle("Consultas este mes");
+        consultasPorMes.setLegendPosition("e");
+        consultasPorMes.setShowPointLabels(true);  
+        consultasPorMes.getAxes().put(AxisType.X, new CategoryAxis("Dias"));
+        Axis yAxis = consultasPorAno.getAxis(AxisType.Y);
+        yAxis.setLabel("Consultas");
+        yAxis.setMin(0);
+		
+	}
+	
 	public BarChartModel getConsultasPorAno() {
 		return consultasPorAno;
 	}
@@ -55,4 +80,12 @@ public class EstatisticasView {
 	public void setConsultasPorAno(BarChartModel consultasPorAno) {
 		this.consultasPorAno = consultasPorAno;
 	}
+
+	public LineChartModel getConsultasPorMes() {
+		return consultasPorMes;
+	}
+
+	public void setConsultasPorMes(LineChartModel consultasPorMes) {
+		this.consultasPorMes = consultasPorMes;
+	}	
 }

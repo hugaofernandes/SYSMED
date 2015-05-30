@@ -2,58 +2,49 @@ package br.com.sysmed.DTO;
 
 import java.math.BigInteger;
 
-public class AnoMesConsulta {
-	private int ano;
+public class MesDiaConsulta {
+	
 	private int mes;
+	private int dia;
 	private int qtdConsultas;
 	
-	public AnoMesConsulta(int ano, int mes, int qtdConsultas) {
-		this.ano = ano;
+	public MesDiaConsulta(int mes, int dia, int qtdConsultas) {
 		this.mes = mes;
+		this.dia = dia;
 		this.qtdConsultas = qtdConsultas;
 	}
-	
-	public AnoMesConsulta(Object[] dados) {
-		this.ano = (Integer) dados[0];
-		this.mes = (Integer) dados[1];
+	public MesDiaConsulta(Object[] dados) {
+		this.mes = (Integer) dados[0];
+		this.dia = (Integer) dados[1];
 		BigInteger bdados2 = (BigInteger) dados[2];
 		this.qtdConsultas = bdados2.intValue();
-	}
-	public AnoMesConsulta() {
-		this.ano = 0;
-		this.mes = 0;
-		this.qtdConsultas = 0;
-	}
-	
-	public int getAno() {
-		return ano;
-	}
-	
-	public void setAno(int ano) {
-		this.ano = ano;
 	}
 	
 	public int getMes() {
 		return mes;
 	}
-	
 	public void setMes(int mes) {
 		this.mes = mes;
 	}
-	
+	public int getDia() {
+		return dia;
+	}
+	public void setDia(int dia) {
+		this.dia = dia;
+	}
 	public int getQtdConsultas() {
 		return qtdConsultas;
 	}
-	
 	public void setQtdConsultas(int qtdConsultas) {
 		this.qtdConsultas = qtdConsultas;
 	}
-	public String getAnoMes(){	
-		return this.ano +"-"+this.mes;
+	public String getMesDia(){	
+		return this.mes +"-"+this.dia;
 	}
 	@Override
 	public String toString() {
-		return "AnoMesConsulta [ano=" + ano + ", mes=" + mes
+		return "MesDIaConsulta [mes=" + mes + ", dia=" + dia
 				+ ", qtdConsultas=" + qtdConsultas + "]";
 	}
+	
 }
