@@ -8,6 +8,7 @@ import javax.faces.bean.ViewScoped;
 
 import org.primefaces.model.chart.Axis;
 import org.primefaces.model.chart.AxisType;
+import org.primefaces.model.chart.BarChartModel;
 import org.primefaces.model.chart.CategoryAxis;
 import org.primefaces.model.chart.ChartSeries;
 import org.primefaces.model.chart.LineChartModel;
@@ -19,7 +20,7 @@ import br.com.sysmed.dao.EstatisticasDAO;
 @ManagedBean
 @ViewScoped
 public class EstatisticasView {
-	private LineChartModel consultasPorAno;
+	private BarChartModel consultasPorAno;
 	
 	@PostConstruct
     public void init() {
@@ -29,7 +30,7 @@ public class EstatisticasView {
 	private void montarConsultaPorAno() {
 		EstatisticasDAO dao = new EstatisticasDAO();
 		List<AnoMesConsulta> results = dao.getConsultaPorMes();
-		consultasPorAno = new LineChartModel(); 
+		consultasPorAno = new BarChartModel(); 
 		
 		ChartSeries consultas = new ChartSeries();
         consultas.setLabel("Consultas");
@@ -47,11 +48,11 @@ public class EstatisticasView {
         yAxis.setMin(0);
 	}
 
-	public LineChartModel getConsultasPorAno() {
+	public BarChartModel getConsultasPorAno() {
 		return consultasPorAno;
 	}
 
-	public void setConsultasPorAno(LineChartModel consultasPorAno) {
+	public void setConsultasPorAno(BarChartModel consultasPorAno) {
 		this.consultasPorAno = consultasPorAno;
 	}
 }
