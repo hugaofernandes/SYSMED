@@ -17,6 +17,7 @@ import org.primefaces.model.chart.LineChartModel;
 
 import br.com.sysmed.DTO.AnoMesConsulta;
 import br.com.sysmed.DTO.AnoMesInfoQtd;
+import br.com.sysmed.DTO.MedQtdMes;
 import br.com.sysmed.DTO.MesDiaConsulta;
 import br.com.sysmed.dao.EstatisticasDAO;
 
@@ -27,6 +28,7 @@ public class EstatisticasView {
 	private LineChartModel consultasPorMes;
 	private BarChartModel especialidadePorMes;
 	private LineChartModel medicoPorMes;
+	private BarChartModel consultaMedicomesAtual;
 	
 	private EstatisticasDAO daoEstatistica;
 
@@ -37,7 +39,10 @@ public class EstatisticasView {
 		this.montarConsultaPorMes();
 		this.montarEspecialidadePorMes();
 		this.montarMedicoPorMes();
+		this.montarConsultaMedMes();
 	}
+
+	
 
 	private void montarConsultaPorAno() {
 
@@ -105,9 +110,33 @@ public class EstatisticasView {
 		yAxis.setMin(0);
 
 	}
+	
+	private void montarConsultaMedMes() {
+		consultaMedicomesAtual = new BarChartModel();
+		MedQtdMes result = daoEstatistica.getMedPorMes();
+		
+		
+		ChartSeries serie = new ChartSeries();
+		serie.setLabel("Consultas");
+        for (Map.Entry<String,Integer> entry : result.getData().entrySet()) {
+        	serie .set(entry.getKey(), entry.getValue());
+		}	
+        consultaMedicomesAtual.addSeries(serie );
+      
+
+		consultaMedicomesAtual.setTitle("Consultas mensais de medico");
+		consultaMedicomesAtual.setLegendPosition("e");
+		consultaMedicomesAtual.setShowPointLabels(true);
+		consultaMedicomesAtual.getAxes().put(AxisType.X, new CategoryAxis("Medicos"));
+		Axis yAxis = consultaMedicomesAtual.getAxis(AxisType.Y);
+		yAxis.setLabel("Consultas");
+		yAxis.setMin(0);
+		
+	}
 	private void montarMedicoPorMes() {
 		medicoPorMes = new LineChartModel();	
 		AnoMesInfoQtd result = daoEstatistica.getMedPorAno();
+		
 		for (Map.Entry<String, List<AnoMesConsulta>> entry : result.getData().entrySet()) {
 			ChartSeries serie = new ChartSeries();
 			serie.setLabel(entry.getKey());
@@ -157,5 +186,14 @@ public class EstatisticasView {
 	public void setMedicoPorMes(LineChartModel medicoPorMes) {
 		this.medicoPorMes = medicoPorMes;
 	}
+
+	public BarChartModel getConsultaMedicomesAtual() {
+		return consultaMedicomesAtual;
+	}
+
+	public void setConsultaMedicomesAtual(BarChartModel consultaMedicomesAtual) {
+		this.consultaMedicomesAtual = consultaMedicomesAtual;
+	}
+	
 	
 }

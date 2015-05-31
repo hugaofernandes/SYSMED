@@ -66,5 +66,6 @@ insert into data_agendamento(id_cliente,id_especialidade,id_medico,id_horario,va
 (null,"especialidade 4",2,str_to_date("2015-05-05 00:00:00","%Y-%m-%d %H:%i:%S"),50),
 (null,"especialidade 1",3,str_to_date("2015-05-06 00:00:00","%Y-%m-%d %H:%i:%S"),50),
 (null,"especialidade 1",4,str_to_date("2015-05-06 00:00:00","%Y-%m-%d %H:%i:%S"),50),
+(null,"especialidade 2",5,str_to_date("2015-05-07 00:00:00","%Y-%m-%d %H:%i:%S"),50),
 (null,"especialidade 2",5,str_to_date("2015-05-07 00:00:00","%Y-%m-%d %H:%i:%S"),50);
 

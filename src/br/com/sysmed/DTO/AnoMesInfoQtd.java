@@ -13,7 +13,6 @@ public class AnoMesInfoQtd {
 
 	private Map<String, List<AnoMesConsulta>> data;
 
-	
 	public AnoMesInfoQtd() {
 		data = new HashMap<String, List<AnoMesConsulta>>();
 	}
