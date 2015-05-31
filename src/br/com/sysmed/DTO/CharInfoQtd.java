@@ -1,30 +1,28 @@
 package br.com.sysmed.DTO;
 
-
 import java.math.BigInteger;
-import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 
-public class MedQtdMes {
-	private Map<String, Integer> data;
+public class CharInfoQtd {
+	private Map<Character, Integer> data;
 
-	public Map<String, Integer> getData() {
+	public Map<Character, Integer> getData() {
 		return data;
 	}
-	public void setData(Map<String, Integer> data) {
+	public void setData(Map<Character, Integer> data) {
 		this.data = data;
 	}
-	public MedQtdMes() {
-		this.data = new HashMap<String,Integer>();
+	public CharInfoQtd() {
+		this.data = new HashMap<Character,Integer>();
 	}
 	public void add(Object[] dados){
-		String info = (String) dados[0];
+		Character info = (Character) dados[0];
 		BigInteger bdados2 = (BigInteger) dados[1];
 		int qtdConsultas = bdados2.intValue();
 		this.add(info,qtdConsultas);
 	}
-	private void add(String info, int qtdConsultas) {
+	private void add(Character info, int qtdConsultas) {
 			this.data.put(info,qtdConsultas);	
 	}
 }

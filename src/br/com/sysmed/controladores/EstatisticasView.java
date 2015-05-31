@@ -1,6 +1,5 @@
 package br.com.sysmed.controladores;
 
-
 import java.util.List;
 import java.util.Map;
 
@@ -14,10 +13,12 @@ import org.primefaces.model.chart.BarChartModel;
 import org.primefaces.model.chart.CategoryAxis;
 import org.primefaces.model.chart.ChartSeries;
 import org.primefaces.model.chart.LineChartModel;
+import org.primefaces.model.chart.PieChartModel;
 
 import br.com.sysmed.DTO.AnoMesConsulta;
 import br.com.sysmed.DTO.AnoMesInfoQtd;
-import br.com.sysmed.DTO.MedQtdMes;
+import br.com.sysmed.DTO.CharInfoQtd;
+import br.com.sysmed.DTO.InfoQtd;
 import br.com.sysmed.DTO.MesDiaConsulta;
 import br.com.sysmed.dao.EstatisticasDAO;
 
@@ -29,7 +30,15 @@ public class EstatisticasView {
 	private BarChartModel especialidadePorMes;
 	private LineChartModel medicoPorMes;
 	private BarChartModel consultaMedicomesAtual;
-	
+	private PieChartModel sexoCliente;
+	public PieChartModel getSexoCliente() {
+		return sexoCliente;
+	}
+
+	public void setSexoCliente(PieChartModel sexoCliente) {
+		this.sexoCliente = sexoCliente;
+	}
+
 	private EstatisticasDAO daoEstatistica;
 
 	@PostConstruct
@@ -40,9 +49,19 @@ public class EstatisticasView {
 		this.montarEspecialidadePorMes();
 		this.montarMedicoPorMes();
 		this.montarConsultaMedMes();
+		this.montarSexoPaciente();
 	}
 
-	
+	private void montarSexoPaciente() {
+		sexoCliente = new PieChartModel();
+		CharInfoQtd  result = daoEstatistica.getQtdSexo();
+		for (Map.Entry<Character, Integer> entry : result.getData().entrySet()) {
+			sexoCliente.set((""+entry.getKey()), entry.getValue());
+		}
+		sexoCliente.setTitle("Sexo Clientes");
+		sexoCliente.setLegendPosition("w");
+
+	}
 
 	private void montarConsultaPorAno() {
 
@@ -89,63 +108,66 @@ public class EstatisticasView {
 	private void montarEspecialidadePorMes() {
 		especialidadePorMes = new BarChartModel();
 		AnoMesInfoQtd result = daoEstatistica.getEspecPorAno();
-		
-		for (Map.Entry<String, List<AnoMesConsulta>> entry : result.getData().entrySet()) {
+
+		for (Map.Entry<String, List<AnoMesConsulta>> entry : result.getData()
+				.entrySet()) {
 			ChartSeries serie = new ChartSeries();
 			serie.setLabel(entry.getKey());
-			for(AnoMesConsulta a:entry.getValue()){
+			for (AnoMesConsulta a : entry.getValue()) {
 				serie.set(a.getAnoMes(), a.getQtdConsultas());
 			}
 			especialidadePorMes.addSeries(serie);
-		}	
-		
+		}
+
 		especialidadePorMes.setAnimate(true);
 		especialidadePorMes.setTitle("Especialidade por ano");
 		especialidadePorMes.setLegendPosition("e");
 		especialidadePorMes.setShowPointLabels(true);
-		especialidadePorMes.getAxes().put(AxisType.X, new CategoryAxis("Meses"));
+		especialidadePorMes.getAxes()
+				.put(AxisType.X, new CategoryAxis("Meses"));
 		especialidadePorMes.setStacked(true);
 		Axis yAxis = especialidadePorMes.getAxis(AxisType.Y);
 		yAxis.setLabel("Consultas");
 		yAxis.setMin(0);
 
 	}
-	
+
 	private void montarConsultaMedMes() {
 		consultaMedicomesAtual = new BarChartModel();
-		MedQtdMes result = daoEstatistica.getMedPorMes();
-		
-		
+		InfoQtd result = daoEstatistica.getMedPorMes();
+
 		ChartSeries serie = new ChartSeries();
 		serie.setLabel("Consultas");
-        for (Map.Entry<String,Integer> entry : result.getData().entrySet()) {
-        	serie .set(entry.getKey(), entry.getValue());
-		}	
-        consultaMedicomesAtual.addSeries(serie );
-      
+		for (Map.Entry<String, Integer> entry : result.getData().entrySet()) {
+			serie.set(entry.getKey(), entry.getValue());
+		}
+		consultaMedicomesAtual.addSeries(serie);
 
 		consultaMedicomesAtual.setTitle("Consultas mensais de medico");
 		consultaMedicomesAtual.setLegendPosition("e");
 		consultaMedicomesAtual.setShowPointLabels(true);
-		consultaMedicomesAtual.getAxes().put(AxisType.X, new CategoryAxis("Medicos"));
+		consultaMedicomesAtual.getAxes().put(AxisType.X,
+				new CategoryAxis("Medicos"));
 		Axis yAxis = consultaMedicomesAtual.getAxis(AxisType.Y);
 		yAxis.setLabel("Consultas");
 		yAxis.setMin(0);
-		
+
 	}
+
 	private void montarMedicoPorMes() {
-		medicoPorMes = new LineChartModel();	
+		medicoPorMes = new LineChartModel();
 		AnoMesInfoQtd result = daoEstatistica.getMedPorAno();
-		
-		for (Map.Entry<String, List<AnoMesConsulta>> entry : result.getData().entrySet()) {
+
+		for (Map.Entry<String, List<AnoMesConsulta>> entry : result.getData()
+				.entrySet()) {
 			ChartSeries serie = new ChartSeries();
 			serie.setLabel(entry.getKey());
-			for(AnoMesConsulta a:entry.getValue()){
+			for (AnoMesConsulta a : entry.getValue()) {
 				serie.set(a.getAnoMes(), a.getQtdConsultas());
 			}
 			medicoPorMes.addSeries(serie);
-		}	
-		
+		}
+
 		medicoPorMes.setTitle("Medico por ano");
 		medicoPorMes.setLegendPosition("e");
 		medicoPorMes.setShowPointLabels(true);
@@ -155,6 +177,7 @@ public class EstatisticasView {
 		yAxis.setLabel("Consultas");
 		yAxis.setMin(0);
 	}
+
 	public LineChartModel getConsultasPorAno() {
 		return consultasPorAno;
 	}
@@ -182,7 +205,7 @@ public class EstatisticasView {
 	public LineChartModel getMedicoPorMes() {
 		return medicoPorMes;
 	}
-	
+
 	public void setMedicoPorMes(LineChartModel medicoPorMes) {
 		this.medicoPorMes = medicoPorMes;
 	}
@@ -194,6 +217,5 @@ public class EstatisticasView {
 	public void setConsultaMedicomesAtual(BarChartModel consultaMedicomesAtual) {
 		this.consultaMedicomesAtual = consultaMedicomesAtual;
 	}
-	
-	
+
 }

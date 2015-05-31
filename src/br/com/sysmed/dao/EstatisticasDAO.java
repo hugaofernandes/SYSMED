@@ -74,10 +74,19 @@ public class EstatisticasDAO {
 		return dto;
 	}
 	
-	public MedQtdMes getMedPorMes() {
+	public InfoQtd getMedPorMes() {
 		Query query = em.createNativeQuery("SELECT dm.nome as nome_medico, count(*) as qtd_consultas FROM data_agendamento as da, data_horario as dho, data_medico as dm WHERE dm.cpf = da.id_medico and da.id_horario = dho.id and dho.ano = YEAR(now()) and dho.mes = MONTH(NOW()) group by nome_medico");
 		List<Object[]> results = query.getResultList();
-		MedQtdMes dto = new MedQtdMes();
+		InfoQtd dto = new InfoQtd();
+	    for(Object[] a:results){
+	    	dto.add(a);
+		}
+		return dto;
+	}
+	public CharInfoQtd getQtdSexo() {
+		Query query = em.createNativeQuery("SELECT dc.sexo as sexo, count(*) FROM data_agendamento as da, data_cliente as dc WHERE da.id_cliente = dc.id group by sexo");
+		List<Object[]> results = query.getResultList();
+		CharInfoQtd  dto = new CharInfoQtd();
 	    for(Object[] a:results){
 	    	dto.add(a);
 		}
