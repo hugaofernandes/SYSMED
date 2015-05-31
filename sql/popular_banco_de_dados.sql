@@ -36,7 +36,8 @@ insert into data_horario(id,ano,semestre,trimestre,mes,dia,hora,min) values
 insert into data_agendamento(id_cliente,id_especialidade,id_medico,id_horario,valor_consulta) values
 (null,"especialidade 1",null,str_to_date("2015-05-01 00:00:00","%Y-%m-%d %H:%i:%S"),50),
 (null,"especialidade 4",null,str_to_date("2015-04-01 00:00:00","%Y-%m-%d %H:%i:%S"),50),
-(null,"especialidade 4",null,str_to_date("2015-04-30 00:00:00","%Y-%m-%d %H:%i:%S"),50),
+(null,"especialidade 4",null,str_to_date("2015-04-01 00:00:00","%Y-%m-%d %H:%i:%S"),50),
+(null,"especialidade 2",null,str_to_date("2015-04-30 00:00:00","%Y-%m-%d %H:%i:%S"),50),
 (null,"especialidade 3",null,str_to_date("2015-03-01 00:00:00","%Y-%m-%d %H:%i:%S"),50),
 (null,"especialidade 2",null,str_to_date("2015-02-01 00:00:00","%Y-%m-%d %H:%i:%S"),50),
 (null,"especialidade 1",null,str_to_date("2015-01-01 00:00:00","%Y-%m-%d %H:%i:%S"),50),
