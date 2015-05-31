@@ -19,6 +19,7 @@ import br.com.sysmed.DTO.AnoMesConsulta;
 import br.com.sysmed.DTO.AnoMesInfoQtd;
 import br.com.sysmed.DTO.CharInfoQtd;
 import br.com.sysmed.DTO.InfoQtd;
+import br.com.sysmed.DTO.IntInfoQtd;
 import br.com.sysmed.DTO.MesDiaConsulta;
 import br.com.sysmed.dao.EstatisticasDAO;
 
@@ -31,14 +32,8 @@ public class EstatisticasView {
 	private LineChartModel medicoPorMes;
 	private BarChartModel consultaMedicomesAtual;
 	private PieChartModel sexoCliente;
-	public PieChartModel getSexoCliente() {
-		return sexoCliente;
-	}
-
-	public void setSexoCliente(PieChartModel sexoCliente) {
-		this.sexoCliente = sexoCliente;
-	}
-
+	private PieChartModel idadesClientes;
+	
 	private EstatisticasDAO daoEstatistica;
 
 	@PostConstruct
@@ -50,6 +45,17 @@ public class EstatisticasView {
 		this.montarMedicoPorMes();
 		this.montarConsultaMedMes();
 		this.montarSexoPaciente();
+		this.montarIdadePacientes();
+	}
+
+	private void montarIdadePacientes() {
+		idadesClientes =  new PieChartModel();
+		IntInfoQtd result = daoEstatistica.getIdadeClientes();
+		for (Map.Entry<Integer, Integer> entry : result.getData().entrySet()) {
+			idadesClientes.set((entry.getKey().toString()), entry.getValue());
+		}
+		idadesClientes.setTitle("Idade clientes");
+		idadesClientes.setLegendPosition("w");
 	}
 
 	private void montarSexoPaciente() {
@@ -64,7 +70,6 @@ public class EstatisticasView {
 	}
 
 	private void montarConsultaPorAno() {
-
 		List<AnoMesConsulta> results = daoEstatistica.getConsultaPorAno();
 		consultasPorAno = new LineChartModel();
 
@@ -217,5 +222,20 @@ public class EstatisticasView {
 	public void setConsultaMedicomesAtual(BarChartModel consultaMedicomesAtual) {
 		this.consultaMedicomesAtual = consultaMedicomesAtual;
 	}
+	
+	public PieChartModel getIdadesClientes() {
+		return idadesClientes;
+	}
 
+	public void setIdadesClientes(PieChartModel idadesClientes) {
+		this.idadesClientes = idadesClientes;
+	}
+
+	public PieChartModel getSexoCliente() {
+		return sexoCliente;
+	}
+
+	public void setSexoCliente(PieChartModel sexoCliente) {
+		this.sexoCliente = sexoCliente;
+	}
 }
