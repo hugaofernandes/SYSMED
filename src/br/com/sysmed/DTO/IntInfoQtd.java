@@ -24,6 +24,6 @@ public class IntInfoQtd {
 		this.add(info,qtdConsultas);
 	}
 	private void add(Integer info, int qtdConsultas) {
-			this.data.put(info,qtdConsultas);	
+		this.data.put(info,qtdConsultas);	
 	}
 }

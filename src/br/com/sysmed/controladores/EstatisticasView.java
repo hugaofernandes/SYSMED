@@ -18,6 +18,8 @@ import org.primefaces.model.chart.PieChartModel;
 import br.com.sysmed.DTO.AnoMesConsulta;
 import br.com.sysmed.DTO.AnoMesInfoQtd;
 import br.com.sysmed.DTO.CharInfoQtd;
+import br.com.sysmed.DTO.Cidade;
+import br.com.sysmed.DTO.CidadesInfo;
 import br.com.sysmed.DTO.InfoQtd;
 import br.com.sysmed.DTO.IntInfoQtd;
 import br.com.sysmed.DTO.MesDiaConsulta;
@@ -33,6 +35,7 @@ public class EstatisticasView {
 	private BarChartModel consultaMedicomesAtual;
 	private PieChartModel sexoCliente;
 	private PieChartModel idadesClientes;
+	private PieChartModel cidadesClientes;
 	
 	private EstatisticasDAO daoEstatistica;
 
@@ -46,7 +49,20 @@ public class EstatisticasView {
 		this.montarConsultaMedMes();
 		this.montarSexoPaciente();
 		this.montarIdadePacientes();
+		this.montarCidadeClientes();
 	}
+	
+	
+	private void montarCidadeClientes() {
+		cidadesClientes =  new PieChartModel();
+		CidadesInfo result = daoEstatistica.getCidadesCliente();
+		for (Map.Entry<String, Cidade> entry : result.getCidades().entrySet()) {
+			cidadesClientes.set(entry.getKey(), entry.getValue().getQtd_clientes());
+		}
+		cidadesClientes.setTitle("Cidade clientes");
+		cidadesClientes.setLegendPosition("w");
+	}
+
 
 	private void montarIdadePacientes() {
 		idadesClientes =  new PieChartModel();
@@ -237,5 +253,13 @@ public class EstatisticasView {
 
 	public void setSexoCliente(PieChartModel sexoCliente) {
 		this.sexoCliente = sexoCliente;
+	}
+	
+	public PieChartModel getCidadesClientes() {
+		return cidadesClientes;
+	}
+
+	public void setCidadesClientes(PieChartModel cidadesClientes) {
+		this.cidadesClientes = cidadesClientes;
 	}
 }

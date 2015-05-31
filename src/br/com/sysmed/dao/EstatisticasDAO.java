@@ -101,4 +101,13 @@ public class EstatisticasDAO {
 		}
 		return dto;
 	}
+	public CidadesInfo getCidadesCliente() {
+		Query query = em.createNativeQuery("select dc.cidade as cidade, dc.bairro as bairro, count(bairro) as qtd_bairro from data_agendamento as da, data_cliente as dc where da.id_cliente = dc.id group by cidade, bairro");
+		List<Object[]> results = query.getResultList();
+		CidadesInfo dto = new CidadesInfo();
+	    for(Object[] a:results){
+	    	dto.add(a);
+		}
+		return dto;
+	}
 }

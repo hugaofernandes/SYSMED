@@ -31,7 +31,6 @@ and open the template in the editor.
 			<ui:include src="/navegacao_lateral_tab2.xhtml" />
 	
 			<div id="div-composicao" class="content">
-				
 					<p:chart type="line" model="#{estatisticasView.consultasPorAno}" responsive="true"/>
 					<p:chart type="bar" model="#{estatisticasView.especialidadePorMes}" responsive="true"/>
 					<p:chart type="line" model="#{estatisticasView.consultasPorMes}" responsive="true"/>
@@ -39,6 +38,7 @@ and open the template in the editor.
 					<p:chart type="bar" model="#{estatisticasView.consultaMedicomesAtual}" responsive="true"/>
 					<p:chart type="pie" model="#{estatisticasView.sexoCliente}" responsive="true" />
 					<p:chart type="pie" model="#{estatisticasView.idadesClientes}" responsive="true" />
+					<p:chart type="pie" model="#{estatisticasView.cidadesClientes}" responsive="true" />
 			</div>
 		</div>
 	</div>
