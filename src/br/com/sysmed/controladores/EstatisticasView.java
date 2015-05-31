@@ -1,12 +1,15 @@
 package br.com.sysmed.controladores;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
+import java.util.Map.Entry;
 
 import javax.annotation.PostConstruct;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ViewScoped;
 
+import org.primefaces.event.ItemSelectEvent;
 import org.primefaces.model.chart.Axis;
 import org.primefaces.model.chart.AxisType;
 import org.primefaces.model.chart.BarChartModel;
@@ -36,7 +39,8 @@ public class EstatisticasView {
 	private PieChartModel sexoCliente;
 	private PieChartModel idadesClientes;
 	private PieChartModel cidadesClientes;
-	
+	private PieChartModel bairrosClientes;
+	CidadesInfo result;
 	private EstatisticasDAO daoEstatistica;
 
 	@PostConstruct
@@ -52,18 +56,44 @@ public class EstatisticasView {
 		this.montarCidadeClientes();
 	}
 	
+
 	
 	private void montarCidadeClientes() {
 		cidadesClientes =  new PieChartModel();
-		CidadesInfo result = daoEstatistica.getCidadesCliente();
-		for (Map.Entry<String, Cidade> entry : result.getCidades().entrySet()) {
-			cidadesClientes.set(entry.getKey(), entry.getValue().getQtd_clientes());
+		result = daoEstatistica.getCidadesCliente();
+		String cidadeEsc = result.getCidades().get(0).getNome();
+		int maiorQtd = 0;
+		int quantidadeClientes = 0;
+		for (Map.Entry<String, Cidade> entry : result.getData().entrySet()) {
+			quantidadeClientes = entry.getValue().getQtd_clientes(); 
+			cidadesClientes.set(entry.getKey(), quantidadeClientes);
+			if (quantidadeClientes > maiorQtd){
+				cidadeEsc = entry.getKey();
+			}
+	
 		}
 		cidadesClientes.setTitle("Cidade clientes");
 		cidadesClientes.setLegendPosition("w");
+		this.setBairros(cidadeEsc);
 	}
-
-
+	
+	public void setBairros(String cidade){
+		bairrosClientes = new PieChartModel();
+		Cidade cidadeEsc = result.getData().get(cidade);
+		for (Map.Entry<String, Integer> entry : cidadeEsc.getbairros().entrySet()) {
+			bairrosClientes.set(entry.getKey(), entry.getValue());
+		}
+		bairrosClientes.setTitle("Bairros cliente");
+		bairrosClientes.setLegendPosition("w");
+	}
+	
+	public void mudarBairros(ItemSelectEvent event) {
+		Map<String,Number> data = cidadesClientes.getData();
+		List<Entry<String,Number>> randAccess = new ArrayList<Entry<String,Number>>(data.entrySet());
+		this.setBairros(randAccess.get(event.getItemIndex()).getKey());
+		
+    }
+	
 	private void montarIdadePacientes() {
 		idadesClientes =  new PieChartModel();
 		IntInfoQtd result = daoEstatistica.getIdadeClientes();
@@ -261,5 +291,13 @@ public class EstatisticasView {
 
 	public void setCidadesClientes(PieChartModel cidadesClientes) {
 		this.cidadesClientes = cidadesClientes;
+	}
+	
+	public PieChartModel getBairrosClientes() {
+		return bairrosClientes;
+	}
+
+	public void setBairrosClientes(PieChartModel bairrosClientes) {
+		this.bairrosClientes = bairrosClientes;
 	}
 }

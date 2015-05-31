@@ -8,4 +8,3 @@ from
 where 
 	da.id_cliente = dc.id
 group by cidade, bairro
-order by cidade, bairro
