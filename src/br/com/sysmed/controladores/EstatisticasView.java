@@ -66,6 +66,7 @@ public class EstatisticasView {
 		int quantidadeClientes = 0;
 		for (Map.Entry<String, Cidade> entry : result.getData().entrySet()) {
 			quantidadeClientes = entry.getValue().getQtd_clientes(); 
+			System.out.println(quantidadeClientes);
 			cidadesClientes.set(entry.getKey(), quantidadeClientes);
 			if (quantidadeClientes > maiorQtd){
 				cidadeEsc = entry.getKey();

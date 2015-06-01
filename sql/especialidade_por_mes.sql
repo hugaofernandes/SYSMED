@@ -9,7 +9,6 @@ from
 		A.ano_m,
 		A.mes_m,
 		coalesce(qtd_consulta, 0) as qtd_consulta
-		
 	from
 		(select distinct d.nome as nome_especialidade_m ,ano as ano_m,mes as mes_m
 		from
@@ -29,9 +28,7 @@ from
 					)
 		) as D,
 		data_especialidade as d) as A
-
 		LEFT JOIN
-
 		(SELECT 
 			de.nome as nome_especialidade,
 			dho.ano as ano,
