@@ -18,7 +18,7 @@ import br.com.sysmed.modelo.Paciente;
 
 @ManagedBean(name = "pacienteView")
 //@ViewScoped
-@SessionScoped  
+@SessionScoped
 public class PacienteView {
 private PacienteDao dao;
 private Paciente paciente;

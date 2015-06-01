@@ -54,6 +54,19 @@ and open the template in the editor.
 								</div>
 								<div class="ui-grid-row">
 									<div class="ui-grid-col-2">
+										<h:outputText value="Email:" />
+									</div>
+									<div class="ui-grid-col-6">
+										<p:inputText id="nome" value="#{recepcionistaView.recepcionista.email}" 
+										required="true" requiredMessage="campo obrigatorio!"
+										/>
+										<h:message for="email"/>
+										
+									</div>
+								</div>
+								
+								<div class="ui-grid-row">
+									<div class="ui-grid-col-2">
 										<h:outputText value="Cpf:" />
 									</div>
 									<div class="ui-grid-col-6">

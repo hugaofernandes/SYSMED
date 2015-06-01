@@ -25,12 +25,23 @@ and open the template in the editor.
 								<p:button id="not-conf" icon="fa fa-bell"></p:button>
 								<p:button id="mens-conf" icon="fa fa-envelope"></p:button>
 								<p:button id="botao-conf" icon="fa fa-wrench"></p:button>
-								<div id="logado">
-									<h:graphicImage id="avatar" library="images" name="avatar.png"
-										width="28px" height="28px" />
-									<span id="nome-logado">Maria M</span> <i id="expadir"
-										class="fa fa-angle-down"></i>
+								<div id="logado" class="myButton">
+
+												<h:graphicImage id="avatar" library="images" name="avatar.png"
+												width="28px" height="28px" />
+												<span id="nome-logado">Logado
+												</span> <i id="expandir"
+												class="fa fa-angle-down"></i>
+													<p:overlayPanel id="imgPanel" for="avatar" showEffect="blind" showEvent="mouseover" 
+	                    							dismissable="true" >
+	                    							<h:form>
+	               										 <p:commandButton value="Sair"  />
+	            									</h:form>
+	            									
+													</p:overlayPanel>
+
 								</div>
+								
 							</div>
 						</div>
 					</div>
