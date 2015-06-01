@@ -4,7 +4,6 @@ import java.io.Serializable;
 
 import javax.persistence.*;
 
-import java.util.Date;
 import java.util.List;
 
 
@@ -17,14 +16,14 @@ import java.util.List;
 public abstract class Funcionario extends Pessoa implements Serializable {
 	private static final long serialVersionUID = 1L;
 
-	private double salario;
+	protected double salario;
 
 	@Column(name="tipo_funcionario")
 	protected String tipoFuncionario;
 	
 	//bi-directional many-to-one association to Trabalha
-	@OneToMany(mappedBy="funcionario", cascade={CascadeType.ALL})
-	private List<Trabalha> trabalha;
+	@OneToMany(mappedBy="funcionario", cascade = CascadeType.ALL)
+	protected List<Trabalha> trabalha;
 
 	public double getSalario() {
 		return this.salario;
@@ -42,6 +41,14 @@ public abstract class Funcionario extends Pessoa implements Serializable {
 		return this.trabalha;
 	}
 
+	public Trabalha getTrabalhaPorTurno(String nomeTurno) {
+		for (Trabalha trabalha:this.getTrabalha()){
+			if (trabalha.getTurnoBean().getNome().equals(nomeTurno)){
+				return trabalha;
+			}
+		}
+		return null;
+	}
 	public void setTrabalha(List<Trabalha> trabalha) {
 		this.trabalha = trabalha;
 	}
@@ -51,7 +58,14 @@ public abstract class Funcionario extends Pessoa implements Serializable {
 		trabalha.setFuncionario(this);
 		return trabalha;
 	}
-
+	public boolean temTurno(String nomeTurno){
+		for (Trabalha trabalha:this.getTrabalha()){
+			if (trabalha.getTurnoBean().getNome().equals(nomeTurno)){
+				return true;
+			}
+		}
+		return false;
+	}
 	public Trabalha removeTrabalha(Trabalha trabalha) {
 		getTrabalha().remove(trabalha);
 		trabalha.setFuncionario(null);
