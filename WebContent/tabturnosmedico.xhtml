@@ -66,11 +66,13 @@ and open the template in the editor.
 										<p:commandButton id="novaEspecialidade"
 											update="formEspecialidade"
 											onclick="PF('addEspecialidade').show();"
-											value="add especialidade" />
+											value="especialidade" />
 									</div>
+									
 									<div class="ui-grid-col-6">
 										<p:commandButton id="novaEspecialidade2"
-											value="add especialidade" />
+										action="/cadastrarturnos.xhtml"
+											value="turno" />
 									</div>
 								</div>
 							</div>
@@ -82,13 +84,12 @@ and open the template in the editor.
 									oncomplete="PF('myschedule').update();" value="Adicionar" />
 							</div>
 							<div class="ui-grid-col-6">
-								<p:commandButton id="salvar" action="#{medicoView.salvar2}"
+								<p:commandButton id="salvar" action="#{medicoView.salvar}"
 									value="Salvar" />
 							</div>
 						</div>
 						<div class="ui-grid-row">
 						
-					    
 					    <p:dataTable id="lista" var="atuacomo" value="#{medicoView.horarios}">
 						    <p:column headerText="Turno">
 						        <h:outputText value="#{atuacomo.trabalhaBean.turnoBean.nome}" />
