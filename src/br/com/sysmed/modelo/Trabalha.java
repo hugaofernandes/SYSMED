@@ -72,9 +72,9 @@ public class Trabalha implements Serializable {
 	}
 
 	public AtuaComo addAtuaComo(AtuaComo atuaComo) {
+		
 		getAtuaComos().add(atuaComo);
 		atuaComo.setTrabalhaBean(this);
-
 		return atuaComo;
 	}
 

@@ -7,8 +7,10 @@ import java.util.Date;
 import java.util.List;
 
 import javax.annotation.PostConstruct;
+import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
+import javax.faces.context.FacesContext;
 import javax.faces.event.ActionEvent;
 
 import org.primefaces.model.DefaultScheduleEvent;
@@ -42,8 +44,6 @@ public class MedicoView {
 	private double custo_consulta;
 	private int duracaoEsperada;
 	
-
-
 	private EspecialidadeDAO especialidadeDAO;
 	private List<Medico> medicos;
 	private List<Medico> medicosFilter;
@@ -55,7 +55,7 @@ public class MedicoView {
 	@PostConstruct
 	public void init() {
 		this.medico = new Medico();
-		this.medico.setCpf("1985");
+		this.medico.setCpf("1");
 		this.medico.setBairro("null");
 		this.medico.setCidade("null");
 		this.medico.setDataNasc(new Date());
@@ -156,10 +156,11 @@ public class MedicoView {
 		this.medico = new Medico();
 		this.data_nasc = "";
 		return "paginaCadastroMedico";
-
 	}
 
 	public void addAtuaComo() {
+		boolean adicionaAtuaComo = true;
+		String messagemString = "";
 		Trabalha trabalha;
 		Turno turnoEscolhido = null;
 		for (Turno turno : this.turnos) {
@@ -178,30 +179,49 @@ public class MedicoView {
 		if (this.medico.temTurno(turnoEscolhido.getNome())) {
 			trabalha = medico.getTrabalhaPorTurno(this.turno);
 			System.out.println("ja existia");
+			for(AtuaComo atuacomo:trabalha.getAtuaComos()){
+				if (atuacomo.getEspecialidade().getNome().equals(atua.getEspecialidade().getNome()))
+				{	
+					adicionaAtuaComo = false;
+					messagemString = "Essa especialidade ja foi adicionada a esse turno";
+				}
+			}
 		} else {
 			trabalha = new Trabalha();
 			trabalha.setFuncionario(this.medico);
 			trabalha.setTurnoBean(turnoEscolhido);
 			turnoEscolhido.addTrabalha(trabalha);
+			adicionaAtuaComo  = this.medico.addTrabalha(trabalha);
+			if(!adicionaAtuaComo){
+				messagemString = "Nao foi possivel adicionar o turno devido a um conflito entre horarios";
+			}
 			System.out.println("Não existia");
 		}
-		horarios.add(atua);
-		trabalha.addAtuaComo(atua);
-		atua.setTrabalhaBean(trabalha);
-		this.medico.addTrabalha(trabalha);
-		for(Horario horario:turnoEscolhido.getHorarios()){
-			String titulo = turnoEscolhido.getNome()+ "\n" +this.especialidade;
-			DefaultScheduleEvent novoEvento = new DefaultScheduleEvent(titulo, horario.getInicioAtualizado(),horario.getFinalAtualizado());
-			novoEvento.setData(atua);
-			this.horariosTrabalho.addEvent(novoEvento);
+		if(adicionaAtuaComo){
+			horarios.add(atua);
+			trabalha.addAtuaComo(atua);
+			atua.setTrabalhaBean(trabalha);
+			for(Horario horario:turnoEscolhido.getHorarios()){
+				String titulo = turnoEscolhido.getNome()+ "\n" +this.especialidade;
+				DefaultScheduleEvent novoEvento = new DefaultScheduleEvent(titulo, horario.getInicioAtualizado(),horario.getFinalAtualizado());
+				novoEvento.setData(atua);
+				this.horariosTrabalho.addEvent(novoEvento);
+			}
+			System.out.println(this.medico.getCpf());
+			System.out.println(turnoEscolhido);
+			System.out.println(this.especialidade);
+			System.out.println("adicionado");
 		}
-		System.out.println(this.medico.getCpf());
-		System.out.println(turnoEscolhido);
-		System.out.println(this.especialidade);
-		System.out.println("adicionado");
+		else{
+			 FacesMessage messagem = new FacesMessage(FacesMessage.SEVERITY_ERROR,"Erro ao adicionar",messagemString);
+			 addMessagem(messagem);
+		}
 
 	}
-
+	
+	private void addMessagem(FacesMessage message) {
+        FacesContext.getCurrentInstance().addMessage(null, message);
+    }
 	public List<AtuaComo> getHorarios() {
 		return horarios;
 	}
