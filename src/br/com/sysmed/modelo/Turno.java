@@ -91,7 +91,14 @@ public class Turno implements Serializable {
 	    return TurnoValidacao.OPERACAO_BEM_SUCEDIDA;
 	   
 	}
-	
+	public boolean daConflito(Turno outroTurno){
+		for(Horario horario:outroTurno.getHorarios()){
+			if((this.validar(horario)!=TurnoValidacao.OPERACAO_BEM_SUCEDIDA)){
+				return true;
+			}
+		}
+		return false;
+	}
 	public TurnoValidacao validar(Horario horario){
 		for (Horario horario2 :this.getHorarios()){
 			if (horario2.getDiaDaSemana() == horario.getDiaDaSemana()){

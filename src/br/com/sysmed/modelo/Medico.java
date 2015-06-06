@@ -47,14 +47,12 @@ public class Medico extends Funcionario implements Serializable {
 	public SolicitaoConsulta addSolicitadoEm(SolicitaoConsulta solicitadoEm) {
 		getSolicitadoEm().add(solicitadoEm);
 		solicitadoEm.setMedico(this);
-
 		return solicitadoEm;
 	}
 
 	public SolicitaoConsulta removeSolicitadoEm(SolicitaoConsulta solicitadoEm) {
 		getSolicitadoEm().remove(solicitadoEm);
 		solicitadoEm.setMedico(null);
-
 		return solicitadoEm;
 	}
 

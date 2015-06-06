@@ -53,11 +53,17 @@ public abstract class Funcionario extends Pessoa implements Serializable {
 		this.trabalha = trabalha;
 	}
 
-	public Trabalha addTrabalha(Trabalha trabalha) {
-		getTrabalha().add(trabalha);
-		trabalha.setFuncionario(this);
-		return trabalha;
+	public boolean addTrabalha(Trabalha novoTrabalha) {
+		for(Trabalha trabalha2:getTrabalha()){
+			if(trabalha2.getTurnoBean().daConflito(novoTrabalha.getTurnoBean())){
+				return false;
+			}
+		}
+		getTrabalha().add(novoTrabalha);
+		novoTrabalha.setFuncionario(this);
+		return true;
 	}
+	
 	public boolean temTurno(String nomeTurno){
 		for (Trabalha trabalha:this.getTrabalha()){
 			if (trabalha.getTurnoBean().getNome().equals(nomeTurno)){
@@ -71,5 +77,4 @@ public abstract class Funcionario extends Pessoa implements Serializable {
 		trabalha.setFuncionario(null);
 		return trabalha;
 	}
-
 }

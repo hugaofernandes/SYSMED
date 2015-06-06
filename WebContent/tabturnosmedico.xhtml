@@ -15,7 +15,6 @@ and open the template in the editor.
 </h:head>
 <h:body>
 	<ui:composition>
-		<p:growl id="messages" showDetail="true" />
 		<div class="ui-grid">
 			<div class="ui-grid-row">
 				<div id="opcoesTurno" class="ui-grid-col-3">
@@ -80,12 +79,17 @@ and open the template in the editor.
 						<div class="ui-grid-row">
 							<div class="ui-grid-col-6">
 								<p:commandButton id="cadastrar"
-									action="#{medicoView.addAtuaComo}" update="lista"
+									action="#{medicoView.addAtuaComo}" update="lista :messages" 
 									oncomplete="PF('myschedule').update();" value="Adicionar" />
 							</div>
 							<div class="ui-grid-col-6">
+<<<<<<< HEAD
 								<p:commandButton id="salvar" action="#{medicoView.salvar}"
 									value="Salvar" />
+=======
+								<p:commandButton id="salvar" action="#{medicoView.salvar2}"
+									 value="Salvar" />
+>>>>>>> d18e0e7ff066d508b1271edafd26581922af5cc8
 							</div>
 						</div>
 						<div class="ui-grid-row">
