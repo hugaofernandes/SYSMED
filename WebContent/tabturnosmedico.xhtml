@@ -85,30 +85,32 @@ and open the template in the editor.
 									 value="Salvar" />
 							</div>
 						</div>
-						<div class="ui-grid-row">
-						
-					    
-					    <p:dataTable id="lista" var="atuacomo" value="#{medicoView.horarios}">
-						    <p:column headerText="Turno">
-						        <h:outputText value="#{atuacomo.trabalhaBean.turnoBean.nome}" />
-						    </p:column>
-						 
-						    <p:column headerText="Especialidade">
-						        <h:outputText value="#{atuacomo.especialidade.nome}" />
-						    </p:column>
-						 
-						    <p:column headerText="Custo">
-						        <h:outputText value="#{atuacomo.custoConsulta}" />
-						    </p:column>
-						    <p:column headerText="Duracao">
-						        <h:outputText value="#{atuacomo.duracaoEsperada}" />
-						    </p:column>
-						 	<p:column >
-					             <p:commandButton styleClass="botaoAcao" update="lista" oncomplete="PF('myschedule').update();" icon="fa fa-trash" title="Excluir"  action="#{medicoView.excluirAtuaSelecionado}">
-									<f:setPropertyActionListener value="#{atuacomo}" target="#{medicoView.atuaSelecionado}" />
-								</p:commandButton>
-					        </p:column>
-						</p:dataTable>
+						<div class="ui-grid-row">									     
+						     <p:dataGrid id="lista" var="atuacomo" value="#{medicoView.horarios}" columns="1" layout="grid">							 
+							      <p:panelGrid>         
+								    <p:row>
+								        <p:column><h:outputText value="Turno" /></p:column>
+								        <p:column ><h:outputText value="#{atuacomo.trabalhaBean.turnoBean.nome}"/></p:column>				
+								        <p:column rowspan="5" >
+									         <p:commandButton styleClass="botaoAcao" update="lista" oncomplete="PF('myschedule').update();" icon="fa fa-trash" title="Excluir"  action="#{medicoView.excluirAtuaSelecionado}">
+												<f:setPropertyActionListener value="#{atuacomo}" target="#{medicoView.atuaSelecionado}" />
+										     </p:commandButton>
+									     </p:column>								      		
+								    </p:row>						 						   
+								     <p:row>
+								        <p:column><h:outputText value="Especialidade"/></p:column>
+								        <p:column ><h:outputText value="#{atuacomo.especialidade.nome}"/></p:column>
+								    </p:row>
+								    <p:row>
+								        <p:column><h:outputText value="Duracao"/></p:column>
+								        <p:column ><h:outputText value="#{atuacomo.duracaoEsperada}"/></p:column>
+								    </p:row>
+								     <p:row>
+								        <p:column><h:outputText value="Custo"/></p:column>
+								        <p:column ><h:outputText value="#{atuacomo.custoConsulta}" /></p:column>
+								    </p:row>
+								</p:panelGrid>			
+						    </p:dataGrid>				   
 						</div>
 						<p:dialog header="Cadastrar especialidade"
 							widgetVar="addEspecialidade">

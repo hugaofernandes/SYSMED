@@ -216,7 +216,6 @@ public class MedicoView {
 			 FacesMessage messagem = new FacesMessage(FacesMessage.SEVERITY_ERROR,"Erro ao adicionar",messagemString);
 			 addMessagem(messagem);
 		}
-
 	}
 	
 	private void addMessagem(FacesMessage message) {
