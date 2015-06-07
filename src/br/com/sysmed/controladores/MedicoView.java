@@ -113,6 +113,7 @@ public class MedicoView {
 		medicos.add(this.medico);
 		medico = new Medico();
 		this.data_nasc = "";
+		System.out.println("salvo1");
 	}
 
 	public void salvar2() {
@@ -121,7 +122,7 @@ public class MedicoView {
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
-		System.out.println("salvo");
+		System.out.println("salvo2");
 	}
 
 	public String paginaEditar() {
