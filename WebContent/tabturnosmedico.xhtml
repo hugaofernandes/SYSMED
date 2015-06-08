@@ -65,13 +65,12 @@ and open the template in the editor.
 										<p:commandButton id="novaEspecialidade"
 											update="formEspecialidade"
 											onclick="PF('addEspecialidade').show();"
-											value="especialidade" />
+											value="add especialidade" />
 									</div>
-									
 									<div class="ui-grid-col-6">
 										<p:commandButton id="novaEspecialidade2"
 										action="/cadastrarturnos.xhtml"
-											value="turno" />
+											value="add turno" />
 									</div>
 								</div>
 							</div>
@@ -83,34 +82,42 @@ and open the template in the editor.
 									oncomplete="PF('myschedule').update();" value="Adicionar" />
 							</div>
 							<div class="ui-grid-col-6">
+<<<<<<< HEAD
 
 								<p:commandButton id="salvar" action="#{medicoView.salvar}"
 									value="Salvar" />
+=======
+								<p:commandButton id="salvar" action="#{medicoView.salvar2}"
+									 value="Salvar" />
+>>>>>>> 64645bc9f4935609573b27847e20c418fa4bf351
 							</div>
 						</div>
-						<div class="ui-grid-row">
-						
-					    <p:dataTable id="lista" var="atuacomo" value="#{medicoView.horarios}">
-						    <p:column headerText="Turno">
-						        <h:outputText value="#{atuacomo.trabalhaBean.turnoBean.nome}" />
-						    </p:column>
-						 
-						    <p:column headerText="Especialidade">
-						        <h:outputText value="#{atuacomo.especialidade.nome}" />
-						    </p:column>
-						 
-						    <p:column headerText="Custo">
-						        <h:outputText value="#{atuacomo.custoConsulta}" />
-						    </p:column>
-						    <p:column headerText="Duracao">
-						        <h:outputText value="#{atuacomo.duracaoEsperada}" />
-						    </p:column>
-						 	<p:column >
-					             <p:commandButton styleClass="botaoAcao" update="lista" oncomplete="PF('myschedule').update();" icon="fa fa-trash" title="Excluir"  action="#{medicoView.excluirAtuaSelecionado}">
-									<f:setPropertyActionListener value="#{atuacomo}" target="#{medicoView.atuaSelecionado}" />
-								</p:commandButton>
-					        </p:column>
-						</p:dataTable>
+						<div class="ui-grid-row">									     
+						     <p:dataGrid id="lista" var="atuacomo" value="#{medicoView.horarios}" columns="1" layout="grid">							 
+							      <p:panelGrid>         
+								    <p:row>
+								        <p:column><h:outputText value="Turno" /></p:column>
+								        <p:column ><h:outputText value="#{atuacomo.trabalhaBean.turnoBean.nome}"/></p:column>				
+								        <p:column rowspan="5" >
+									         <p:commandButton styleClass="botaoAcao" update="lista" oncomplete="PF('myschedule').update();" icon="fa fa-trash" title="Excluir"  action="#{medicoView.excluirAtuaSelecionado}">
+												<f:setPropertyActionListener value="#{atuacomo}" target="#{medicoView.atuaSelecionado}" />
+										     </p:commandButton>
+									     </p:column>								      		
+								    </p:row>						 						   
+								     <p:row>
+								        <p:column><h:outputText value="Especialidade"/></p:column>
+								        <p:column ><h:outputText value="#{atuacomo.especialidade.nome}"/></p:column>
+								    </p:row>
+								    <p:row>
+								        <p:column><h:outputText value="Duracao"/></p:column>
+								        <p:column ><h:outputText value="#{atuacomo.duracaoEsperada}"/></p:column>
+								    </p:row>
+								     <p:row>
+								        <p:column><h:outputText value="Custo"/></p:column>
+								        <p:column ><h:outputText value="#{atuacomo.custoConsulta}" /></p:column>
+								    </p:row>
+								</p:panelGrid>			
+						    </p:dataGrid>				   
 						</div>
 						<p:dialog header="Cadastrar especialidade"
 							widgetVar="addEspecialidade">
