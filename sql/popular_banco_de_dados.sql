@@ -1,3 +1,36 @@
+
+insert into pessoa (nome, cpf, cidade, sexo, estado, data_nasc, numero_casa, nome_rua, bairro, telefone, email, estado_civil) values 
+					("Joao", 12345678901, "Caico", 'M', "RN", now(), 1, "rua", "jony", 12340000, "email.com", "Solteiro"),
+					("Maria", 15433465436, "Rio", 'F', "RJ", now(), 1, "rua", "jony", 12340000, "email.com", "Solteiro"),
+                    ("Dra. Martha", 15433465435, "Rio", 'F', "RJ", now(), 1, "rua", "jony", 12340000, "email.com", "Solteiro"),
+                    ("Dr. Santos", 12345678902, "Caico", 'M', "RN", now(), 1, "rua", "jony", 12340000, "email.com", "Solteiro"),
+                    ("Senhor J", 12345288902, "Caico", 'M', "RN", now(), 1, "rua", "jony", 12340000, "email.com", "Solteiro");
+
+insert into funcionario (cpf, salario, tipo_funcionario) values (15433465435, 1000, "medico"), (12345678902, 1000, "medico"), (12345288902, 500, "recepcionista");
+
+insert into recepcionista (cpf) values (12345288902);
+
+insert into paciente (cpf) values (12345678901), (15433465436);
+
+insert into medico (cpf) values (15433465435), (12345678902);
+
+insert into turno (nome) values ("TurnoManha");
+
+insert into trabalha (cpf, turno) values
+					(12345678902, "TurnoManha");
+
+insert into especialidade (nome) values ("Dermatologista");
+                  
+insert into atua_como (nome_especialidade, custo_consulta, trabalha, duracao_esperada) values
+					("Dermatologista", 100, (select id from trabalha where cpf = 12345678902 and turno = "TurnoManha"), 20);
+
+
+insert into solicitao_consulta (horario, cpf_paciente, cpf_medico, cpf_avaliador, nome_especialidade, status_solicitacao, motivo_recusacao, duracao_esperada) values
+								(now(), 12345678901, 12345678902, 12345288902, "Dermatologista", 'P', "veaco", 20),
+                                (now(), 15433465436, 15433465435, 12345288902, "Dermatologista", 'A', "muito veaco", 20);
+
+
+
 insert into data_especialidade values("especialidade 1");
 insert into data_especialidade values("especialidade 2");
 insert into data_especialidade values("especialidade 3");
@@ -46,20 +79,20 @@ insert into data_medico(nome,cpf,sexo,data_nasc) values
 ("medico 4",'4','M',str_to_date("1990-05-07","%Y-%m-%d")),
 ("medico 5",'5','M',str_to_date("1990-05-07","%Y-%m-%d"));
 
-insert into data_cliente(data_nasc,estado_civil,sexo,estado,cidade,bairro) values
-(str_to_date("1990-01-01 00:00:00","%Y-%m-%d %H:%i:%S"),'Solteiro','M','RN','cidade 1','bairro 11'),
-(str_to_date("1990-01-01 00:00:00","%Y-%m-%d %H:%i:%S"),'Solteiro','M','RN','cidade 1','bairro 11'),
-(str_to_date("1992-01-01 00:00:00","%Y-%m-%d %H:%i:%S"),'Solteiro','M','RN','cidade 1','bairro 11'),
-(str_to_date("1994-01-01 00:00:00","%Y-%m-%d %H:%i:%S"),'Solteiro','M','RN','cidade 1','bairro 12'),
-(str_to_date("1994-01-01 00:00:00","%Y-%m-%d %H:%i:%S"),'Solteiro','M','RN','cidade 2','bairro 21'),
-(str_to_date("1994-01-01 00:00:00","%Y-%m-%d %H:%i:%S"),'Solteiro','M','RN','cidade 2','bairro 21'),
-(str_to_date("1989-01-01 00:00:00","%Y-%m-%d %H:%i:%S"),'Solteiro','F','RN','cidade 2','bairro 22'),
-(str_to_date("1989-01-01 00:00:00","%Y-%m-%d %H:%i:%S"),'Solteiro','F','RN','cidade 2','bairro 22'),
-(str_to_date("1989-01-01 00:00:00","%Y-%m-%d %H:%i:%S"),'Solteiro','F','RN','cidade 2','bairro 22'),
-(str_to_date("1989-01-01 00:00:00","%Y-%m-%d %H:%i:%S"),'Solteiro','F','RN','cidade 3','bairro 31'),
-(str_to_date("1988-01-01 00:00:00","%Y-%m-%d %H:%i:%S"),'Solteiro','F','RN','cidade 3','bairro 33'),
-(str_to_date("1988-01-01 00:00:00","%Y-%m-%d %H:%i:%S"),'Solteiro','F','RN','cidade 3','bairro 33'),
-(str_to_date("1988-01-01 00:00:00","%Y-%m-%d %H:%i:%S"),'Solteiro','F','RN','cidade 3','bairro 34');
+insert into data_cliente(id, data_nasc,estado_civil,sexo,estado,cidade,bairro) values
+(1, str_to_date("1990-01-01 00:00:00","%Y-%m-%d %H:%i:%S"),'Solteiro','M','RN','cidade 1','bairro 11'),
+(2, str_to_date("1990-01-01 00:00:00","%Y-%m-%d %H:%i:%S"),'Solteiro','M','RN','cidade 1','bairro 11'),
+(3, str_to_date("1992-01-01 00:00:00","%Y-%m-%d %H:%i:%S"),'Solteiro','M','RN','cidade 1','bairro 11'),
+(4, str_to_date("1994-01-01 00:00:00","%Y-%m-%d %H:%i:%S"),'Solteiro','M','RN','cidade 1','bairro 12'),
+(5, str_to_date("1994-01-01 00:00:00","%Y-%m-%d %H:%i:%S"),'Solteiro','M','RN','cidade 2','bairro 21'),
+(6, str_to_date("1994-01-01 00:00:00","%Y-%m-%d %H:%i:%S"),'Solteiro','M','RN','cidade 2','bairro 21'),
+(7, str_to_date("1989-01-01 00:00:00","%Y-%m-%d %H:%i:%S"),'Solteiro','F','RN','cidade 2','bairro 22'),
+(8, str_to_date("1989-01-01 00:00:00","%Y-%m-%d %H:%i:%S"),'Solteiro','F','RN','cidade 2','bairro 22'),
+(9, str_to_date("1989-01-01 00:00:00","%Y-%m-%d %H:%i:%S"),'Solteiro','F','RN','cidade 2','bairro 22'),
+(10, str_to_date("1989-01-01 00:00:00","%Y-%m-%d %H:%i:%S"),'Solteiro','F','RN','cidade 3','bairro 31'),
+(11, str_to_date("1988-01-01 00:00:00","%Y-%m-%d %H:%i:%S"),'Solteiro','F','RN','cidade 3','bairro 33'),
+(12, str_to_date("1988-01-01 00:00:00","%Y-%m-%d %H:%i:%S"),'Solteiro','F','RN','cidade 3','bairro 33'),
+(13, str_to_date("1988-01-01 00:00:00","%Y-%m-%d %H:%i:%S"),'Solteiro','F','RN','cidade 3','bairro 34');
 
 insert into data_agendamento(id_cliente,id_especialidade,id_medico,id_horario,valor_consulta) values
 (1,"especialidade 1",1,str_to_date("2015-05-01 00:00:00","%Y-%m-%d %H:%i:%S"),50),

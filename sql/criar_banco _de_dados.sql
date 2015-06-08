@@ -103,6 +103,7 @@ CREATE TABLE solicitao_consulta (
   PRIMARY KEY (id),
   UNIQUE (horario,cpf_paciente),
   UNIQUE (horario,cpf_medico),
+  FOREIGN KEY (cpf_avaliador) REFERENCES recepcionista(cpf),
   FOREIGN KEY (cpf_paciente) REFERENCES paciente (cpf),
   FOREIGN KEY (cpf_medico) REFERENCES medico (cpf),
   FOREIGN KEY (nome_especialidade) REFERENCES especialidade (nome)
@@ -128,7 +129,7 @@ CREATE TABLE consulta (
 -- DATA WAREHOUSE
 
 CREATE TABLE data_cliente (
-  id int(11) NOT NULL AUTO_INCREMENT,
+  id char(11) NOT NULL,
   data_nasc date DEFAULT NULL,
   estado_civil varchar(10) DEFAULT NULL,
   sexo enum('M','F') DEFAULT NULL,
@@ -164,7 +165,7 @@ CREATE TABLE data_medico (
 );
 
 CREATE TABLE data_agendamento (
-  id_cliente int(11) DEFAULT NULL,
+  id_cliente char(11) DEFAULT NULL,
   id_especialidade varchar(50) DEFAULT NULL,
   id_medico char(11) DEFAULT NULL,
   id_horario datetime DEFAULT NULL,
